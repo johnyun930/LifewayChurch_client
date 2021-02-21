@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-import { IService } from '../routes/ServiceList';
+import { IWorship } from '../routes/WorshipList';
 
 const MainContainer = styled.div`
     width: 90%;
@@ -12,7 +12,7 @@ const MainContainer = styled.div`
     grid-template-columns: 10% 80% 10%;
     justify-items:center;
     align-items: center;
-    margin: 0 auto;
+    margin: 0 auto 20px;
 `
 
 const ArrowContainer = styled.div`
@@ -35,7 +35,11 @@ const SpeechContainer = styled.div`
     height: 100%;
     margin: auto auto;
 `
+const VideoContainer = styled(SpeechContainer)`
+    height: 100%;
+    margin: 0 auto 20px auto;
 
+`
 
 
 const SpeechTitle = styled.h1`
@@ -54,11 +58,15 @@ const Context = styled.p`
     font-size: 18px;
     line-height: 2;
 `
+const Iframe = styled.iframe`
+text-align:center;
+    width: 800px;
+    height:512px;
+`
 
 
 
-
-export const Worship = (props: IService) : JSX.Element=>{
+export const Worship = (props: IWorship) : JSX.Element=>{
     const [pagenum,setpagenum] = useState<number>(0);
     let textarr: string[] = [];
     if(props.context){
@@ -95,21 +103,32 @@ export const Worship = (props: IService) : JSX.Element=>{
         <BibleText>{props.bibleText}</BibleText>
         <Context>{book[pagenum-1]}</Context>
     </>
+
+    let video: JSX.Element =
+    <VideoContainer>
+        <SpeechTitle>{props.title}</SpeechTitle>
+        <BibleText>{props.bibleText}</BibleText>
+        <Iframe src={props.videoURL}></Iframe>
+    </VideoContainer>
+    
+    let textSpeech: JSX.Element = 
+    <SpeechContainer>
+    {pagenum<=0?orderofService:speechContext} 
+    </SpeechContainer> ;
     
    
     return(
         <MainContainer>
-            {0<pagenum?
+            {0<pagenum&&!props.videoURL?
             <ArrowContainer>
             <ArrowBackIcon onClick={()=>{
                 setpagenum(pagenum-1);
             }} style={{fontSize:60}}/>
             </ArrowContainer>:<div></div>
             }
-        <SpeechContainer>
-        {pagenum<=0?orderofService:speechContext}
-        </SpeechContainer>
-        {pagenum<book.length-1?
+        
+            {props.videoURL?video:textSpeech}
+        {pagenum<=book.length-1&&!props.videoURL?
         <ArrowContainer>
         <ArrowForwardIcon onClick={()=>{
             setpagenum(pagenum+1);

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios,{AxiosResponse} from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-export interface IService{
+import { Worship } from '../components/Worship';
+export interface IWorship{
     _id: string,
     title: string,
     date: Date,
@@ -17,6 +18,7 @@ export interface IService{
 
 const ListContainer = styled.div`
     max-width: 600px;
+    height: 190vh;
     margin: 0 auto;
     padding: 0 20px;
 `;
@@ -27,6 +29,7 @@ const ContentDate = styled.p`
     line-height: 1;
 `
 
+
 const ContentTitle = styled.h1`
 
     font-size: 36px;
@@ -34,6 +37,13 @@ const ContentTitle = styled.h1`
     color: #222;
     margin: 20px 0;
 `
+const Alert = styled(ContentTitle)`
+    
+    margin: 0px auto;
+    padding-top: 30%;
+    text-align: center;
+`
+
 const LinkedTitle = styled(Link)`
     text-decoration: none;
     &:hover{
@@ -66,10 +76,11 @@ const Article = styled.article`
     margin: 50px 0;
 `
 
-export const ServiceList = ():JSX.Element =>{
-    const [speeches,setSpeeches] = useState<IService[]|null>(null);
-    let getSpeech = new Promise<AxiosResponse<IService[]>>((resolve,reject)=>{
-        const  data = axios.get<IService[]>('http://localhost:8000/service');
+export const WorshipList = ():JSX.Element =>{
+    const [worships,setWorships] = useState<IWorship[]|null>(null);
+    const [page,setPage] = useState<number>(1);
+    let getWorship = new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
+        const  data = axios.get<IWorship[]>('http://localhost:8000/worship');
         if(data){
             resolve(data);
         }else{
@@ -78,31 +89,45 @@ export const ServiceList = ():JSX.Element =>{
     });
 
     useEffect(()=>{  
-        getSpeech.then((data)=>{
-            setSpeeches(data.data);
+        getWorship.then((data)=>{
+            setWorships(data.data);
         });
-    },[])
+    },[]);
+
     
-    let list: JSX.Element[] = [];
-    if(speeches){
-    speeches.map((data)=>{
-        const date = new Date(data.date);
-        list.push(
-            <Article>
+      
+    
+
+    
+    
+    let list: JSX.Element[][] = [];
+    if(worships && worships.length!==0){
+        for(let i=0; i<(worships.length/4)+1;i++){
+            list.push([]);
+            for(let j=(i*4); j<j+4;j++){
+                let data = worships[j];
+                 let date = new Date(data.date);
+                list[i].push(
+                    <Article>
             <ContentDate>{date.toDateString()}</ContentDate>
-            <ContentTitle><LinkedTitle to={"/service/"+data._id}>{data.title}</LinkedTitle></ContentTitle>
-            <Content>{data.context?.slice(0,200) + "..."}</Content>
+            <ContentTitle><LinkedTitle to={"/worship/"+data._id}>{data.title}</LinkedTitle></ContentTitle>
+            <Content>{data.videoURL?"예배 영상":data.context?.slice(0,200) + "..."}</Content>
             <p>
-                <LinkedButton to={"/service/"+data._id}>Read More</LinkedButton>
+                <LinkedButton to={"/worship/"+data._id}>Read More</LinkedButton>
             </p>
             </Article>
-        ) 
-    })
+
+                );
+            }
+    }
+    }else{
+        list.push([]);
+        list[0].push(<Alert>아직 등록된 예배가 없습니다</Alert>)
     }
 return(
     <ListContainer>
     
-    {speeches?list:"Loading....."}
+    {worships?list[page]:"Loading....."}
     </ListContainer>
 )
 }

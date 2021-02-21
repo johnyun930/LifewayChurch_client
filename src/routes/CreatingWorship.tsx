@@ -56,11 +56,11 @@ const SubmitButton = styled.button`
 `
 
 
-export const WritingService = (): JSX.Element =>{
+export const CreatingWorship = (): JSX.Element =>{
 
     return(
         <FormContainer>
-        <Form action="http://localhost:8000/service" method="POST">
+        <Form action="http://localhost:8000/worship" method="POST">
         <Input type="text" name="startingHymm" placeholder = "찬송"></Input>
         <Input type="text" name="prayer" placeholder = "기도"></Input>
         <Input type="text" name="offering" placeholder = "봉헌송"></Input>

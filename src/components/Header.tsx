@@ -45,11 +45,11 @@ export const Header = ():JSX.Element=>{
             <Link to='/'><Logo src={logo}/></Link>
         </LogoContainer>
         <NavbarContainer>
-        <Navbar>Home</Navbar>
-        <Navbar>About</Navbar>
-        <Navbar>Worship</Navbar>
-        <Navbar>Connect</Navbar>
-        <Navbar>Contact</Navbar>
+        <Navbar><Link to ="/">Home</Link></Navbar>
+        <Navbar><Link to ="">About</Link></Navbar>
+        <Navbar><Link to ="/worship">Worship</Link></Navbar>
+        <Navbar><Link to ="/connect">Connect</Link></Navbar>
+        <Navbar><Link to ="/contact">Contact</Link></Navbar>
         </NavbarContainer>
     </HeaderContainer>
     )
