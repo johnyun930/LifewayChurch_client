@@ -1,8 +1,6 @@
 import styled from "styled-components"
-import { Header } from "../components/Header"
 import BKImage from '../images/MainBanner.jpg';
 import Logo from '../images/logo.png';
-import {Footer} from '../components/Footer';
 const MainBanner = styled.div`
     width: 100%;
     height: 70vh;

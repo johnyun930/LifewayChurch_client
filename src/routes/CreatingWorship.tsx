@@ -13,13 +13,14 @@ const Form = styled.form`
 
    box-shadow: rgba(122, 110, 110, 0.35) 0px 5px 15px;
 `
-const Input = styled.input`
+export const Input = styled.input`
     display:block;
     margin: 0 0 20px 15px;
     width: 90%;
     height: 40px;
     border: solid 1px #E5E5E5; 
     border-radius: 10px;
+    font-size: 1rem;
     
 
 `
@@ -37,7 +38,7 @@ const TextArea = styled.textarea`
 
 `
 
-const SubmitButton = styled.button`
+export const SubmitButton = styled.button`
   display: block;
     font-weight: 500;
     color: #a5a5a5;

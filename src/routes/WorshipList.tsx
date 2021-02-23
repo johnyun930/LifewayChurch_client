@@ -76,58 +76,147 @@ const Article = styled.article`
     margin: 50px 0;
 `
 
+const PageContainer = styled.div`
+    text-align: center;
+    height: 5vh;
+    width: 70%;
+    margin: 0px auto;
+`
+const NumberBox = styled.div`
+    
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 1px;
+    &:hover{
+        border:1px solid #e0e0e0;
+        color: #00c73c;
+        cursor: pointer;
+
+    }
+
+`
+const SelectedNumberBox = styled.div`
+    display: inline-block;
+    font-weight:550;
+    width: 20px;
+    height: 20px;
+    margin-left: 1px;
+        border:1px solid #e0e0e0;
+        color: #00c73c;
+`
+
+const NextBox = styled.div`
+    display: inline-block;
+    height: 20px;
+    margin-left: 1px;
+    width:50px;
+    &:hover{
+      
+        cursor: pointer;
+
+    }
+`
+
+let getWorship =()=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
+    const  data = axios.get<IWorship[]>('http://localhost:8000/worship');
+    if(data){
+        console.log(data);
+        resolve(data);
+    }else{
+        reject("axios Error");
+    }
+});
+}
+
+
 export const WorshipList = ():JSX.Element =>{
     const [worships,setWorships] = useState<IWorship[]|null>(null);
-    const [page,setPage] = useState<number>(1);
-    let getWorship = new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
-        const  data = axios.get<IWorship[]>('http://localhost:8000/worship');
-        if(data){
-            resolve(data);
-        }else{
-            reject("axios Error");
-        }
-    });
-
+    const [page,setPage] = useState<number>(0);
+    const [listnum,setListnum] = useState<number>(0);
+    
     useEffect(()=>{  
-        getWorship.then((data)=>{
+    
+        getWorship().then((data)=>{
             setWorships(data.data);
         });
     },[]);
 
-    
       
-    
-
-    
-    
-    let list: JSX.Element[][] = [];
-    if(worships && worships.length!==0){
-        for(let i=0; i<(worships.length/4)+1;i++){
-            list.push([]);
-            for(let j=(i*4); j<j+4;j++){
-                let data = worships[j];
-                 let date = new Date(data.date);
+    let pagelist: JSX.Element[] =[]; 
+     let list: JSX.Element[][] = [];
+    if(worships){
+        let totalpage=worships.length/4
+         for(let i=0; i<worships.length/4;i++){
+             list.push([]);
+            for(let j=(worships.length-1)-(i*4); j>(worships.length-1)-(4*(i+1));j--){
+                 let data = worships[j];
+                 console.log(worships[j]);
+                let date = new Date(data.date);
                 list[i].push(
-                    <Article>
-            <ContentDate>{date.toDateString()}</ContentDate>
-            <ContentTitle><LinkedTitle to={"/worship/"+data._id}>{data.title}</LinkedTitle></ContentTitle>
-            <Content>{data.videoURL?"예배 영상":data.context?.slice(0,200) + "..."}</Content>
-            <p>
-                <LinkedButton to={"/worship/"+data._id}>Read More</LinkedButton>
+                     <Article>
+             <ContentDate>{date.toDateString()}</ContentDate>
+             <ContentTitle><LinkedTitle to={"/worship/"+data._id}>{data.title}</LinkedTitle></ContentTitle>
+             <Content>{data.videoURL?"예배 영상":data.context?.slice(0,200) + "..."}</Content>
+             <p>
+                 <LinkedButton to={"/worship/"+data._id}>Read More</LinkedButton>
             </p>
-            </Article>
+             </Article>
+                 );
+                 if(j==0){
+                     break;
+                 }
+             }
+    }
+    if(listnum!=0){
+        pagelist.push(
+           <NextBox onClick={()=>{
+               setListnum(listnum-1);
+               setPage((listnum-1)*5);
+           }
+           }>{"<이전"}</NextBox>
+        )
+    }
 
-                );
-            }
+     for(let i=listnum*5;i<(listnum+1)*5;i++){
+         if(i===page){
+            pagelist.push(
+                <SelectedNumberBox>{i+1}</SelectedNumberBox>                   
+             )
+         }else{
+         pagelist.push(
+            <NumberBox onClick={()=>{
+                setPage(i);
+            }}>{i+1}</NumberBox>                   
+         )
+        }
+         if(i===totalpage-1){
+             break;
+         }
+         
+     }
+     if(listnum+5<totalpage){
+        pagelist.push(
+           <NextBox onClick={()=>{
+               setListnum(listnum+1);
+               setPage((listnum+1)*5);
+           }
+           }>{"다음>"}</NextBox>
+        )
     }
     }else{
         list.push([]);
         list[0].push(<Alert>아직 등록된 예배가 없습니다</Alert>)
     }
+    console.log(list);
+
+
 return(
     <ListContainer>
-    
     {worships?list[page]:"Loading....."}
+    <PageContainer>
+        {pagelist}
+    </PageContainer>
     </ListContainer>
 )
 }

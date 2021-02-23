@@ -26,14 +26,25 @@ const NavbarContainer = styled.div`
     display: grid;
     column-gap: 20px;
     padding-bottom: 30px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 
 `
 
-const Navbar = styled.div`
+const NavButton = styled.div`
     margin: auto auto;
     font-size: 1.2em;
     color: orange;
+`
+const LoginButton = styled.div`
+     margin: auto auto;
+     min-width: 96px;
+     min-height: 30px;
+     vertical-align:middle;
+    font-size: 1.2em;
+    color: white;
+    line-height: 30px;
+    background-color: #1a73e8;
+    border: 1px solid transparent;
 `
 
 
@@ -45,11 +56,12 @@ export const Header = ():JSX.Element=>{
             <Link to='/'><Logo src={logo}/></Link>
         </LogoContainer>
         <NavbarContainer>
-        <Navbar><Link to ="/">Home</Link></Navbar>
-        <Navbar><Link to ="">About</Link></Navbar>
-        <Navbar><Link to ="/worship">Worship</Link></Navbar>
-        <Navbar><Link to ="/connect">Connect</Link></Navbar>
-        <Navbar><Link to ="/contact">Contact</Link></Navbar>
+        <NavButton><Link to ="/">Home</Link></NavButton>
+        <NavButton><Link to ="">About</Link></NavButton>
+        <NavButton><Link to ="/worship">Worship</Link></NavButton>
+        <NavButton><Link to ="/connect">Connect</Link></NavButton>
+        <NavButton><Link to ="/contact">Contact</Link></NavButton>
+        <LoginButton><Link to ="/login">Login</Link></LoginButton>
         </NavbarContainer>
     </HeaderContainer>
     )
