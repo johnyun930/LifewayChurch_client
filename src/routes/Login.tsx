@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEventHandler, useState } from 'react';
 import Bible from '../images/bibleBackground.jpg';
 import {Input as FormInput,SubmitButton} from './CreatingWorship'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 const MainContainer = styled.div`
     width: 70%;
     height: 64.0vh;
@@ -83,7 +84,7 @@ export const Input = styled(FormInput)`
 
 export const Login  =(): JSX.Element =>{
     const [userName,setuserName] = useState<string>("");
-    const [passowrd,setPassword] = useState<string>("");
+    const [password,setPassword] = useState<string>("");
     return( 
     <MainContainer>
         <FormConatiner>
@@ -92,11 +93,19 @@ export const Login  =(): JSX.Element =>{
     <Input type="text" name="userName" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
         setuserName(e.target.value);
     }} placeholder="UserName"/>
-    <Input type="password" name="password" value={passowrd} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+    <Input type="password" name="password" value={password} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
         setPassword(e.target.value);
     }} placeholder="Password"/>
-    <LoginButton type="submit">Log in</LoginButton>
-    <Link to="/signup"><LoginButton type="submit">Sign up</LoginButton></Link>
+    <LoginButton type="submit" onClick = {(e)=>{
+        e.preventDefault();
+        axios.post('http://localhost:8000/login',{
+            userName,
+            password
+        }).then((response)=>{
+            console.log(response);
+        })
+    }} >Log in</LoginButton>
+    <Link to="/signup"><LoginButton>Sign up</LoginButton></Link>
     </Form>
     </FormConatiner>
         <ImageContainer>

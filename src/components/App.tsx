@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Home } from '../routes/Home';
 import {WorshipList} from '../routes/WorshipList';
@@ -9,9 +9,13 @@ import { CreatingWorship } from '../routes/CreatingWorship';
 import {GlobalStyles} from './GlobalStyles';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import {LoginContext} from '../states/LoginContext';
 function App(): JSX.Element {
+  const [login,setLogin] = useState<boolean>(false);
+
   return (
     <>
+    <LoginContext.Provider value={[login,setLogin]}>
     <Header/>
     <Switch>
       <Route path ="/worship/create" component={CreatingWorship}></Route>
@@ -23,6 +27,7 @@ function App(): JSX.Element {
     </Switch>
     <Footer/>
     <GlobalStyles/>
+    </LoginContext.Provider>
 </>
   );
 }
