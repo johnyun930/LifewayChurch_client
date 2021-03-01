@@ -15,7 +15,7 @@ export const WorshipDetail = ()=>{
     const {speechId} = useParams<RouteParams>();
 
     async function getspeech(){
-      return  axios.get<IWorship>(`http://localhost:8000/worship/${speechId}`);
+      return  axios.get<IWorship>(`https://immense-beach-32425.herokuapp.com/worship/${speechId}`);
 
     }
 

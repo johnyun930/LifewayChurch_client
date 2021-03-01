@@ -61,7 +61,7 @@ export const CreatingWorship = (): JSX.Element =>{
 
     return(
         <FormContainer>
-        <Form action="http://localhost:8000/worship" method="POST">
+        <Form action="https://immense-beach-32425.herokuapp.com/worship" method="POST">
         <Input type="text" name="startingHymm" placeholder = "찬송"></Input>
         <Input type="text" name="prayer" placeholder = "기도"></Input>
         <Input type="text" name="offering" placeholder = "봉헌송"></Input>

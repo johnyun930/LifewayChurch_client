@@ -89,7 +89,7 @@ export const Login  =(): JSX.Element =>{
     <MainContainer>
         <FormConatiner>
             <Heading>Welcome Back!</Heading>
-    <Form method="POST" action="http://localhost:8000/login">
+    <Form method="POST" >
     <Input type="text" name="userName" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
         setuserName(e.target.value);
     }} placeholder="UserName"/>
@@ -98,7 +98,7 @@ export const Login  =(): JSX.Element =>{
     }} placeholder="Password"/>
     <LoginButton type="submit" onClick = {(e)=>{
         e.preventDefault();
-        axios.post('http://localhost:8000/login',{
+        axios.post(`${process.env.SERVER}/login`,{
             userName,
             password
         }).then((response)=>{

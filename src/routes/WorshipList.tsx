@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios,{AxiosResponse} from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Worship } from '../components/Worship';
+import { MainBanner } from './Home';
 export interface IWorship{
     _id: string,
     title: string,
@@ -15,6 +15,7 @@ export interface IWorship{
     videoURL?: string,
     endingHymm: string
 }
+
 
 const ListContainer = styled.div`
     max-width: 600px;
@@ -119,7 +120,7 @@ const NextBox = styled.div`
 `
 
 let getWorship =()=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
-    const  data = axios.get<IWorship[]>('http://localhost:8000/worship');
+    const  data = axios.get<IWorship[]>(`https://immense-beach-32425.herokuapp.com/worship`);
     if(data){
         console.log(data);
         resolve(data);
@@ -131,6 +132,7 @@ let getWorship =()=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,rej
 
 
 export const WorshipList = ():JSX.Element =>{
+    console.log(process.env.SERVER);
     const [worships,setWorships] = useState<IWorship[]|null>(null);
     const [page,setPage] = useState<number>(0);
     const [listnum,setListnum] = useState<number>(0);

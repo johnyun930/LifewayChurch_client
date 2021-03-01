@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import YouTubeIcon from '@material-ui/icons/YouTube';
 
 const FooterContainer = styled.footer`
         width: 100%;
@@ -34,13 +35,23 @@ const SiteBy = styled.a`
         color:#777777;
         &:hover{
             color: white;
+            cursor: pointer;
         }
 `
+
 const Content = styled.p`
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 2%;
 `
+const ChangedYoutubeIcon = styled(YouTubeIcon)`
+    &:hover{
+        background-color:white;
+        color:red;
+        cursor: pointer;
+    }
+`
+
 
 export const Footer = ()=> {
     
@@ -50,7 +61,7 @@ export const Footer = ()=> {
                 <ColumnContainer>
                     <ColumnTitle>생명길 교회</ColumnTitle>
                     <ColumnsubTitle>Lifeway Generation Church</ColumnsubTitle>
-                    <Content>Site By: <SiteBy>John Yun</SiteBy></Content>
+                    <Content>Site By: <SiteBy href={"https://github.com/johnyun930"}>John Yun</SiteBy></Content>
                 </ColumnContainer>
                 <ColumnContainer>
                     <ColumnTitle>Address</ColumnTitle>
@@ -64,27 +75,9 @@ export const Footer = ()=> {
                 </ColumnContainer>
                 <ColumnContainer>
                     <ColumnTitle>Channel</ColumnTitle>
+                    <Content><SiteBy href=""><ChangedYoutubeIcon fontSize="large"></ChangedYoutubeIcon></SiteBy></Content>
                 </ColumnContainer>
             </FooterContainer>
-            // <footer>
-                
-            // <div className="column">
-            //     <h2>생명길 교회</h2>
-            //     <h5>Site By <a href="https://www.facebook.com/johnyun930">John Yun</a></h5>
-            // </div>
-            //  <div className="column">
-            //  <h3> address </h3>
-            //  <p>4830 Boundary Rd</p>
-            //  <p>Burnaby, BC V5R 2N8</p>
-                
-            // </div>
-            //  <div className="column">
-            //     <h3>Info</h3> 
-            //     <p>Tel: 604-333-333</p>      
-            // </div>
-            // <div className="column">
-            //     <h3>Channel</h3>       
-            // </div>
-            // </footer>
+           
         )
     }

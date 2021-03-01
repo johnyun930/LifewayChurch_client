@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
+
 const HeaderContainer = styled.div`
     width: 100%;
     height: 12vh;
@@ -61,7 +62,7 @@ export const Header = ():JSX.Element=>{
         <NavButton><Link to ="/worship">Worship</Link></NavButton>
         <NavButton><Link to ="/connect">Connect</Link></NavButton>
         <NavButton><Link to ="/contact">Contact</Link></NavButton>
-        <LoginButton><Link to ="/login">Login</Link></LoginButton>
+        {/* <LoginButton><Link to ="/login">Login</Link></LoginButton> */}
         </NavbarContainer>
     </HeaderContainer>
     )

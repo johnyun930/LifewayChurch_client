@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7",
     "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "express-sesssion": "^1.15.5",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",

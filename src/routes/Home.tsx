@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import BKImage from '../images/MainBanner.jpg';
 import Logo from '../images/logo.png';
-const MainBanner = styled.div`
+export const MainBanner = styled.div`
     width: 100%;
     height: 70vh;
     background-image: url(${BKImage});
