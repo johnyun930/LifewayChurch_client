@@ -60,8 +60,8 @@ export const Header = ():JSX.Element=>{
         <NavButton><Link to ="/">Home</Link></NavButton>
         <NavButton><Link to ="">About</Link></NavButton>
         <NavButton><Link to ="/worship">Worship</Link></NavButton>
-        <NavButton><Link to ="/connect">Connect</Link></NavButton>
-        <NavButton><Link to ="/contact">Contact</Link></NavButton>
+        <NavButton><Link to ="">Connect</Link></NavButton>
+        <NavButton><Link to ="">Contact</Link></NavButton>
         {/* <LoginButton><Link to ="/login">Login</Link></LoginButton> */}
         </NavbarContainer>
     </HeaderContainer>
