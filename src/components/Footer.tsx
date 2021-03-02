@@ -11,6 +11,9 @@ const FooterContainer = styled.footer`
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         column-gap: 20px;
+        @media ${(props)=>props.theme.mobile}{
+            column-gap: 0px;
+        }
         
     `;
 const ColumnContainer = styled.div`
@@ -28,7 +31,7 @@ const ColumnTitle = styled.h2`
     font-weight:bold;
     font-size: 1.2rem;
     @media ${(props)=>props.theme.mobile}{
-        font-size: 0.3rem;
+        font-size: 0.5rem;
        
         
     }
@@ -53,7 +56,7 @@ const SiteBy = styled.a`
             cursor: pointer;
         }
         @media ${(props)=>props.theme.mobile}{
-        font-size: 0.7rem; 
+        font-size: 1rem; 
     }
 `
 

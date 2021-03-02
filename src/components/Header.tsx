@@ -11,10 +11,11 @@ const HeaderContainer = styled.div`
     display:grid;
     grid-template-columns: 1fr 1fr;
     @media ${(props)=>props.theme.mobile}{
-        min-height:20px;
-        height:2%;
+        min-height:60px;
+        height:10%;
         display: flex;
         flex-direction:column;
+        align-items:middle
         
     }
 
@@ -24,6 +25,7 @@ const LogoContainer = styled.div`
     @media ${(props)=>props.theme.mobile}{
         display: grid;
         grid-template-columns: 1fr 1fr;
+        align-items:center;
     }
 `
 
@@ -41,8 +43,8 @@ const Logo = styled.img`
     width: 130px;
     height: 90px;
     @media ${(props)=>props.theme.mobile}{
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
      padding: 5px 5px;
 
         
@@ -62,9 +64,8 @@ const NavbarContainer = styled.div<DisplayProps>`
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     @media ${(props)=>props.theme.mobile}{
         display:${(props)=>props.display?"flex":"none"};
+        
         flex-direction:column;
-        gap:10px;
-        padding-bottom:6px;
         background-color: #242121
         
     }
@@ -75,6 +76,12 @@ const NavButton = styled.div`
     margin: auto auto;
     font-size: 1.2em;
     color: orange;
+    @media ${(props)=>props.theme.mobile}{
+        display: block;
+        width:100%;
+        padding: 10px 0px;
+        border-bottom: 1px solid white;
+    }
 `
 const LoginButton = styled.div`
      margin: auto auto;
@@ -95,7 +102,7 @@ export const Header = ():JSX.Element=>{
     <HeaderContainer>
         <LogoContainer>
             <Link to='/'><Logo src={logo}/></Link>
-            {window.innerWidth<=size.mobile?<Menubar onClick={()=>{
+            {window.innerWidth<=size.mobile?<Menubar style={{fontSize:"30px"}} onClick={()=>{
                 setDisplay(!display);
             }}></Menubar>:<></>}
         </LogoContainer>

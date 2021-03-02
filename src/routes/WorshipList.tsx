@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios,{AxiosResponse} from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { MainBanner } from './Home';
 export interface IWorship{
     _id: string,
     title: string,
@@ -151,7 +150,6 @@ export const WorshipList = ():JSX.Element =>{
      let list: JSX.Element[][] = [];
     if(worships){
         let totalpage=worships.length/4
-        console.log(totalpage);
          for(let i=0; i<worships.length/4;i++){
              list.push([]);
             for(let j=(worships.length-1)-(i*4); j>(worships.length-1)-(4*(i+1));j--){
@@ -212,7 +210,6 @@ export const WorshipList = ():JSX.Element =>{
         list.push([]);
         list[0].push(<Alert>아직 등록된 예배가 없습니다</Alert>)
     }
-    console.log(list);
 
 
 return(

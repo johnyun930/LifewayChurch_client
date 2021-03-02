@@ -33,6 +33,7 @@ const ArrowContainer = styled.div`
     @media ${(props)=>props.theme.mobile}{
         width:30px;
         height:30px;
+        margin-top: 30px;
     }
 `
 
@@ -46,7 +47,11 @@ const SpeechContainer = styled.div`
 const VideoContainer = styled(SpeechContainer)`
     height: 100%;
     margin: 0 auto 20px auto;
-    
+    @media ${(props)=>props.theme.mobile}{
+        width: 100%;
+        margin: 0 0px;
+        
+    }
 
 `
 
@@ -117,7 +122,6 @@ export const Worship = (props: IWorship) : JSX.Element=>{
     else if(window.innerWidth<=size.tablet){
         maximumletter = 250;
     }
-    console.log(textarr);
     if(textarr){
         let str: string = "";
         for(let i=0; i<textarr.length;i++){
