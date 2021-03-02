@@ -4,11 +4,14 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 
 const FooterContainer = styled.footer`
         width: 100%;
+        
         height: 20vh;
+        min-height:135px;
         background-color: #333333;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         column-gap: 20px;
+        
     `;
 const ColumnContainer = styled.div`
     margin: auto auto;
@@ -22,12 +25,24 @@ const ColumnTitle = styled.h2`
     padding-top: 10%;
     margin-bottom: 5%;
     color: white;
+    font-weight:bold;
     font-size: 1.2rem;
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 0.3rem;
+       
+        
+    }
 `
 const ColumnsubTitle = styled.h3`
     margin-bottom: 5%;
     color: #a09a9a;
     font-size: 1.1rem;
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 0.7rem;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 0.3rem; 
+    }
 `
 
 const SiteBy = styled.a`
@@ -37,12 +52,21 @@ const SiteBy = styled.a`
             color: white;
             cursor: pointer;
         }
+        @media ${(props)=>props.theme.mobile}{
+        font-size: 0.7rem; 
+    }
 `
 
 const Content = styled.p`
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 2%;
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 0.7rem;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 0.4rem; 
+    }
 `
 const ChangedYoutubeIcon = styled(YouTubeIcon)`
     &:hover{
@@ -71,11 +95,12 @@ export const Footer = ()=> {
                 </ColumnContainer>
                 <ColumnContainer>
                     <ColumnTitle>Info</ColumnTitle>
-                    <Content>Tel: 604-333-333</Content>
+                    <Content>Tel:</Content>
+                    <Content>604-333-333</Content>
                 </ColumnContainer>
                 <ColumnContainer>
                     <ColumnTitle>Channel</ColumnTitle>
-                    <Content><SiteBy href=""><ChangedYoutubeIcon fontSize="large"></ChangedYoutubeIcon></SiteBy></Content>
+                    <Content><SiteBy href="https://www.youtube.com/channel/UCizDtprD82GRYylkU9Vz-LQ/videos"><ChangedYoutubeIcon fontSize="large"></ChangedYoutubeIcon></SiteBy></Content>
                 </ColumnContainer>
             </FooterContainer>
            

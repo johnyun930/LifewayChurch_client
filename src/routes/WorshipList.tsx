@@ -20,8 +20,12 @@ export interface IWorship{
 const ListContainer = styled.div`
     max-width: 600px;
     height: 190vh;
+    min-height:1600px;
     margin: 0 auto;
     padding: 0 20px;
+    @media ${(props)=>props.theme.tablet}{
+        height:100%;
+    }
 `;
 
 const ContentDate = styled.p`
@@ -122,7 +126,6 @@ const NextBox = styled.div`
 let getWorship =()=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
     const  data = axios.get<IWorship[]>(`https://immense-beach-32425.herokuapp.com/worship`);
     if(data){
-        console.log(data);
         resolve(data);
     }else{
         reject("axios Error");
@@ -132,7 +135,6 @@ let getWorship =()=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,rej
 
 
 export const WorshipList = ():JSX.Element =>{
-    console.log(process.env.SERVER);
     const [worships,setWorships] = useState<IWorship[]|null>(null);
     const [page,setPage] = useState<number>(0);
     const [listnum,setListnum] = useState<number>(0);
@@ -149,11 +151,11 @@ export const WorshipList = ():JSX.Element =>{
      let list: JSX.Element[][] = [];
     if(worships){
         let totalpage=worships.length/4
+        console.log(totalpage);
          for(let i=0; i<worships.length/4;i++){
              list.push([]);
             for(let j=(worships.length-1)-(i*4); j>(worships.length-1)-(4*(i+1));j--){
                  let data = worships[j];
-                 console.log(worships[j]);
                 let date = new Date(data.date);
                 list[i].push(
                      <Article>
@@ -192,7 +194,7 @@ export const WorshipList = ():JSX.Element =>{
             }}>{i+1}</NumberBox>                   
          )
         }
-         if(i===totalpage-1){
+         if(i>=totalpage-1){
              break;
          }
          

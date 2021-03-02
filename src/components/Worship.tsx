@@ -4,6 +4,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { IWorship } from '../routes/WorshipList';
+import { size } from '../styles/theme';
 
 const MainContainer = styled.div`
     width: 90%;
@@ -13,6 +14,9 @@ const MainContainer = styled.div`
     justify-items:center;
     align-items: center;
     margin: 0 auto 20px;
+    @media ${(props)=>props.theme.tablet}{
+        margin-bottom: 50px;
+    }
 `
 
 const ArrowContainer = styled.div`
@@ -26,6 +30,10 @@ const ArrowContainer = styled.div`
         transition: all 0.2s ease;;
         cursor: pointer;
     }
+    @media ${(props)=>props.theme.mobile}{
+        width:30px;
+        height:30px;
+    }
 `
 
 
@@ -38,6 +46,7 @@ const SpeechContainer = styled.div`
 const VideoContainer = styled(SpeechContainer)`
     height: 100%;
     margin: 0 auto 20px auto;
+    
 
 `
 
@@ -46,22 +55,48 @@ const SpeechTitle = styled.h1`
     font-size: 3rem;
     margin: 25px 0;
     font-weight: bold;
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 2.5rem;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 2rem;
+        
+    }
 `
 
 const BibleText = styled.h3`
     font-size: 2rem;
     font-weight: bold;
     margin: 20px 10px;
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 1.5rem;
+        
+    }
 `
 
 const Context = styled.p`
     font-size: 18px;
     line-height: 2;
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 15px;
+    }
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 13px;
+      
+    }
 `
 const Iframe = styled.iframe`
 text-align:center;
     width: 800px;
     height:512px;
+    @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+        height: 70%;
+    }
+    @media ${(props)=>props.theme.phone}{
+        width: 100%;
+        height: 40%;
+    }
 `
 
 
@@ -69,15 +104,24 @@ text-align:center;
 export const Worship = (props: IWorship) : JSX.Element=>{
     const [pagenum,setpagenum] = useState<number>(0);
     let textarr: string[] = [];
+    let book: string[] = [];
+    let maximumletter = 950;
+    let arrowfont: number = 60;
     if(props.context){
         textarr = (props.context.trim()).split('.');
     }
+     if(window.innerWidth<=size.mobile){
+     maximumletter = 90;
+     arrowfont = 30;
+    }
+    else if(window.innerWidth<=size.tablet){
+        maximumletter = 250;
+    }
     console.log(textarr);
-    let book: string[] = [];
     if(textarr){
         let str: string = "";
         for(let i=0; i<textarr.length;i++){
-            if(str.length>950){
+            if(str.length>maximumletter){
                 book.push(str);
                 str = "";
             }
@@ -123,7 +167,7 @@ export const Worship = (props: IWorship) : JSX.Element=>{
             <ArrowContainer>
             <ArrowBackIcon onClick={()=>{
                 setpagenum(pagenum-1);
-            }} style={{fontSize:60}}/>
+            }} style={{fontSize:arrowfont}}/>
             </ArrowContainer>:<div></div>
             }
         
@@ -132,7 +176,7 @@ export const Worship = (props: IWorship) : JSX.Element=>{
         <ArrowContainer>
         <ArrowForwardIcon onClick={()=>{
             setpagenum(pagenum+1);
-        }} style={{fontSize: 60}}/>
+        }} style={{fontSize: arrowfont}}/>
             </ArrowContainer>:<div></div>
         }
         </MainContainer>

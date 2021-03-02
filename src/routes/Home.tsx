@@ -8,14 +8,22 @@ export const MainBanner = styled.div`
     background-position:center;
     background-size:cover;
     background-repeat:no-repeat;
-   
-`
+`;
 const MainLogo = styled.img`
+
 display:block;
 margin: 0 auto;
 padding-top: 4%;
-    width: 500px;
-    height: 300px;
+width: 50%;
+height: 65%;
+@media ${(props)=>props.theme.tablet}{
+    width: 50%;
+    height: 60%;
+}
+@media ${(props)=>props.theme.mobile}{
+    width: 50%;
+    height: 30%;
+}
 `
 const ChurchTitle = styled.h1`
     color: white;
@@ -23,6 +31,12 @@ const ChurchTitle = styled.h1`
     text-align: center;
     font-weight:bold;
     margin: 2%;
+    @media ${(props)=>props.theme.tablet}{
+    font-size: 2rem
+}
+@media ${(props)=>props.theme.mobile}{
+    font-size: 1rem
+}
 `
 
 export const Home =(): JSX.Element =>{
