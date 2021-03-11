@@ -1,7 +1,10 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState,useContext } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import { FormConatiner, ImageContainer, Text,SubText,Heading,Form as LoginForm } from './Login';
 import {Input,SubmitButton} from './CreatingWorship'
+import {LoginContext,UserInfoContext} from '../states/LoginContext';
+import { RouterProps } from 'react-router-dom';
 
 
 const MainContainer = styled.div`
@@ -19,12 +22,14 @@ const Form = styled(LoginForm)`
     margin:50px auto;
 `
 
-export const Singup = (): JSX.Element=>{
-    const [username,setuserName] = useState<string>("");
+export const Singup = (props: RouterProps): JSX.Element=>{
+    const [userName,setuserName] = useState<string>("");
     const [password,setPassword] = useState<string>("");
     const [firstName,setFirstName] = useState<string>("");
     const [lastName,setLastName] = useState<string>("");
     const [email,setEmail] = useState<string>("");
+    const {setLogin} = useContext(LoginContext);
+    const {setUser} = useContext(UserInfoContext);
 
 
     return(
@@ -37,7 +42,7 @@ export const Singup = (): JSX.Element=>{
         <FormConatiner>
             <Heading>Welcome to Lifeway</Heading>
             <Form action="http://localhost:8000/signup" method="POST">
-            <Input type="text" name="userName" placeholder="username" value={username} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+            <Input type="text" name="userName" placeholder="username" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
                 setuserName(e.target.value);
             }}/>
             <Input type="password" name="password" placeholder="password" value={password} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
@@ -54,7 +59,24 @@ export const Singup = (): JSX.Element=>{
             <Input type="email" name="email" placeholder="Email" value={email} onChange={(e:ChangeEvent<HTMLInputElement>)=>{ 
                 setEmail(e.target.value)
             }}/>
-        <SubmitButton type="submit">Sign Up</SubmitButton>
+        <SubmitButton type="submit" onClick={(event)=>{
+            event.preventDefault();
+            axios.post("http://localhost:8000/signup",{
+                userName,
+                password,
+                firstName,
+                lastName,
+                email
+            }).then((response)=>{
+            if(response.data.errorMessage){
+                alert(response.data.errorMessage);
+            }else{
+                setLogin(true);
+            setUser(response.data);
+            props.history.push('/');
+            }
+            });
+        }}>Sign Up</SubmitButton>
         </Form>
         </FormConatiner>
     </MainContainer>

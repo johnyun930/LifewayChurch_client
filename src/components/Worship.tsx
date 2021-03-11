@@ -110,17 +110,22 @@ export const Worship = (props: IWorship) : JSX.Element=>{
     const [pagenum,setpagenum] = useState<number>(0);
     let textarr: string[] = [];
     let book: string[] = [];
-    let maximumletter = 950;
+    let maximumletter = 400;
     let arrowfont: number = 60;
     if(props.context){
         textarr = (props.context.trim()).split('.');
     }
-     if(window.innerWidth<=size.mobile){
+    
+
+    if(window.innerWidth<=size.mobile){
      maximumletter = 90;
      arrowfont = 30;
     }
     else if(window.innerWidth<=size.tablet){
         maximumletter = 250;
+    }else if(window.innerWidth<=size.laptop){
+        maximumletter = 300;
+
     }
     if(textarr){
         let str: string = "";

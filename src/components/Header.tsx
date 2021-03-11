@@ -1,9 +1,11 @@
-import React,{useState} from 'react';
-import { Link } from 'react-router-dom';
+import React,{useState,useContext, useEffect} from 'react';
+import { Link, RouterProps } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
 import MenuIcon from '@material-ui/icons/Menu';
 import { size } from '../styles/theme';
+import { LoginContext, UserInfoContext } from '../states/LoginContext';
+import axios from 'axios';
 const HeaderContainer = styled.div`
     width: 100%;
     height: 14vh;
@@ -61,7 +63,7 @@ const NavbarContainer = styled.div<DisplayProps>`
     text-align:center;
     display: grid;
     column-gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr;
     @media ${(props)=>props.theme.mobile}{
         display:${(props)=>props.display?"flex":"none"};
         
@@ -82,6 +84,9 @@ const NavButton = styled.div`
         padding: 10px 0px;
         border-bottom: 1px solid white;
     }
+    &:hover{
+        cursor:pointer;
+    }
 `
 const LoginButton = styled.div`
      margin: auto auto;
@@ -94,27 +99,62 @@ const LoginButton = styled.div`
     background-color: #1a73e8;
     border: 1px solid transparent;
 `
+const SettingContainer = styled.div<DisplayProps>`
+    display: ${(props)=>props.display?"block":"none"};
+    position: absolute;
+    top: 10%;
+    right: 9%;
+    font-size:1.2em;
+    width: 7%;
+    height: 2.5%;
+    border: 1px solid black;
+`
 
 
 export const Header = ():JSX.Element=>{
-    const [display,setDisplay] = useState<boolean>(false);
+ 
+    useEffect(()=>{
+        if(document.cookie){
+            axios.get("http://localhost:8000",{withCredentials:true});
+        }
+    },[]);
+
+    const [menuDisplay,setmenuDisplay] = useState<boolean>(false);
+    const [settingDisplay,setSettingDisplay] = useState<boolean>(false);
+    const {login,setLogin}= useContext(LoginContext);
+    const {firstName,setUser} = useContext(UserInfoContext);
     return(
     <HeaderContainer>
         <LogoContainer>
             <Link to='/'><Logo src={logo}/></Link>
             {window.innerWidth<=size.mobile?<Menubar style={{fontSize:"30px"}} onClick={()=>{
-                setDisplay(!display);
+                setmenuDisplay(!menuDisplay);
             }}></Menubar>:<></>}
         </LogoContainer>
       
 
-        <NavbarContainer display={display}>
+        <NavbarContainer display={menuDisplay}>
         <NavButton><Link to ="/">Home</Link></NavButton>
         <NavButton><Link to ="">About</Link></NavButton>
         <NavButton><Link to ="/worship">Worship</Link></NavButton>
         <NavButton><Link to ="">Connect</Link></NavButton>
         <NavButton><Link to ="">Contact</Link></NavButton>
-        {/* <LoginButton><Link to ="/login">Login</Link></LoginButton> */}
+        {login?<NavButton onClick={()=>{
+            setSettingDisplay(!settingDisplay);
+        }}>{firstName+" 성도님"}</NavButton>:<LoginButton><Link to ="/login">Login</Link></LoginButton>}
+        <SettingContainer onClick={()=>{
+            axios.get('http://localhost:8000/logout',{withCredentials:true});
+                setLogin(false);
+                setSettingDisplay(false);
+                setUser({username: "",
+                firstName: "",
+                lastName: "",
+                isAdmin: false,
+                setUser: ()=>{}});
+           
+            
+
+        }} display={settingDisplay}>Log Out</SettingContainer>
         </NavbarContainer>
     </HeaderContainer>
     )

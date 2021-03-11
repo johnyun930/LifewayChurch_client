@@ -123,7 +123,7 @@ const NextBox = styled.div`
 `
 
 let getWorship =()=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
-    const  data = axios.get<IWorship[]>(`https://immense-beach-32425.herokuapp.com/worship`);
+    const  data = axios.get<IWorship[]>(`http://localhost:8000/worship`);
     if(data){
         resolve(data);
     }else{

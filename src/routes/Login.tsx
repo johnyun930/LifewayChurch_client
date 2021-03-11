@@ -1,9 +1,12 @@
 import styled from 'styled-components';
-import React, { ChangeEvent, FormEventHandler, useState } from 'react';
+import React, { ChangeEvent, FormEventHandler, useContext, useState } from 'react';
 import Bible from '../images/bibleBackground.jpg';
 import {Input as FormInput,SubmitButton} from './CreatingWorship'
-import { Link } from 'react-router-dom';
+import { Link, RouterProps } from 'react-router-dom';
+import {LoginContext,UserInfoContext} from '../states/LoginContext';
 import axios from 'axios';
+import {useCookies} from 'react-cookie';
+
 const MainContainer = styled.div`
     width: 70%;
     height: 64.0vh;
@@ -82,27 +85,36 @@ export const Input = styled(FormInput)`
       margin: 20px auto;
 `
 
-export const Login  =(): JSX.Element =>{
+export const Login  =(props:RouterProps): JSX.Element =>{
     const [userName,setuserName] = useState<string>("");
     const [password,setPassword] = useState<string>("");
+    const {setLogin} = useContext(LoginContext);
+    const {setUser} = useContext(UserInfoContext);
     return( 
     <MainContainer>
         <FormConatiner>
-            <Heading>Welcome Back!</Heading>
+            <Heading>Welcome Back!</Heading> 
     <Form method="POST" >
-    <Input type="text" name="userName" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+    <Input type="text" name="username" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
         setuserName(e.target.value);
-    }} placeholder="UserName"/>
+    }} placeholder="Username"/>
     <Input type="password" name="password" value={password} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
         setPassword(e.target.value);
     }} placeholder="Password"/>
     <LoginButton type="submit" onClick = {(e)=>{
         e.preventDefault();
-        axios.post(`${process.env.SERVER}/login`,{
+        axios.post(`http://localhost:8000/login`,{
             userName,
             password
         }).then((response)=>{
             console.log(response);
+            const {httpOnly,originalMaxAge,path,secure} = response.data.cookie;
+            let cookie = `connect.sid=${response.data.sessionId}`;
+            document.cookie = cookie;
+            console.log(document.cookie);
+            setLogin(true);
+            setUser(response.data);
+            props.history.push('/');
         })
     }} >Log in</LoginButton>
     <Link to="/signup"><LoginButton>Sign up</LoginButton></Link>

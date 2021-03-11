@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import BKImage from '../images/MainBanner.jpg';
 import Logo from '../images/logo.png';
+import { useContext } from "react";
+import {LoginContext, UserInfoContext} from '../states/LoginContext';
 export const MainBanner = styled.div`
     width: 100%;
     height: 70vh;
@@ -40,6 +42,10 @@ const ChurchTitle = styled.h1`
 `
 
 export const Home =(): JSX.Element =>{
+    const {login} = useContext(LoginContext);
+    const {firstName} = useContext(UserInfoContext);
+    console.log(login);
+    console.log(firstName);
     return( 
     <>
     <MainBanner>
