@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import  {useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IWorship } from './WorshipList';
 import {Worship} from '../components/Worship';
+import { DomainContext } from '../states/DomainContext';
 
 interface RouteParams{
     speechId: string
@@ -13,9 +14,9 @@ interface RouteParams{
 export const WorshipDetail = ()=>{
     const [worship,setWorship] = useState<IWorship|null>(null);
     const {speechId} = useParams<RouteParams>();
-
+    const domain = useContext(DomainContext);
     async function getspeech(){
-      return  axios.get<IWorship>(`https://immense-beach-32425.herokuapp.com/worship/${speechId}`);
+      return  axios.get<IWorship>(`${domain}/worship/${speechId}`);
 
     }
 

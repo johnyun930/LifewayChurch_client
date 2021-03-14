@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { size } from '../styles/theme';
 import { LoginContext, UserInfoContext } from '../states/LoginContext';
 import axios from 'axios';
+import { DomainContext } from '../states/DomainContext';
 const HeaderContainer = styled.div`
     width: 100%;
     height: 14vh;
@@ -112,11 +113,15 @@ const SettingContainer = styled.div<DisplayProps>`
 
 
 export const Header = ():JSX.Element=>{
- 
+    const domain = useContext(DomainContext);
     useEffect(()=>{
-        if(document.cookie){
-            axios.get("http://localhost:8000",{withCredentials:true});
-        }
+            axios.get(domain,{withCredentials:true}).then((response)=>{
+                if(response.data.passport){
+                    setLogin(true);
+                    setUser(response.data.passport.user);
+                }
+                
+        });
     },[]);
 
     const [menuDisplay,setmenuDisplay] = useState<boolean>(false);
@@ -143,7 +148,8 @@ export const Header = ():JSX.Element=>{
             setSettingDisplay(!settingDisplay);
         }}>{firstName+" 성도님"}</NavButton>:<LoginButton><Link to ="/login">Login</Link></LoginButton>}
         <SettingContainer onClick={()=>{
-            axios.get('http://localhost:8000/logout',{withCredentials:true});
+            axios.get(`${domain}/logout`,{withCredentials:true}).then((response)=>{
+                alert(response.data.message);
                 setLogin(false);
                 setSettingDisplay(false);
                 setUser({username: "",
@@ -151,9 +157,8 @@ export const Header = ():JSX.Element=>{
                 lastName: "",
                 isAdmin: false,
                 setUser: ()=>{}});
-           
-            
 
+            });
         }} display={settingDisplay}>Log Out</SettingContainer>
         </NavbarContainer>
     </HeaderContainer>

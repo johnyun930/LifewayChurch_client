@@ -4,8 +4,9 @@ import Bible from '../images/bibleBackground.jpg';
 import {Input as FormInput,SubmitButton} from './CreatingWorship'
 import { Link, RouterProps } from 'react-router-dom';
 import {LoginContext,UserInfoContext} from '../states/LoginContext';
+import {DomainContext} from '../states/DomainContext';
+
 import axios from 'axios';
-import {useCookies} from 'react-cookie';
 
 const MainContainer = styled.div`
     width: 70%;
@@ -90,6 +91,7 @@ export const Login  =(props:RouterProps): JSX.Element =>{
     const [password,setPassword] = useState<string>("");
     const {setLogin} = useContext(LoginContext);
     const {setUser} = useContext(UserInfoContext);
+    const domain = useContext(DomainContext);
     return( 
     <MainContainer>
         <FormConatiner>
@@ -103,15 +105,10 @@ export const Login  =(props:RouterProps): JSX.Element =>{
     }} placeholder="Password"/>
     <LoginButton type="submit" onClick = {(e)=>{
         e.preventDefault();
-        axios.post(`http://localhost:8000/login`,{
+        axios.post(`${domain}/login`,{
             userName,
-            password
-        }).then((response)=>{
-            console.log(response);
-            const {httpOnly,originalMaxAge,path,secure} = response.data.cookie;
-            let cookie = `connect.sid=${response.data.sessionId}`;
-            document.cookie = cookie;
-            console.log(document.cookie);
+            password,
+        },{withCredentials:true}).then((response)=>{
             setLogin(true);
             setUser(response.data);
             props.history.push('/');

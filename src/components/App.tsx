@@ -18,7 +18,7 @@ import {UserInfo} from '../states/LoginContext';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
-
+  
   return (
     <>
     <ThemeProvider theme={theme}>

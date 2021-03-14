@@ -5,6 +5,7 @@ import { FormConatiner, ImageContainer, Text,SubText,Heading,Form as LoginForm }
 import {Input,SubmitButton} from './CreatingWorship'
 import {LoginContext,UserInfoContext} from '../states/LoginContext';
 import { RouterProps } from 'react-router-dom';
+import { DomainContext } from '../states/DomainContext';
 
 
 const MainContainer = styled.div`
@@ -30,6 +31,7 @@ export const Singup = (props: RouterProps): JSX.Element=>{
     const [email,setEmail] = useState<string>("");
     const {setLogin} = useContext(LoginContext);
     const {setUser} = useContext(UserInfoContext);
+    const domain = useContext(DomainContext);
 
 
     return(
@@ -41,7 +43,7 @@ export const Singup = (props: RouterProps): JSX.Element=>{
         </ImageContainer>
         <FormConatiner>
             <Heading>Welcome to Lifeway</Heading>
-            <Form action="http://localhost:8000/signup" method="POST">
+            <Form>
             <Input type="text" name="userName" placeholder="username" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
                 setuserName(e.target.value);
             }}/>
@@ -61,19 +63,19 @@ export const Singup = (props: RouterProps): JSX.Element=>{
             }}/>
         <SubmitButton type="submit" onClick={(event)=>{
             event.preventDefault();
-            axios.post("http://localhost:8000/signup",{
+            axios.post(`${domain}/signup`,{
                 userName,
                 password,
                 firstName,
                 lastName,
                 email
-            }).then((response)=>{
+            },{withCredentials:true}).then((response)=>{
             if(response.data.errorMessage){
                 alert(response.data.errorMessage);
             }else{
                 setLogin(true);
-            setUser(response.data);
-            props.history.push('/');
+                setUser(response.data);
+                props.history.push('/');
             }
             });
         }}>Sign Up</SubmitButton>

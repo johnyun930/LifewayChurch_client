@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import axios,{AxiosResponse} from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { DomainContext } from '../states/DomainContext';
 export interface IWorship{
     _id: string,
     title: string,
@@ -122,8 +123,8 @@ const NextBox = styled.div`
     }
 `
 
-let getWorship =()=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
-    const  data = axios.get<IWorship[]>(`http://localhost:8000/worship`);
+let getWorship =(domain:string)=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
+    const  data = axios.get<IWorship[]>(`${domain}/worship`);
     if(data){
         resolve(data);
     }else{
@@ -137,10 +138,11 @@ export const WorshipList = ():JSX.Element =>{
     const [worships,setWorships] = useState<IWorship[]|null>(null);
     const [page,setPage] = useState<number>(0);
     const [listnum,setListnum] = useState<number>(0);
+    const domain = useContext(DomainContext);
     
     useEffect(()=>{  
     
-        getWorship().then((data)=>{
+        getWorship(domain).then((data)=>{
             setWorships(data.data);
         });
     },[]);
