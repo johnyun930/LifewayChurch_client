@@ -114,6 +114,7 @@ const SettingContainer = styled.div<DisplayProps>`
 
 export const Header = ():JSX.Element=>{
     const domain = useContext(DomainContext);
+    console.log(domain);
     useEffect(()=>{
             axios.get(domain,{withCredentials:true}).then((response)=>{
                 if(response.data.passport){
