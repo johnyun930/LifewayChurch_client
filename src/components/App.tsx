@@ -15,6 +15,7 @@ import { Connect } from '../routes/Connect';
 import {ThemeProvider} from 'styled-components';
 import { theme } from '../styles/theme';
 import {UserInfo} from '../states/LoginContext';
+import { Contact } from '../routes/Contact';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
@@ -26,11 +27,12 @@ function App(): JSX.Element {
     <UserInfoContext.Provider value={{...user,setUser}}>
     <Header/>
     <Switch>
-       <Route path ="/worship/create" component={CreatingWorship}></Route> 
+       <Route path ="/worship/create" component={user.isAdmin?CreatingWorship:Home}></Route> 
       <Route strict path="/worship/:speechId" component={WorshipDetail}></Route>
       <Route path="/worship" component={WorshipList}></Route>
       <Route path="/signup" component={Singup}></Route>
       <Route path="/login" component={Login}></Route> 
+      <Route path="/contact" component={Contact}></Route>
        <Route path="/connect" component={Connect}></Route>
       <Route exact path="/" component={Home}></Route>
     </Switch>

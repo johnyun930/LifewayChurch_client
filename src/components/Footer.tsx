@@ -48,7 +48,7 @@ const ColumnsubTitle = styled.h3`
     }
 `
 
-const SiteBy = styled.a`
+export const SiteBy = styled.a`
         font-size: 1.1rem;
         color:#777777;
         &:hover{
@@ -60,7 +60,7 @@ const SiteBy = styled.a`
     }
 `
 
-const Content = styled.p`
+export const Content = styled.p`
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 2%;
@@ -71,7 +71,7 @@ const Content = styled.p`
         font-size: 0.4rem; 
     }
 `
-const ChangedYoutubeIcon = styled(YouTubeIcon)`
+export const ChangedYoutubeIcon = styled(YouTubeIcon)`
     &:hover{
         background-color:white;
         color:red;

@@ -109,6 +109,9 @@ const SettingContainer = styled.div<DisplayProps>`
     width: 7%;
     height: 2.5%;
     border: 1px solid black;
+    &:hover{
+        cursor:pointer;
+    }
 `
 
 
@@ -144,7 +147,7 @@ export const Header = ():JSX.Element=>{
         <NavButton><Link to ="">About</Link></NavButton>
         <NavButton><Link to ="/worship">Worship</Link></NavButton>
         <NavButton><Link to ="">Connect</Link></NavButton>
-        <NavButton><Link to ="">Contact</Link></NavButton>
+        <NavButton><Link to ="/contact">Contact</Link></NavButton>
         {login?<NavButton onClick={()=>{
             setSettingDisplay(!settingDisplay);
         }}>{firstName+" 성도님"}</NavButton>:<LoginButton><Link to ="/login">Login</Link></LoginButton>}

@@ -3,6 +3,7 @@ import axios,{AxiosResponse} from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { DomainContext } from '../states/DomainContext';
+import { UserInfoContext } from '../states/LoginContext';
 export interface IWorship{
     _id: string,
     title: string,
@@ -122,6 +123,16 @@ const NextBox = styled.div`
 
     }
 `
+const ButtonBox = styled.div`
+    height: 5vh;
+    text-align: right;
+`
+
+const CreateButton = styled(LinkedButton)`
+    font-weight: bold;
+    color: #5a5353;
+    font-size: 13px;
+`
 
 let getWorship =(domain:string)=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
     const  data = axios.get<IWorship[]>(`${domain}/worship`);
@@ -139,7 +150,8 @@ export const WorshipList = ():JSX.Element =>{
     const [page,setPage] = useState<number>(0);
     const [listnum,setListnum] = useState<number>(0);
     const domain = useContext(DomainContext);
-    
+    const {isAdmin} = useContext(UserInfoContext);
+    console.log(isAdmin);
     useEffect(()=>{  
     
         getWorship(domain).then((data)=>{
@@ -158,7 +170,7 @@ export const WorshipList = ():JSX.Element =>{
                  let data = worships[j];
                 let date = new Date(data.date);
                 list[i].push(
-                     <Article>
+                     <Article key={i}>
              <ContentDate>{date.toDateString()}</ContentDate>
              <ContentTitle><LinkedTitle to={"/worship/"+data._id}>{data.title}</LinkedTitle></ContentTitle>
              <Content>{data.videoURL?"예배 영상":data.context?.slice(0,200) + "..."}</Content>
@@ -216,6 +228,7 @@ export const WorshipList = ():JSX.Element =>{
 
 return(
     <ListContainer>
+        {isAdmin?<ButtonBox><CreateButton to="/worship/create">예배 작성하기</CreateButton></ButtonBox>:""}
     {worships?list[page]:"Loading....."}
     <PageContainer>
         {pagelist}
