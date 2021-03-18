@@ -5,6 +5,7 @@ import map from '../images/map.png'
 import share from '../images/share.png'
 import {SiteBy,Content,ChangedYoutubeIcon} from '../components/Footer';
 import GoogleMapReact from 'google-map-react';
+import { LogoBox } from './About';
 
 const ContactBox = styled.div`
     width: 48%;
@@ -98,6 +99,7 @@ const Marker = (props: any) => {
 export const Contact = ()=>{
     return(
     <>
+    <LogoBox></LogoBox>
     <ContactBox>
         <ItemBox>
             <IconImage src={map} alt="address icon"/>
@@ -130,7 +132,7 @@ export const Contact = ()=>{
     </ContactBox>
     <div style={{width:'70%',height:'60vh',margin: "0 auto 50px" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key:"AIzaSyBpuet29dEA4yEsH4C6d436MwOmBf27DJo" }}
+          bootstrapURLKeys={{key:process.env.REACT_APP_API_KEY! }}
           defaultCenter={{ 
               lat: 49.241450,
             lng: -123.022990}}

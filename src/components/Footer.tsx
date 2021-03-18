@@ -5,7 +5,8 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 const FooterContainer = styled.footer`
         width: 100%;
         
-        height: 20vh;
+        height: 15vh;
+        padding:20px 0px;
         min-height:135px;
         background-color: #333333;
         display: grid;

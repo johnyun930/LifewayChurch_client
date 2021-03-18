@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { DomainContext } from '../states/DomainContext';
 import { UserInfoContext } from '../states/LoginContext';
+import { LogoBox } from './About';
 export interface IWorship{
     _id: string,
     title: string,
@@ -227,6 +228,8 @@ export const WorshipList = ():JSX.Element =>{
 
 
 return(
+    <>
+    <LogoBox></LogoBox>
     <ListContainer>
         {isAdmin?<ButtonBox><CreateButton to="/worship/create">예배 작성하기</CreateButton></ButtonBox>:""}
     {worships?list[page]:"Loading....."}
@@ -234,5 +237,6 @@ return(
         {pagelist}
     </PageContainer>
     </ListContainer>
+    </>
 )
 }

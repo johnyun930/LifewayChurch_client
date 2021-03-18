@@ -144,9 +144,9 @@ export const Header = ():JSX.Element=>{
 
         <NavbarContainer display={menuDisplay}>
         <NavButton><Link to ="/">Home</Link></NavButton>
-        <NavButton><Link to ="">About</Link></NavButton>
+        <NavButton><Link to ="/about">About</Link></NavButton>
         <NavButton><Link to ="/worship">Worship</Link></NavButton>
-        <NavButton><Link to ="">Connect</Link></NavButton>
+        <NavButton><Link to ="/connect">Connect</Link></NavButton>
         <NavButton><Link to ="/contact">Contact</Link></NavButton>
         {login?<NavButton onClick={()=>{
             setSettingDisplay(!settingDisplay);

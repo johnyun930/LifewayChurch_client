@@ -44,7 +44,7 @@ const ChurchTitle = styled.h1`
 export const Home =(): JSX.Element =>{
     const {login} = useContext(LoginContext);
     const {firstName} = useContext(UserInfoContext);
-  
+
     return( 
     <>
     <MainBanner>
