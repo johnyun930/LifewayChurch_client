@@ -152,7 +152,6 @@ export const WorshipList = ():JSX.Element =>{
     const [listnum,setListnum] = useState<number>(0);
     const domain = useContext(DomainContext);
     const {isAdmin} = useContext(UserInfoContext);
-    console.log(isAdmin);
     useEffect(()=>{  
     
         getWorship(domain).then((data)=>{
@@ -171,7 +170,7 @@ export const WorshipList = ():JSX.Element =>{
                  let data = worships[j];
                 let date = new Date(data.date);
                 list[i].push(
-                     <Article key={i}>
+                     <Article >
              <ContentDate>{date.toDateString()}</ContentDate>
              <ContentTitle><LinkedTitle to={"/worship/"+data._id}>{data.title}</LinkedTitle></ContentTitle>
              <Content>{data.videoURL?"예배 영상":data.context?.slice(0,200) + "..."}</Content>
@@ -226,7 +225,7 @@ export const WorshipList = ():JSX.Element =>{
         list[0].push(<Alert>아직 등록된 예배가 없습니다</Alert>)
     }
 
-
+    console.log(list[page]);
 return(
     <>
     <LogoBox></LogoBox>

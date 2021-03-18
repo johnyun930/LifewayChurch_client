@@ -17,6 +17,7 @@ import { theme } from '../styles/theme';
 import {UserInfo} from '../states/LoginContext';
 import { Contact } from '../routes/Contact';
 import {About} from '../routes/About';
+import { BibleStudy } from '../routes/BibleStudy';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
@@ -35,6 +36,7 @@ function App(): JSX.Element {
       <Route path="/login" component={Login}></Route> 
       <Route path="/about" component={About}></Route>
       <Route path="/contact" component={Contact}></Route>
+      <Route path="/connect/biblestudy" component={BibleStudy}></Route>
        <Route path="/connect" component={Connect}></Route>
       <Route exact path="/" component={Home}></Route>
     </Switch>

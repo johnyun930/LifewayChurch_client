@@ -18,20 +18,27 @@ export const Connect = ():JSX.Element=>{
     const Item = styled.div`
         width:100%;
         height:100%;
-        background-color: yellowgreen;
         margin: 0px auto;
+        background-color:#e8fcff;
+        border: 3px solid #eaeaea;
+        &:hover{
+            background-color: #dfdefd;
+            cursor: pointer;
+        }
     `
     const Title = styled.h1`
         font-size: 40px;
-        color: white;
+        color: black;
         font-weight:bold;
         vertical-align:middle;
         text-align:center;
     `
     const IConContainer =styled.div`
-        width: 80%;
-        height: 50%;
-        margin: 0 auto;
+        align-self:center;
+        width: 20%;
+        height: 30%;
+        margin: 15% auto 30px;
+        text-align: center;
     `
     const Image = styled.img`
         width:100%;
@@ -46,12 +53,27 @@ export const Connect = ():JSX.Element=>{
             <IConContainer>
                 <Image src={bible}/>
             </IConContainer>
-        <Title>성경공부</Title>
+        <Title>성 경 공 부</Title>
         </Item>
-        <Item></Item>
+        <Item>
+        <IConContainer>
+                <Image src={school}/>
+            </IConContainer>
+        <Title>주 일 학 교</Title>
+        </Item>
 
-        <Item></Item>
-        <Item></Item>
+        <Item>
+        <IConContainer>
+                <Image src={prayer}/>
+            </IConContainer>
+        <Title>{"Q T"}</Title>
+        </Item>
+        <Item>
+        <IConContainer>
+                <Image src={schedule}/>
+            </IConContainer>
+        <Title>자 유 게 시 판</Title>
+        </Item>
 
         </ColumnContainer>
         </>
