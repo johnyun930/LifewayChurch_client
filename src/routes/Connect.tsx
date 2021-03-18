@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import react from 'react';
 import { LogoBox } from './About';
+import prayer from '../images/prayer.png';
+import schedule from '../images/schedule.png';
+import school from '../images/school.png';
+import bible from '../images/bible.png';
 
 export const Connect = ():JSX.Element=>{
     const ColumnContainer = styled.div`
@@ -19,19 +22,32 @@ export const Connect = ():JSX.Element=>{
         margin: 0px auto;
     `
     const Title = styled.h1`
-        margin-top: 40%;
         font-size: 40px;
         color: white;
         font-weight:bold;
         vertical-align:middle;
         text-align:center;
     `
+    const IConContainer =styled.div`
+        width: 80%;
+        height: 50%;
+        margin: 0 auto;
+    `
+    const Image = styled.img`
+        width:100%;
+        height:100%;
+    `
 
     return(
         <>
         <LogoBox></LogoBox>
         <ColumnContainer>
-        <Item><Title>성경공부</Title></Item>
+        <Item>
+            <IConContainer>
+                <Image src={bible}/>
+            </IConContainer>
+        <Title>성경공부</Title>
+        </Item>
         <Item></Item>
 
         <Item></Item>

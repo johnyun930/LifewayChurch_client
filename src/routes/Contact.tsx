@@ -94,7 +94,6 @@ const Marker = (props: any) => {
         </CustomMarker>
     );
   };
-  const AnyReactComponent = ({text}: any) => <div>{text}</div>;
 
 export const Contact = ()=>{
     return(
