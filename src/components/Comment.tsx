@@ -95,7 +95,6 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
     
     useEffect(()=>{
        axios.get(props.url+"/review/"+props.Id).then((response)=>{
-           console.log(response);
            setReview(response.data);
        })
       
@@ -117,7 +116,6 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
                                 alert(response.data.errMessage);
                             }else{
                                 let newData = [...review];
-                                console.log(newData);
                                 newData.splice(index,1);
                                 setReview(newData);
                             }
@@ -153,10 +151,8 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
                             alert(response.data.errMessage);
                         }else{
                             let newData = []
-                            console.log(response.data);
                             if(review){
                              newData = [...review,response.data];
-                             console.log(newData);
                             }else{
                                 newData = [response.data];
                             }

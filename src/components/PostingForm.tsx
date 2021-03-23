@@ -79,7 +79,6 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
             </Container>
             <SubmitButton type="submit" onClick={(e)=>{
                 e.preventDefault();
-                console.log(file);
                 let formData = new FormData();
                 formData.append('title',title);
                 formData.append('context',context);
@@ -89,7 +88,6 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
                 if(file){
                     formData.append("file",file);
                 }
-                console.log(formData.get('bibleText'));
                 axios.post(`${domain}/${path}`,formData,{
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -98,7 +96,6 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
                     if(response.data.error){
                         alert(response.data.error);
                     }else{
-                        console.log("success");
                         history.push(`${"/connect/"+path}`);
                     }
                 }); 

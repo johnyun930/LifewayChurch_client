@@ -114,7 +114,6 @@ export const Bulleten = (props:BulletenContext)=>{
     const {login}= useContext(LoginContext);
     const {isAdmin} = useContext(UserInfoContext);
     const history = useHistory(); 
-    console.log(data);
     useEffect(()=>{
         axios.get(`${domain+props.path}`).then((response)=>
             setData(response.data.reverse())

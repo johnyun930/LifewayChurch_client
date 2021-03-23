@@ -110,7 +110,6 @@ export const Login  =(props:RouterProps): JSX.Element =>{
             password,
         },{withCredentials:true}).then((response)=>{
             setLogin(true);
-            console.log(response.data);
             setUser(response.data);
             props.history.goBack();
         })

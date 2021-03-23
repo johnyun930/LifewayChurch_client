@@ -225,7 +225,6 @@ export const WorshipList = ():JSX.Element =>{
         list[0].push(<Alert>아직 등록된 예배가 없습니다</Alert>)
     }
 
-    console.log(list[page]);
 return(
     <>
     <LogoBox></LogoBox>

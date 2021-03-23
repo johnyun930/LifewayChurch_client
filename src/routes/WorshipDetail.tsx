@@ -15,7 +15,6 @@ export const WorshipDetail = ()=>{
     const [worship,setWorship] = useState<IWorship|null>(null);
     const {Id} = useParams<RouteParams>();
     const domain = useContext(DomainContext);
-    console.log(Id);
     async function getspeech(){
       return  axios.get<IWorship>(`${domain}/worship/${Id}`);
 
@@ -23,7 +22,6 @@ export const WorshipDetail = ()=>{
 
     useEffect(()=>{
         getspeech().then((data)=>{
-            console.log(data);
             setWorship(data.data);
         })
     },[])
