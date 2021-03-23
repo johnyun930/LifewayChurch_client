@@ -29,7 +29,6 @@ import {Posting} from './Posting';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
-  console.log(process.env.REACT_APP_API_KEY)
   return (
     <>
     <ThemeProvider theme={theme}>
