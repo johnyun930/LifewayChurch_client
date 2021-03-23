@@ -156,7 +156,7 @@ export const Header = ():JSX.Element=>{
                 alert(response.data.message);
                 setLogin(false);
                 setSettingDisplay(false);
-                setUser({username: "",
+                setUser({userName: "",
                 firstName: "",
                 lastName: "",
                 isAdmin: false,

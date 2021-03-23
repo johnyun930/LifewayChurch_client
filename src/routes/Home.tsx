@@ -40,7 +40,21 @@ const ChurchTitle = styled.h1`
     font-size: 1rem
 }
 `
-
+const VisonContainer = styled.div`
+    margin: 30px auto 0;
+    width: 50%;
+    height: 30vh;
+    text-align:center;
+`
+const Text = styled.p`
+    font-weight: bold;
+    font-size: 30px;
+`
+const HZLine = styled.hr`
+    border: 5px solid black;
+    border-radius: 3px;
+    width: 100px;
+`
 export const Home =(): JSX.Element =>{
     const {login} = useContext(LoginContext);
     const {firstName} = useContext(UserInfoContext);
@@ -51,6 +65,13 @@ export const Home =(): JSX.Element =>{
     <MainLogo src={Logo}/>
     <ChurchTitle>생명길 교회에 오신것을 환영합니다</ChurchTitle>
     </MainBanner>
+    <VisonContainer>
+        <Text>생명길 교회는</Text>
+        <Text>.....한</Text>
+        <Text>교회입니다</Text>
+        <HZLine/>
+        <Text>생명길 교회의 비전은...</Text>
+    </VisonContainer>
     </>
     )
 }

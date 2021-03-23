@@ -89,7 +89,7 @@ const PageContainer = styled.div`
     width: 70%;
     margin: 0px auto;
 `
-const NumberBox = styled.div`
+export const NumberBox = styled.div`
     
     display: inline-block;
     width: 20px;
@@ -103,7 +103,7 @@ const NumberBox = styled.div`
     }
 
 `
-const SelectedNumberBox = styled.div`
+export const SelectedNumberBox = styled.div`
     display: inline-block;
     font-weight:550;
     width: 20px;
@@ -113,7 +113,7 @@ const SelectedNumberBox = styled.div`
         color: #00c73c;
 `
 
-const NextBox = styled.div`
+export const NextBox = styled.div`
     display: inline-block;
     height: 20px;
     margin-left: 1px;

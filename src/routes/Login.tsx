@@ -54,7 +54,7 @@ export const SubText = styled(Text)`
     margin-top: 5%;
 `
 
-export const FormConatiner = styled.div`
+export const FormContainer = styled.div`
     border-radius: 0px 10px 10px 0px;
     width: 100%;
     height:100%;
@@ -94,7 +94,7 @@ export const Login  =(props:RouterProps): JSX.Element =>{
     const domain = useContext(DomainContext);
     return( 
     <MainContainer>
-        <FormConatiner>
+        <FormContainer>
             <Heading>Welcome Back!</Heading> 
     <Form method="POST" >
     <Input type="text" name="username" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
@@ -110,13 +110,14 @@ export const Login  =(props:RouterProps): JSX.Element =>{
             password,
         },{withCredentials:true}).then((response)=>{
             setLogin(true);
+            console.log(response.data);
             setUser(response.data);
-            props.history.push('/');
+            props.history.goBack();
         })
     }} >Log in</LoginButton>
     <Link to="/signup"><LoginButton>Sign up</LoginButton></Link>
     </Form>
-    </FormConatiner>
+    </FormContainer>
         <ImageContainer>
             <Text>풀은 마르고 꽃은 시드나 우리 하나님의 말씀은 영원히 서리라 하라 </Text>
             <SubText>(사 40:7)</SubText>

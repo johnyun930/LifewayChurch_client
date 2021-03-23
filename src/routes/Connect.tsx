@@ -4,7 +4,7 @@ import prayer from '../images/prayer.png';
 import schedule from '../images/schedule.png';
 import school from '../images/school.png';
 import bible from '../images/bible.png';
-
+import { Link } from 'react-router-dom';
 export const Connect = ():JSX.Element=>{
     const ColumnContainer = styled.div`
         width: 70%;
@@ -49,31 +49,41 @@ export const Connect = ():JSX.Element=>{
         <>
         <LogoBox></LogoBox>
         <ColumnContainer>
+        <Link to="/connect/biblestudy">
         <Item>
             <IConContainer>
                 <Image src={bible}/>
             </IConContainer>
         <Title>성 경 공 부</Title>
         </Item>
+        </Link>
+        <Link to="/connect/childschool">
         <Item>
+
         <IConContainer>
                 <Image src={school}/>
             </IConContainer>
         <Title>주 일 학 교</Title>
         </Item>
+        </Link>
 
+        <Link to="/connect/qt">
         <Item>
         <IConContainer>
+
                 <Image src={prayer}/>
             </IConContainer>
         <Title>{"Q T"}</Title>
         </Item>
+        </Link>
+        <Link to="/connect/bulletenboard">
         <Item>
         <IConContainer>
                 <Image src={schedule}/>
             </IConContainer>
         <Title>자 유 게 시 판</Title>
         </Item>
+        </Link>
 
         </ColumnContainer>
         </>

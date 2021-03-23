@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState,useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { FormConatiner, ImageContainer, Text,SubText,Heading,Form as LoginForm } from './Login';
+import { FormContainer, ImageContainer, Text,SubText,Heading,Form as LoginForm } from './Login';
 import {Input,SubmitButton} from './CreatingWorship'
 import {LoginContext,UserInfoContext} from '../states/LoginContext';
 import { RouterProps } from 'react-router-dom';
@@ -41,7 +41,7 @@ export const Singup = (props: RouterProps): JSX.Element=>{
             <SubText>(사 40:7)</SubText>
             
         </ImageContainer>
-        <FormConatiner>
+        <FormContainer>
             <Heading>Welcome to Lifeway</Heading>
             <Form>
             <Input type="text" name="userName" placeholder="username" value={userName} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
@@ -80,7 +80,7 @@ export const Singup = (props: RouterProps): JSX.Element=>{
             });
         }}>Sign Up</SubmitButton>
         </Form>
-        </FormConatiner>
+        </FormContainer>
     </MainContainer>
 
         

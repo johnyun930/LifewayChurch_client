@@ -1,7 +1,7 @@
 import {createContext} from 'react';
 
 export interface UserInfo {
-    username: string,
+    userName: string,
     firstName: string,
     lastName: string,
     isAdmin: boolean
@@ -10,7 +10,7 @@ export interface UserInfo {
 
 export const LoginContext = createContext<any>(null);
 export const UserInfoContext = createContext<UserInfo>({
-    username: "",
+    userName: "",
     firstName: "",
     lastName: "",
     isAdmin: false,

@@ -5,23 +5,25 @@ import { IWorship } from './WorshipList';
 import {Worship} from '../components/Worship';
 import { DomainContext } from '../states/DomainContext';
 
-interface RouteParams{
-    speechId: string
+export interface RouteParams{
+    Id: string
 }
 
 
 
 export const WorshipDetail = ()=>{
     const [worship,setWorship] = useState<IWorship|null>(null);
-    const {speechId} = useParams<RouteParams>();
+    const {Id} = useParams<RouteParams>();
     const domain = useContext(DomainContext);
+    console.log(Id);
     async function getspeech(){
-      return  axios.get<IWorship>(`${domain}/worship/${speechId}`);
+      return  axios.get<IWorship>(`${domain}/worship/${Id}`);
 
     }
 
     useEffect(()=>{
         getspeech().then((data)=>{
+            console.log(data);
             setWorship(data.data);
         })
     },[])

@@ -8,7 +8,7 @@ import { size } from '../styles/theme';
 
 const MainContainer = styled.div`
     width: 90%;
-    height: 75vh;
+    min-height: 75vh;
     display:grid;
     grid-template-columns: 10% 80% 10%;
     justify-items:center;
@@ -41,7 +41,7 @@ const ArrowContainer = styled.div`
 
 const SpeechContainer = styled.div`
     width: 80%;
-    height: 100%;
+    min-height: 100%;
     margin: auto auto;
 `
 const VideoContainer = styled(SpeechContainer)`
@@ -110,7 +110,7 @@ export const Worship = (props: IWorship) : JSX.Element=>{
     const [pagenum,setpagenum] = useState<number>(0);
     let textarr: string[] = [];
     let book: string[] = [];
-    let maximumletter = 400;
+    let maximumletter = 600;
     let arrowfont: number = 60;
     if(props.context){
         textarr = (props.context.trim()).split('.');

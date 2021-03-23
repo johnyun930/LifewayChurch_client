@@ -8,6 +8,7 @@ const FooterContainer = styled.footer`
         height: 15vh;
         padding:20px 0px;
         min-height:135px;
+        margin-top: 40px;
         background-color: #333333;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
