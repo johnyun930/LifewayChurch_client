@@ -1,5 +1,8 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { DomainContext } from '../states/DomainContext';
 
 export const FormContainer = styled.div`
     width: 100%;
@@ -59,19 +62,48 @@ export const SubmitButton = styled.button`
 
 
 export const CreatingWorship = (): JSX.Element =>{
+            const [startingHymm,setStartingHymm] = useState("");
+            const [prayer, setPrayer] = useState("");
+            const [offering,setOffering] = useState("");
+            const [bibleText,setBibleText] = useState("");
+            const [title,setTitle] = useState("");
+            const [endingHymm,setEndingHymm] = useState("");
+            const [context,setContext] = useState("");
+            const [videoURL,setVideoURL] = useState("");
+            const domain = useContext(DomainContext);
+            const history = useHistory();
 
     return(
         <FormContainer>
-        <Form action="http://localhost:8000/worship" method="POST">
-        <Input type="text" name="startingHymm" placeholder = "찬송"></Input>
-        <Input type="text" name="prayer" placeholder = "기도"></Input>
-        <Input type="text" name="offering" placeholder = "봉헌송"></Input>
-        <Input type="text" name="bibleText" placeholder = "본문"></Input>
-        <Input type="text" name="title" placeholder = "제목"></Input>
-        <Input type="text" name="endingHymm" placeholder="주기도문송"></Input>
-        <TextArea name="context" placeholder="설교"></TextArea>
-            <Input type="text" name="videoURL" placeholder="유튜브 링크"></Input>
-            <SubmitButton type="submit">작성하기</SubmitButton>
+        <Form  method="POST">
+        <Input type="text" value = {startingHymm} onChange={(e)=>{setStartingHymm(e.target.value);}} placeholder = "찬송"></Input>
+        <Input type="text" value={prayer} onChange={(e)=>{setPrayer(e.target.value);}} placeholder = "기도"></Input>
+        <Input type="text" value={offering} onChange={(e)=>{setOffering(e.target.value)}} placeholder = "봉헌송"></Input>
+        <Input type="text" value={bibleText} onChange={(e)=>{setBibleText(e.target.value);}} placeholder = "본문"></Input>
+        <Input type="text" value={title} onChange={(e)=>{setTitle(e.target.value)}} placeholder = "제목"></Input>
+        <Input type="text" value={endingHymm} onChange={(e)=>{setEndingHymm(e.target.value);}} placeholder="주기도문송"></Input>
+        <TextArea value={context} onChange={(e)=>{setContext(e.target.value);}} placeholder="설교"></TextArea>
+            <Input type="text" value={videoURL} onChange={(e)=>{setVideoURL(e.target.value);}} placeholder="유튜브 링크"></Input>
+            <SubmitButton type="submit" onClick={(e)=>{
+                e.preventDefault();
+                const data = {
+                    startingHymm,
+                    prayer,
+                    offering,
+                    bibleText,
+                    title,
+                    endingHymm,
+                    context,
+                    videoURL
+                };
+                axios.post(domain+"/worship",data).then((response)=>{
+                    if(response.data.errMessage){
+                        alert(response.data.errMessage);
+                    }else{
+                        history.replace('/worship');
+                    }
+                })
+            }}>작성하기</SubmitButton>
         </Form>
         </FormContainer>
     )

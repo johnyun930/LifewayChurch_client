@@ -92,7 +92,6 @@ export const Login  =(props:RouterProps): JSX.Element =>{
     const {setLogin} = useContext(LoginContext);
     const {setUser} = useContext(UserInfoContext);
     const domain = useContext(DomainContext);
-    console.log(props.history.length);
     return( 
     <MainContainer>
         <FormContainer>
