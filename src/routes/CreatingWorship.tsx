@@ -96,7 +96,7 @@ export const CreatingWorship = (): JSX.Element =>{
                     context,
                     videoURL
                 };
-                axios.post(domain+"/worship",data).then((response)=>{
+                axios.post(domain+"/worship",data,{withCredentials:true}).then((response)=>{
                     if(response.data.errMessage){
                         alert(response.data.errMessage);
                     }else{
