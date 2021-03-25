@@ -85,6 +85,9 @@ const IconBox = styled.p`
         text-decoration:underline;
     }
 `
+interface UpdateData extends CommentData {
+    index: number
+}
 
 export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
     const [review,setReview] = useState<CommentData[]|null>(null);
@@ -92,6 +95,8 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
     const {login} = useContext(LoginContext);
     const {userName,isAdmin} = useContext(UserInfoContext);
     const history = useHistory();
+    const [update,setUpdate] = useState(false);
+    const [updateData,setUpdateData] = useState<UpdateData>();
     
     useEffect(()=>{
        axios.get(props.url+"/review/"+props.Id).then((response)=>{
@@ -99,15 +104,52 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
        })
       
     },[]);
+    const reviewWriting: JSX.Element =  
+    <CommentContainer>
+    <CommentBox value ={comment} onChange={(e)=>{
+        setComment(e.target.value);
+    }}></CommentBox>
+    <Button onClick={()=>{
+        if(!login){
+            alert("please Login first to write the comment");
+            history.push('/login');
+        }else if(comment===""){
+            alert("please write down the comment please");
+        }else{
+            const newReview = {postingId:props.Id,reviewer:userName,comment}
+            axios.post(props.url+"/review",newReview).then((response)=>{
+                if(response.data.errMessage){
+                    alert(response.data.errMessage);
+                }else{
+                    let newData = []
+                    if(review){
+                     newData = [...review,response.data];
+                    }else{
+                        newData = [response.data];
+                    }
+                    setReview(newData);
+                    setComment("");
+                }
+            });
+        }
+    }}>등록</Button>
+</CommentContainer>
+
     let list:JSX.Element[] = [];
+
     if(review){
+        if(!update){
         review.forEach((value,index)=>{
             list.push(
         <CommentArea>
             <HeadArea>
         <UserName>{value.reviewer}</UserName>
         {value.reviewer===userName||isAdmin?<IconArea>
-               {value.reviewer===userName?<IconBox>Modify</IconBox>:""}
+               {value.reviewer===userName?<IconBox onClick={()=>{
+                   setUpdate(!update);
+                   setUpdateData({...value,index});
+                }
+               }>Modify</IconBox>:""}
                <IconBox onClick={()=>{
                    const doubleCheck = window.confirm("Do you want to delete this post?");
                     if(doubleCheck){
@@ -128,42 +170,49 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
         <Context>{value.comment}</Context>    
             </CommentArea>
             )
-        })
+        });
+    }else{
+        list.push(
+            <CommentContainer>
+    <CommentBox value ={updateData?.comment} onChange={(e)=>{
+        if(updateData){
+        setUpdateData({...updateData,comment:e.target.value});
+        }
+    }}></CommentBox>
+    <Button onClick={()=>{
+        if(!login){
+            alert("please Login first to write the comment");
+            history.push('/login');
+        }else if(updateData?.comment===""){
+            alert("please write down the comment please");
+        }else{
+            axios.patch(props.url+"/review",updateData).then((response)=>{
+                if(response.data.errMessage){
+                    alert(response.data.errMessage);
+                }else{
+                    let newReview = review;
+                    if(updateData){
+                    newReview[updateData.index!] = {...newReview[updateData.index],comment:updateData.comment};
+                    }
+                    setReview(newReview);
+                    setUpdateData(undefined);
+                    setUpdate(false);
+
+                }
+            });
+        }
+    }}>수정</Button>
+    </CommentContainer>
+        )
+    }
+    }else{
+        <div>아직 댓글이 없습니다.</div>
     }
 
     return(
         <>
         {list}
-        <CommentContainer>
-            <CommentBox value ={comment} onChange={(e)=>{
-                setComment(e.target.value);
-            }}></CommentBox>
-            <Button onClick={()=>{
-                if(!login){
-                    alert("please Login first to write the comment");
-                    history.push('/login');
-                }else if(comment===""){
-                    alert("please write down the comment please");
-                }else{
-                    const newReview = {postingId:props.Id,reviewer:userName,comment}
-                    axios.post(props.url+"/review",newReview).then((response)=>{
-                        if(response.data.errMessage){
-                            alert(response.data.errMessage);
-                        }else{
-                            let newData = []
-                            if(review){
-                             newData = [...review,response.data];
-                            }else{
-                                newData = [response.data];
-                            }
-                            setReview(newData);
-                            setComment("");
-                        }
-                    });
-                }
-            }}>등록</Button>
-         
-        </CommentContainer>
+       {!update?reviewWriting:<></>};
         </>
     )
 }

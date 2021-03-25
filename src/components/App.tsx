@@ -29,6 +29,7 @@ import {Posting} from './Posting';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
+
   return (
     <>
     <ThemeProvider theme={theme}>
@@ -40,16 +41,16 @@ function App(): JSX.Element {
       <Route strict path="/worship/:Id" component={WorshipDetail}></Route>
       <Route path="/worship" component={WorshipList}></Route>
       <Route path="/signup" component={Singup}></Route>
-      <Route path="/login" component={Login}></Route> 
+      <Route path="/login" component={!login?Login:Home}></Route> 
       <Route path="/about" component={About}></Route>
       <Route path="/contact" component={Contact}></Route>
-      <Route path="/connect/biblestudy/create" component={CreatingBibleStudy}></Route>
+      <Route path="/connect/biblestudy/create" component={user.isAdmin?CreatingBibleStudy:BibleStudy}></Route>
       <Route strict path="/connect/biblestudy/:Id" component={Posting}></Route>
       <Route path="/connect/biblestudy" component={BibleStudy}></Route>
       <Route path="/connect/qt/create" component={CreatingQT}></Route>
       <Route strict path="/connect/qt/:Id" component={Posting}></Route>
       <Route path="/connect/qt" component={QT}></Route>
-      <Route path="/connect/childschool/create" component={CreatingChildSchool}></Route>
+      <Route path="/connect/childschool/create" component={user.isAdmin?CreatingChildSchool:ChildSchool}></Route>
       <Route strict path="/connect/childschool/:Id" component={Posting}></Route>
       <Route path="/connect/childschool" component={ChildSchool}></Route>
       <Route path="/connect/bulletenboard/create" component={CreatingBulletenBoard}></Route>

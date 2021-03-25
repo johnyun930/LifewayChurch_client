@@ -22,7 +22,9 @@ interface BulletenContext{
     title: string,
     explaination:string,
     img:string
-    path: string
+    path: string,
+    free?: boolean 
+   
 
 }
 
@@ -191,7 +193,7 @@ export const Bulleten = (props:BulletenContext)=>{
                 e.preventDefault();
                 alert("Please Login to create the post. 죄송합니다. 먼저 로그인 해주시길 바랍니다.");
                 history.push('/login');
-            }else if(!isAdmin){
+            }else if(!isAdmin&&!props.free){
                 e.preventDefault();
                 alert("Sorry. Only Administrater can create the post in this bulleten. 죄송합니다. 이 곳은 관리자만이 글을 작성하실수 있습니다." );
             }

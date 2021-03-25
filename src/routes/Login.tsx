@@ -92,6 +92,7 @@ export const Login  =(props:RouterProps): JSX.Element =>{
     const {setLogin} = useContext(LoginContext);
     const {setUser} = useContext(UserInfoContext);
     const domain = useContext(DomainContext);
+    console.log(props.history.length);
     return( 
     <MainContainer>
         <FormContainer>
@@ -109,9 +110,16 @@ export const Login  =(props:RouterProps): JSX.Element =>{
             userName,
             password,
         },{withCredentials:true}).then((response)=>{
-            setLogin(true);
-            setUser(response.data);
-            props.history.goBack();
+            if(response.data.errMessage){
+                alert(response.data.errMessage)
+            }else{
+                setLogin(true);
+                setUser(response.data);
+
+                props.history.goBack();
+            }
+
+           
         })
     }} >Log in</LoginButton>
     <Link to="/signup"><LoginButton>Sign up</LoginButton></Link>
