@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { DomainContext } from '../states/DomainContext';
 import { UserInfoContext } from '../states/LoginContext';
 import { LogoBox } from './About';
+import logo from '../images/worship.jpg';
 export interface IWorship{
     _id: string,
     title: string,
@@ -21,8 +22,7 @@ export interface IWorship{
 
 const ListContainer = styled.div`
     max-width: 600px;
-    height: 190vh;
-    min-height:1600px;
+    min-height:100vh;
     margin: 0 auto;
     padding: 0 20px;
     @media ${(props)=>props.theme.tablet}{
@@ -134,6 +134,14 @@ const CreateButton = styled(LinkedButton)`
     color: #5a5353;
     font-size: 13px;
 `
+export const Title = styled.h1`
+    font-size: 70px;
+    text-align: center;
+    font-weight:bold;
+    color: white;
+    position:relative;
+    top: 40%;
+`
 
 let getWorship =(domain:string)=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
     const  data = axios.get<IWorship[]>(`${domain}/worship`);
@@ -227,7 +235,9 @@ export const WorshipList = ():JSX.Element =>{
 
 return(
     <>
-    <LogoBox></LogoBox>
+    <LogoBox theme={{url:logo}}>
+    <Title>예배와 찬양</Title>
+    </LogoBox>
     <ListContainer>
         {isAdmin?<ButtonBox><CreateButton to="/worship/create">예배 작성하기</CreateButton></ButtonBox>:""}
     {worships?list[page]:"Loading....."}

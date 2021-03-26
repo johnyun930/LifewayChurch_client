@@ -5,6 +5,8 @@ import schedule from '../images/schedule.png';
 import school from '../images/school.png';
 import bible from '../images/bible.png';
 import { Link } from 'react-router-dom';
+import logo from '../images/connect.jpg';
+import {Title as MainTitle} from '../routes/WorshipList';
 export const Connect = ():JSX.Element=>{
     const ColumnContainer = styled.div`
         width: 70%;
@@ -47,7 +49,9 @@ export const Connect = ():JSX.Element=>{
 
     return(
         <>
-        <LogoBox></LogoBox>
+        <LogoBox theme={{url:logo}}>
+            <MainTitle style={{color: "black"}}>교제와 나눔</MainTitle>
+        </LogoBox>
         <ColumnContainer>
         <Link to="/connect/biblestudy">
         <Item>

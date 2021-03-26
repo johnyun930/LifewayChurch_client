@@ -4,11 +4,11 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 
 const FooterContainer = styled.footer`
         width: 100%;
+        margin-top: 40px;
         
         height: 15vh;
         padding:20px 0px;
         min-height:135px;
-        margin-top: 40px;
         background-color: #333333;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -102,6 +102,7 @@ export const Footer = ()=> {
                     <ColumnTitle>Info</ColumnTitle>
                     <Content>Tel:</Content>
                     <Content>604-333-333</Content>
+                    
                 </ColumnContainer>
                 <ColumnContainer>
                     <ColumnTitle>Channel</ColumnTitle>

@@ -5,7 +5,6 @@ import {Input as FormInput,SubmitButton} from './CreatingWorship'
 import { Link, RouterProps } from 'react-router-dom';
 import {LoginContext,UserInfoContext} from '../states/LoginContext';
 import {DomainContext} from '../states/DomainContext';
-
 import axios from 'axios';
 
 const MainContainer = styled.div`
@@ -17,16 +16,23 @@ const MainContainer = styled.div`
     align-items:center;
     margin: 0 auto 16vh;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    @media ${(props)=>props.theme.laptop}{
+        width: 80%;
+    }
+    @media ${(props)=>props.theme.tabelt}{
+        height: 100%;
+        grid-template-rows: 40% 60%;
+        grid-template-columns: none;
+    }
 
 `
 export const ImageContainer = styled.div`
     width:100%;
     height: 100%;
-    background-color:black;
+    background-color:#ef8d32;
     background-image: url(${Bible});
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
-    filter: brightness(75%);
     margin: auto 0;
     border-radius: 10px 0px 0px 10px;
 

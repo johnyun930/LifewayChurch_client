@@ -6,6 +6,9 @@ import share from '../images/share.png'
 import {SiteBy,Content,ChangedYoutubeIcon} from '../components/Footer';
 import GoogleMapReact from 'google-map-react';
 import { LogoBox } from './About';
+import logo from '../images/contact.jpg';
+import {Title as MainTitle} from '../routes/WorshipList';
+
 
 const ContactBox = styled.div`
     width: 48%;
@@ -98,7 +101,9 @@ const Marker = (props: any) => {
 export const Contact = ()=>{
     return(
     <>
-    <LogoBox></LogoBox>
+    <LogoBox theme={{url:logo}}>
+      <MainTitle>위치 안내</MainTitle>
+    </LogoBox>
     <ContactBox>
         <ItemBox>
             <IconImage src={map} alt="address icon"/>
@@ -116,7 +121,7 @@ export const Contact = ()=>{
         <Divider/>
         <ContextBox>
         <Context><BoldContext>Tel: </BoldContext>604-333-3333</Context>
-        <Context><BoldContext>Email: </BoldContext>lifewaygen@gmail.com</Context>
+        <Context><BoldContext>Email: </BoldContext>life.way.generation.church@gmail.com</Context>
         </ContextBox>
 
         </ItemBox>
