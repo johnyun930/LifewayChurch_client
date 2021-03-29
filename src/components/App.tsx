@@ -3,8 +3,7 @@ import React, { useState,useContext } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Home } from '../routes/Home';
 import {WorshipList} from '../routes/WorshipList';
-import { Login } from '../routes/Login';
-import { Singup } from '../routes/Signup';
+import { Authentication } from '../routes/Authentication';
 import { WorshipDetail } from '../routes/WorshipDetail';
 import { CreatingWorship } from '../routes/CreatingWorship';
 import {GlobalStyles} from './GlobalStyles';
@@ -40,8 +39,7 @@ function App(): JSX.Element {
        <Route path ="/worship/create" component={user.isAdmin?CreatingWorship:Home}></Route> 
       <Route strict path="/worship/:Id" component={WorshipDetail}></Route>
       <Route path="/worship" component={WorshipList}></Route>
-      <Route path="/signup" component={Singup}></Route>
-      <Route path="/login" component={!login?Login:Home}></Route> 
+      <Route path="/login" component={!login?Authentication:Home}></Route> 
       <Route path="/about" component={About}></Route>
       <Route path="/contact" component={Contact}></Route>
       <Route path="/connect/biblestudy/create" component={user.isAdmin?CreatingBibleStudy:BibleStudy}></Route>

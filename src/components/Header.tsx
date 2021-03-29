@@ -18,8 +18,7 @@ const HeaderContainer = styled.div`
         height:10%;
         display: flex;
         flex-direction:column;
-        align-items:middle
-        
+        align-items:middle;
     }
 
 `;

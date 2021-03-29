@@ -18,12 +18,12 @@ export const Form = styled.form`
    
 `
 export const Input = styled.input`
-    display:block;
     margin: 0 auto 15px;
     width: 90%;
     height: 40px;
-    border: solid 1px #E5E5E5; 
-    border-radius: 10px;
+    border: 1px solid white;
+    border-bottom: 1px solid #eaeaea;
+  
     font-size: 1rem;
     
 

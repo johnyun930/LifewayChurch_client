@@ -59,6 +59,7 @@ const Text = styled.p`
     font-weight: ${(props)=>props.theme.fontWeight};
     margin-bottom: 40px;
     font-size: ${(props)=>props.theme.fontSize||"30px"};
+    font-family:'Nanum Myeongjo', serif;
 `
 const HZLine = styled.hr`
     border: 5px solid black;
@@ -107,7 +108,7 @@ export const Home =(): JSX.Element =>{
     <Introduction>
         <Title>교회소개</Title>
         <Text >생명길 교회는</Text>
-        <Text theme={{fontSize: "40px",fontWeight:"bold"}}>주님의 복음을 사랑하는</Text>
+        <Text theme={{ fontSize: "40px",fontWeight:"bold"}}>주님의 복음을 사랑하는</Text>
         <Text>교회입니다</Text>
         <Image src={bible}></Image>
         

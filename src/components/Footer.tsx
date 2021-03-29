@@ -16,6 +16,10 @@ const FooterContainer = styled.footer`
         @media ${(props)=>props.theme.mobile}{
             column-gap: 0px;
         }
+        @media ${(props)=>props.theme.mobile}{
+      
+         margin: 0;
+  }
         
     `;
 const ColumnContainer = styled.div`
