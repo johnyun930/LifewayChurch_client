@@ -10,11 +10,13 @@ import { size } from '../styles/theme';
 
 const MainContainer = styled.div`
     width: 70%;
-    min-height: 80vh;
+    min-height: 85vh;
+
     display:grid;
     grid-template-columns: 40% 60%;
     justify-items:center;
     margin: 0 auto 16vh;
+    
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     background-image: url(${Bible});
     background-size: 100% 100%;
@@ -26,8 +28,9 @@ const MainContainer = styled.div`
     }
     @media ${(props)=>props.theme.mobile}{
         width: 100%;
-        padding-bottom: 30px;
         margin-bottom: 0;
+    padding-bottom: 30px;
+
         background: none;
         min-height: 60vh;
         display: block;

@@ -4,7 +4,37 @@ import {Input,SubmitButton,Label} from '../styles/FormStyle'
 import {LoginContext,UserInfoContext} from '../states/LoginContext';
 import { RouterProps } from 'react-router-dom';
 import { DomainContext } from '../states/DomainContext';
+import isEmail from 'validator/lib/isEmail';
 
+function ValidationCheck(username: string,password:string,firstName:string,lastName:string,email:string){
+    let usernameCheck = /^[A-z]+\w{4}$/;
+    let nameCheck = /^[A-z]{2,}$/;
+    let passwordCheck = /\w{5}/;
+    const validEmail =  isEmail(email)
+    const validUser = usernameCheck.test(username);
+    const validFirstName = nameCheck.test(firstName);
+    const validLastName = nameCheck.test(lastName);
+    const validPassword = passwordCheck.test(password);
+
+    if(!validEmail){
+        alert("Please write Correct Email!");
+        return false;
+    }
+    if(!validFirstName){
+        alert("Please write Correct First Name!");
+        return false;
+    } if(!validLastName){
+        alert("Please write Correct Last Name!");
+        return false;
+    } if(!validUser){
+        alert("Please start with alphabet and more 5 characters for userName");
+        return false;
+    } if(!validPassword){
+        alert("Please write more 5 characters for password!");
+        return false;
+    }
+    return true;
+}
 
 
 export const Signup = (props: RouterProps): JSX.Element=>{
@@ -44,6 +74,8 @@ export const Signup = (props: RouterProps): JSX.Element=>{
             event.preventDefault();
             if(!(userName&&password&&firstName&&lastName&&email)){
                 alert("please fill up all the information please");
+            }else if(!ValidationCheck(userName,password,firstName,lastName,email)){
+                return
             }
             axios.post(`${domain}/signup`,{
                 userName,
