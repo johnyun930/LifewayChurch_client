@@ -43,6 +43,10 @@ const ContentTitle = styled.h1`
     font-weight: bold;
     color: #222;
     margin: 20px 0;
+    @media ${(props)=>props.theme.mobile}{
+        line-height: 1.3;
+        font-size: 30px;
+    }
 `
 const Alert = styled(ContentTitle)`
     
@@ -64,6 +68,9 @@ const Content = styled.p`
     color: #818181;
     margin: 20px 0;
     line-height:2;
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 16px;
+    }
 `
 
 const LinkedButton = styled(Link)`
@@ -141,6 +148,9 @@ export const Title = styled.h1`
     color: white;
     position:relative;
     top: 40%;
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 50px;
+    }
 `
 
 let getWorship =(domain:string)=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
@@ -235,7 +245,7 @@ export const WorshipList = ():JSX.Element =>{
 
 return(
     <>
-    <LogoBox theme={{url:logo}}>
+    <LogoBox url={logo}>
     <Title>예배와 찬양</Title>
     </LogoBox>
     <ListContainer>

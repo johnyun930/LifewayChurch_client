@@ -7,6 +7,7 @@ import { size } from '../styles/theme';
 import { LoginContext, UserInfoContext } from '../states/LoginContext';
 import axios from 'axios';
 import { DomainContext } from '../states/DomainContext';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 interface styleProps{
     position: boolean;
 }
@@ -23,13 +24,11 @@ const slide = keyframes`
 const HeaderContainer = styled.div`
     width: 100%;
     height: 14vh;
-    min-height:114px;
     background-color: #f5f0ec;
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 40% 60%;
     @media ${(props)=>props.theme.mobile}{
-        min-height:60px;
-        height:10%;
+        height:60px;
         display: flex;
         z-index:1;
         flex-direction:column;
@@ -75,25 +74,26 @@ type DisplayProps = {
 }
 
 const NavbarContainer = styled.div<DisplayProps>`
+    width: 80%;
+    margin-left: 15%;
     justify-self: center;
-    vertical-align:middle;
     text-align:center;
     display: grid;
-    column-gap: 30px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr;
+    column-gap: 20px;
+    grid-template-columns: 10% 10% 10% 10% 10% 20% 2%;
     align-self:center;
+    z-index:1;
     @media ${(props)=>props.theme.mobile}{
-        width: 50%;
+        width: 40%;
         height: 100vh;
         position: fixed;
         right: 0;
         display:${(props)=>props.display?"grid":"none"};
-        grid-template-rows: repeat(6,8%);
+        grid-template-rows: repeat(7,9%);
         grid-template-columns: none;
         padding-top: 5%;
         background-color: white;
-        animation: 1s ${slide} ease-out;
-
+        animation: 0.4s ${slide} ease-out;
         
     }
 
@@ -103,6 +103,10 @@ const NavButton = styled.div`
     margin: auto auto;
     font-size: 1.3em;
     color: #44525d;
+    vertical-align:middle;
+    line-height: 30px;
+    text-align: center;
+
     @media ${(props)=>props.theme.mobile}{
         display: block;
         width:100%;
@@ -114,8 +118,17 @@ const NavButton = styled.div`
         cursor:pointer;
     }
 `
+const IconButton = styled.div`
+    width: 100%;
+    height: 50%;
+    padding-top: 3px;
+    &:hover{
+        cursor:pointer;
+    }
+`
+
 const LoginButton = styled.div`
-     margin: auto auto;
+     margin: 0 auto;
      min-width: 96px;
      min-height: 30px;
      vertical-align:middle;
@@ -128,30 +141,22 @@ const LoginButton = styled.div`
        background-color: white;
         color: #9AC0E7;
         font-size: 1.4em;
+        font-weight: bold;
     }
 `
-const SettingContainer = styled.div<DisplayProps>`
-    display: ${(props)=>props.display?"block":"none"};
-    position: absolute;
-    top: 10%;
-    right: 9%;
-    font-size:1.2em;
-    width: 7%;
-    height: 2.5%;
-    border: 1px solid black;
-    &:hover{
-        cursor:pointer;
-    }
-`
+
 const MobileSettingBar = styled.div`
     width:100vh;
     height:100vh;
     position:fixed;
     z-index: 1;
-
-  
+    padding-top: ${(props:styleProps)=>props.position?"60px":"0"};
+    background-color:  rgba(0,0,0,0.55);
 `
+const Power = styled(PowerSettingsNewIcon)`
+    color: purple;
 
+`
 
 export const Header = ():JSX.Element=>{
     const domain = useContext(DomainContext);
@@ -204,10 +209,15 @@ const sidebar =  <NavbarContainer display={menuDisplay}>
    <Link to ="/contact"> <NavButton  onClick={()=>{
             setmenuDisplay(false);
     }}>Contact</NavButton></Link>
-    {login?<NavButton onClick={()=>{
+    {login?<><NavButton onClick={()=>{
+        if(window.innerWidth<=size.mobile){
+        setSettingDisplay(true);
+        }else{
         setSettingDisplay(!settingDisplay);
-    }}>{firstName+" 성도님"}</NavButton>:<Link to ="/login"><LoginButton>Login</LoginButton></Link>}
-    <SettingContainer onClick={()=>{
+        }
+    }}>{firstName+" 성도님"}</NavButton><IconButton><Power onClick={()=>{
+        const confirm = window.confirm("로그아웃 하시겠습니까?");
+        if(confirm){
         axios.get(`${domain}/logout`,{withCredentials:true}).then((response)=>{
             alert(response.data.message);
             setLogin(false);
@@ -219,8 +229,22 @@ const sidebar =  <NavbarContainer display={menuDisplay}>
             setUser: ()=>{}});
 
         });
-    }} display={settingDisplay}>Log Out</SettingContainer>
+    }
+    }}></Power></IconButton></>:<Link to ="/login"><LoginButton>Login</LoginButton></Link>}
+    
     </NavbarContainer>
+    
+const mobileSidebar:JSX.Element = 
+    <>
+    {menuDisplay?<MobileSettingBar position={header} onClick={()=>{
+        setmenuDisplay(false);
+
+    }}>
+        {sidebar}
+        </MobileSettingBar>:<></>}
+        </>
+
+
     return(
         <>
     <HeaderContainer position={header}>
@@ -235,11 +259,7 @@ const sidebar =  <NavbarContainer display={menuDisplay}>
        
     </HeaderContainer>
     {window.innerWidth<=size.mobile?
-    <MobileSettingBar onClick={()=>{
-        setmenuDisplay(false);
-    }}>
-        {sidebar}
-        </MobileSettingBar>
+    mobileSidebar
     :<></>}
         </>
 

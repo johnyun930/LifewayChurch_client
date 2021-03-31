@@ -56,7 +56,7 @@ export const Heading = styled.h1`
             font-size: 1.5rem;
     }
     @media ${(props)=>props.theme.mobile}{
-        font-size: 3rem;
+        font-size: 2.5rem;
         margin: 0;
     }
 `

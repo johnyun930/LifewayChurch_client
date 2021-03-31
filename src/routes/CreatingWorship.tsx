@@ -8,13 +8,23 @@ export const FormContainer = styled.div`
     width: 100%;
     height: 90vh;
     margin-bottom: 100px;
+
+    
+   @media ${(props)=>props.theme.mobile}{
+       height: 110vh;
+   }
 `
 export const Form = styled.form`
     width: 70%;
     height: 100%;
     margin: 0 auto;
     padding-top: 20px;
+    text-align:center;
    box-shadow: rgba(122, 110, 110, 0.35) 0px 5px 15px;
+
+   @media ${(props)=>props.theme.mobile}{
+       width: 85%;
+   }
    
 `
 export const Input = styled.input`

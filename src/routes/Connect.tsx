@@ -16,6 +16,14 @@ export const Connect = ():JSX.Element=>{
         grid-template-columns: repeat(2,1fr);
         grid-template-rows: repeat(2,1fr);
         grid-gap: 60px;
+
+        @media ${(props)=>props.theme.mobile}{
+            width: 80%;
+            grid-gap: 30px;
+            height: 60vh;
+
+        }
+
     `
     const Item = styled.div`
         width:100%;
@@ -34,6 +42,10 @@ export const Connect = ():JSX.Element=>{
         font-weight:bold;
         vertical-align:middle;
         text-align:center;
+        @media ${(props)=>props.theme.mobile}{
+           font-size: 18px;
+
+        }
     `
     const IConContainer =styled.div`
         align-self:center;
@@ -49,7 +61,7 @@ export const Connect = ():JSX.Element=>{
 
     return(
         <>
-        <LogoBox theme={{url:logo}}>
+        <LogoBox url={logo}>
             <MainTitle style={{color: "black"}}>교제와 나눔</MainTitle>
         </LogoBox>
         <ColumnContainer>

@@ -64,7 +64,9 @@ const SpeechTitle = styled.h1`
         font-size: 2.5rem;
     }
     @media ${(props)=>props.theme.mobile}{
-        font-size: 2rem;
+        font-size: 1.8rem;
+        line-height:1.4;
+        
         
     }
 `
@@ -118,7 +120,7 @@ export const Worship = (props: IWorship) : JSX.Element=>{
     
 
     if(window.innerWidth<=size.mobile){
-     maximumletter = 90;
+     maximumletter = 130;
      arrowfont = 30;
     }
     else if(window.innerWidth<=size.tablet){

@@ -34,6 +34,11 @@ const Table = styled.table`
     margin: 0 auto 30px;
     border-top: 1px solid black;
 
+    @media ${(props)=>props.theme.mobile}{
+        width: 90%;
+        margin-bottom: 15px;
+    }
+
 `
 const ColumnSize = {
     Id: "4%",
@@ -54,6 +59,12 @@ const NoticeBox = styled.div`
     margin: 0 auto;
     padding-top: 5px;
     font-weight:bold;
+    @media ${(props)=>props.theme.mobile}{
+        width: 30px;
+    height: 18px;
+    font-size: 8px;
+        
+    }
 
 `;
 
@@ -69,6 +80,11 @@ const Column = styled.td`
         text-decoration: ${(props)=>props.theme.decoration?"underline":"none"};
         cursor:  ${(props)=>props.theme.decoration?"pointer":""}
     }
+    @media ${(props)=>props.theme.mobile}{
+        height: 60px;
+        font-size: 12px;
+        line-height:1.3;
+    }
     
 `
 const PageContainer = styled.div`
@@ -79,13 +95,20 @@ const PageContainer = styled.div`
     font-weight:400px;
     text-align: center;
     margin: 0px auto 40px;
+    @media ${(props)=>props.theme.mobile}{
+        width: 100%;
+    }
 `
 
 const ButtonContainer = styled(PageContainer)`
     background-color: white;
     text-align: right;
     padding-right: 70px;
-    
+    @media ${(props)=>props.theme.mobile}{
+        width: 80%;
+        height: 30px;
+        padding-right: 5px;
+    }
 `
 const LinkedButton = styled(Link)`
     width: 74px;
@@ -178,7 +201,7 @@ export const Bulleten = (props:BulletenContext)=>{
     }
     return(
         <>
-        <LogoBox></LogoBox>
+        <LogoBox url={""}></LogoBox>
         <Table>
             <tr>
                 <Column theme={{ColumnSize:ColumnSize.Id,fontWeight:"bold", textAlign: "center"}}></Column>

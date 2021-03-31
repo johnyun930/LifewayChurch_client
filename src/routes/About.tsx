@@ -5,20 +5,29 @@ import profile from '../images/profile.png';
 import { Email, PhoneAndroid } from '@material-ui/icons';
 import about from '../images/About.jpg';
 import {Title as MainTitle } from '../routes/WorshipList';
+
+interface styleProps{
+    url: string
+}
+
 export const LogoBox = styled.div`
     width: 100%;
     height: 60vh;
-   
-    background-image: url(${(props)=>props.theme.url});
+    background-image: url(${(props:styleProps)=>props.url});
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin: 0 auto;
     margin-bottom: 50px;
+    @media ${(props)=>props.theme.mobile}{
+        height: 40vh;
+        grid-template-columns: none;
+        grid-template-rows: 50% 50%;
+    }
 `
 
 const ColumBox = styled.div`
     width: 60%;
-    height: 40vh;
+    min-height: 40vh;
     margin: 100px auto ;
     display: grid;
     grid-template-columns: 45% 55%;
@@ -29,7 +38,6 @@ const ColumBox = styled.div`
         width: 90%;
     }
     @media ${(props)=>props.theme.mobile}{
-        height: 40vh;
         grid-template-columns: none;
         grid-template-rows: 50% 50%;
     }
@@ -46,7 +54,7 @@ const DirectorBox = styled(ColumBox)`
     }
      @media ${(props)=>props.theme.mobile}{
          width: 100%;
-        height: 130vh;
+        height: 150vh;
         grid-template-columns: none;
        grid-template-rows: repeat(4,1fr);
        margin: 30px auto 0;
@@ -66,7 +74,7 @@ const WorshipTeamBox= styled(ColumBox)`
     }
      @media ${(props)=>props.theme.mobile}{
          width: 100%;
-        height: 220vh;
+        height: 250vh;
         grid-template-columns: none;
        grid-template-rows: repeat(7,1fr);
        margin: 30px auto 0;
@@ -296,7 +304,7 @@ export const About = ():JSX.Element =>{
     }
     return(
         <>
-        <LogoBox theme={{url:about}}>
+        <LogoBox url={about}>
         <MainTitle>섬기는 사람들</MainTitle>
         </LogoBox>
         {menu}

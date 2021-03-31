@@ -18,6 +18,13 @@ const ContactBox = styled.div`
     grid-gap:2%;
     margin: 0 auto 70px;
 
+    @media ${(props)=>props.theme.mobile}{
+       grid-template-columns: none;
+      grid-template-rows: repeat(3,1fr);
+      width: 80%;
+      height: 120vh;
+    }
+
 `;
 const ItemBox = styled.div`
     width:100%;
@@ -61,6 +68,15 @@ const BoldContext =styled.h4`
     display:inline;
 `
 
+const MapBox = styled.div`
+  width:70%;
+  height:60vh;
+  margin: 0 auto 50px;
+  @media ${(props)=>props.theme.mobile}{
+       width: 90%;
+    }
+`
+
 const mapStyles = {
     width: '100%',
     height: '100%'
@@ -101,7 +117,7 @@ const Marker = (props: any) => {
 export const Contact = ()=>{
     return(
     <>
-    <LogoBox theme={{url:logo}}>
+    <LogoBox url={logo}>
       <MainTitle>위치 안내</MainTitle>
     </LogoBox>
     <ContactBox>
@@ -134,7 +150,7 @@ export const Contact = ()=>{
         </ItemBox>
      
     </ContactBox>
-    <div style={{width:'70%',height:'60vh',margin: "0 auto 50px" }}>
+    <MapBox>
         <GoogleMapReact
           bootstrapURLKeys={{key:process.env.REACT_APP_API_KEY! }}
           defaultCenter={{ 
@@ -149,7 +165,7 @@ export const Contact = ()=>{
             
           />
     </GoogleMapReact>
-    </div>
+    </MapBox>
     </>
     )
 }

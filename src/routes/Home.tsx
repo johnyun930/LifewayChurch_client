@@ -53,6 +53,12 @@ const Introduction = styled.div`
     min-height: 90%;
     text-align:center;
     padding-top: 4%;
+    padding-bottom: 30px;
+    @media ${(props)=>props.theme.mobile}{
+        width: 80%;
+
+}
+
 
 `
 const Text = styled.p`
@@ -60,12 +66,11 @@ const Text = styled.p`
     margin-bottom: 40px;
     font-size: ${(props)=>props.theme.fontSize||"30px"};
     font-family:'Nanum Myeongjo', serif;
+    @media ${(props)=>props.theme.mobile}{
+    line-height:1.3;
+}
 `
-const HZLine = styled.hr`
-    border: 5px solid black;
-    border-radius: 3px;
-    width: 100px;
-`
+
 const Title = styled.h1`
     font-size: 40px;
     font-weight: bold;
@@ -80,6 +85,10 @@ const Image = styled.img`
     width: 60%;
     height: 35%;
     margin-left: -40px;
+    @media ${(props)=>props.theme.mobile}{
+        margin-top: 40px;
+
+}
 
 `
 const ServiceIntroduction = styled.div`
@@ -89,7 +98,8 @@ const ServiceIntroduction = styled.div`
     margin: 79px auto;
     font-size: 40px;
     @media ${(props)=>props.theme.mobile}{
-    font-size: 1rem
+    font-size: 1.2rem;
+    line-height: 1.5;
 }
 
 `
@@ -97,7 +107,7 @@ const PS = styled.p`
     font-size: 24px;
     margin-bottom: 20px;
     @media ${(props)=>props.theme.mobile}{
-    font-size: 0.8rem;
+    font-size:1rem;
     line-height: 2;
 }
 
