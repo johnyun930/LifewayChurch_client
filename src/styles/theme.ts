@@ -1,7 +1,7 @@
 export const size = {
     mobile: 767,
     tablet: 1023,
-    laptop: 1660,
+    laptop: 1339,
 }
 
 export const theme = {

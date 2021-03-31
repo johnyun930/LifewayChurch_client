@@ -22,17 +22,77 @@ const ColumBox = styled.div`
     margin: 100px auto ;
     display: grid;
     grid-template-columns: 45% 55%;
+    @media ${(props)=>props.theme.laptop}{
+        width: 80%;
+    }
+    @media ${(props)=>props.theme.tablet}{
+        width: 90%;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        height: 40vh;
+        grid-template-columns: none;
+        grid-template-rows: 50% 50%;
+    }
+`
 
+const DirectorBox = styled(ColumBox)`
+    min-width: 55%;
+     height: 80vh;
+     grid-template-columns: repeat(2,1fr);
+     grid-template-rows: repeat(2,1fr);
+     grid-gap: 10px;
+     @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+    }
+     @media ${(props)=>props.theme.mobile}{
+         width: 100%;
+        height: 130vh;
+        grid-template-columns: none;
+       grid-template-rows: repeat(4,1fr);
+       margin: 30px auto 0;
+    }
+`
+const WorshipTeamBox= styled(ColumBox)`
+        width: 90%;
+     height:120vh;
+     grid-template-columns:repeat(3,1fr);
+     grid-template-rows:repeat(3,1fr);
+     @media ${(props)=>props.theme.tablet}{
+        grid-template-columns:repeat(2,1fr);
+     grid-template-rows:repeat(4,1fr);
+     height:170vh;
+
+        width: 100%;
+    }
+     @media ${(props)=>props.theme.mobile}{
+         width: 100%;
+        height: 220vh;
+        grid-template-columns: none;
+       grid-template-rows: repeat(7,1fr);
+       margin: 30px auto 0;
+    }
 `
 
 const ImageBox = styled.div`
-    width: 60%;
+    width: 70%;
     height: 100%;
     margin: 0 auto;
+    text-align: center;
+   
+    
 `
 const Image = styled.img`
-    width: 98%;
-    height: 80%;
+    width: 240px;
+    height: 240px;
+    text-align: center;
+    @media ${(props)=>props.theme.tablet}{
+        width: 220px;
+        height: 220px;
+    }
+    @media ${(props)=>props.theme.mobile}{
+         width: 180px;
+        height: 180px;
+    }
 `
 const ExplainationBox =styled.div`
     width: 100%;
@@ -40,12 +100,19 @@ const ExplainationBox =styled.div`
     margin-left:20px;
     background-repeat: none;
     background-size: contain;
+    @media ${(props)=>props.theme.mobile} { 
+        margin: 0
+    }
     
 `
 const Title = styled.h1`
     font-size: 35px;
     font-weight: bold;
     margin: 40px 0 23.45px;
+    @media ${(props)=>props.theme.mobile}{
+        text-align: center;
+     
+    }
 
 `
 const Context= styled.p`
@@ -55,6 +122,10 @@ const Context= styled.p`
     font-style: normal;
     font-size: 23px;
     margin-bottom: 80px;
+    @media ${(props)=>props.theme.mobile}{
+        text-align: center;
+        margin-bottom: 40px;
+    }
 `
 const HorizontalLine = styled.hr`
     width: 50%;
@@ -65,6 +136,10 @@ const HorizontalLine = styled.hr`
 const ContactBox = styled.div`
     width: 100%;
     height: 10%;
+    @media ${(props)=>props.theme.mobile} { 
+        text-align: center;
+        margin-bottom: 20px;
+    }
 `
 const ContactInfo = styled.h3`
     font-weight: bold;
@@ -72,6 +147,16 @@ const ContactInfo = styled.h3`
     font-size: 20px;
     left: 10px;
     position: relative;
+    @media ${(props)=>props.theme.laptop}{
+        font-size: 16px;
+    }
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 12px;
+    }
+    @media ${(props)=>props.theme.mobile} { 
+        font-size: 18px;
+    }
+    
 `
 const PhoneIcon = styled(PhoneAndroid)`
     font-size: 30px;
@@ -88,14 +173,18 @@ const MailIcon = styled(Email)`
 `
 
 const Tab = styled.div`
-    width: 30%;
+    width: 40%;
     height: 10%;
     display: grid;
     margin: 0 auto ;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    @media ${(props)=>props.theme.mobile}{
+        width:80%;
+    }
 `
 const SelectedTabButton = styled.div`
-    width: 80%;
+    width: 100%;
     font-size: 20px;
     font-weight: bold;
     text-align: center;
@@ -113,6 +202,7 @@ const TabButton = styled(SelectedTabButton)`
     }
 `
 const Name = styled.h4`
+    width:100%;
     text-align: center;
     font-weight: bold;
     font-size: 24px;
@@ -179,18 +269,18 @@ export const About = ():JSX.Element =>{
 
     if(tab === Section.Director){
         form = <>
-            <ColumBox  style={{width:"47%", height:"70vh",gridTemplateColumns:"repeat(2,1fr)",gridTemplateRows:"repeat(2,1fr)"}}>
+            <DirectorBox  >
                <ImageBox><Image src={profile}></Image><Name>송 준 민 디렉터(회장)</Name></ImageBox>
                <ImageBox><Image src={profile}></Image><Name>이 민 경 디렉터(부회장)</Name></ImageBox>
                <ImageBox><Image src={profile}></Image><Name>오 세 정 디렉터(임원)</Name></ImageBox>
                <ImageBox><Image src={profile}></Image><Name>이 준 형 디렉터(회계)</Name></ImageBox>
                
 
-            </ColumBox>
+            </DirectorBox>
         </>
     }else if(tab === Section.Worship){
         form = <>
-        <ColumBox  style={{width: "70%", height:"105vh",gridTemplateColumns:"repeat(3,1fr)",gridTemplateRows:"repeat(3,1fr)"}}>
+        <WorshipTeamBox  >
            <ImageBox><Image src={profile}></Image><Name>윤 종 훈 (찬양팀 리더)</Name></ImageBox>
            <ImageBox><Image src={profile}></Image><Name>이 민 경 (키 보 드)</Name></ImageBox>
            <ImageBox><Image src={profile}></Image><Name> 라 민 우(드럼)</Name></ImageBox>
@@ -201,7 +291,7 @@ export const About = ():JSX.Element =>{
 
            
 
-        </ColumBox>
+        </WorshipTeamBox>
     </>
     }
     return(

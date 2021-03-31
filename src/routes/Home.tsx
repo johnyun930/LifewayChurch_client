@@ -41,7 +41,7 @@ const ChurchTitle = styled.h1`
 `
 const Container = styled.div`
     width: 100%;
-    height: 85vh;
+    min-height: 85vh;
     background-color: ${(props)=>props.theme.bkColor||"white"};
     border-bottom: 1px solid #eaeaea;
 
@@ -50,7 +50,7 @@ const Container = styled.div`
 const Introduction = styled.div`
     margin: 0 auto ;
     width: 50%;
-    height: 90%;
+    min-height: 90%;
     text-align:center;
     padding-top: 4%;
 
@@ -88,11 +88,18 @@ const ServiceIntroduction = styled.div`
     text-align: center;
     margin: 79px auto;
     font-size: 40px;
+    @media ${(props)=>props.theme.mobile}{
+    font-size: 1rem
+}
 
 `
 const PS = styled.p`
     font-size: 24px;
     margin-bottom: 20px;
+    @media ${(props)=>props.theme.mobile}{
+    font-size: 0.8rem;
+    line-height: 2;
+}
 
 `
 
