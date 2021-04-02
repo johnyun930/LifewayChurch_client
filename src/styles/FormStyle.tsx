@@ -12,7 +12,10 @@ export const Input = styled.input`
         outline: none;
         border-bottom: 1px solid black;
     }
-  
+    &:disabled{
+        background-color: transparent;
+    }
+
 
 `
 export const Label = styled.label`
@@ -20,6 +23,7 @@ export const Label = styled.label`
     font-weight: bold;
     color: darkgray;
     font-size: 0.8rem;
+    margin-bottom: 2px;
 `
 
 export const SubmitButton = styled.button`
@@ -27,7 +31,8 @@ export const SubmitButton = styled.button`
   min-width: 50%;
     font-weight: 500;
     color: white;
-    background-color: #707186;
+    background-color: #A095A5;
+
     padding: 0 20px;
     margin: 65px auto 30px ;
     border-radius: 18px;
@@ -37,7 +42,8 @@ export const SubmitButton = styled.button`
     font-size: 16px;
     &:hover{
         cursor: pointer;
-        background-color: #A095A5;
+    background-color: #707186;
+
         color:white;
     }
 `

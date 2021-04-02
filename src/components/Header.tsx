@@ -23,14 +23,16 @@ const slide = keyframes`
 
 const HeaderContainer = styled.div`
     width: 100%;
-    height: 14vh;
+    height: 13vh;
     background-color: #f5f0ec;
     display:grid;
     grid-template-columns: 40% 60%;
+    z-index:1;
+    margin-bottom: 2%;
+
     @media ${(props)=>props.theme.mobile}{
         height:60px;
         display: flex;
-        z-index:1;
         flex-direction:column;
         align-items:middle;
     } 
@@ -80,7 +82,7 @@ const NavbarContainer = styled.div<DisplayProps>`
     text-align:center;
     display: grid;
     column-gap: 20px;
-    grid-template-columns: 10% 10% 10% 10% 10% 20% 2%;
+    grid-template-columns: 10% 10% 10% 10% 10% 15% 2%;
     align-self:center;
     z-index:1;
     @media ${(props)=>props.theme.mobile}{

@@ -48,7 +48,7 @@ const WordContainer = styled.div`
 export const Heading = styled.h1`
     margin: 100px 0px 20px;
     color: black;
-    font-family: 'Damion', cursive;
+    font-family: 'Damion';
     text-align: center;
     font-size: 2.3rem;
     line-height: 2;

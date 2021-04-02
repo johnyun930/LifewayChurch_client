@@ -81,7 +81,7 @@ const WorshipTeamBox= styled(ColumBox)`
     }
 `
 
-const ImageBox = styled.div`
+export const ImageBox = styled.div`
     width: 70%;
     height: 100%;
     margin: 0 auto;
@@ -89,7 +89,7 @@ const ImageBox = styled.div`
    
     
 `
-const Image = styled.img`
+export const Image = styled.img`
     width: 240px;
     height: 240px;
     text-align: center;

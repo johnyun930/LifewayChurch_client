@@ -143,6 +143,7 @@ const CreateButton = styled(LinkedButton)`
 `
 export const Title = styled.h1`
     font-size: 70px;
+    font-family: "NotoSerifB";
     text-align: center;
     font-weight:bold;
     color: white;

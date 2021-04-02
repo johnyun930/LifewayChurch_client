@@ -46,6 +46,7 @@ const SpeechContainer = styled.div`
 `
 const VideoContainer = styled(SpeechContainer)`
     height: 100%;
+    height: 80vh;
     margin: 0 auto 20px auto;
     @media ${(props)=>props.theme.mobile}{
         width: 100%;
@@ -84,6 +85,8 @@ const BibleText = styled.h3`
 const Context = styled.p`
     font-size: 18px;
     line-height: 2;
+    padding-top: 2%;
+    white-space: pre-line;
     @media ${(props)=>props.theme.tablet}{
         font-size: 15px;
     }
@@ -93,14 +96,15 @@ const Context = styled.p`
     }
 `
 const Iframe = styled.iframe`
-text-align:center;
-    width: 800px;
-    height:512px;
+    text-align:center;
+    width: 100%;
+    height: 70%;
+
     @media ${(props)=>props.theme.tablet}{
         width: 100%;
         height: 70%;
     }
-    @media ${(props)=>props.theme.phone}{
+    @media ${(props)=>props.theme.mobile}{
         width: 100%;
         height: 40%;
     }
@@ -112,7 +116,7 @@ export const Worship = (props: IWorship) : JSX.Element=>{
     const [pagenum,setpagenum] = useState<number>(0);
     let textarr: string[] = [];
     let book: string[] = [];
-    let maximumletter = 600;
+    let maximumletter = 400;
     let arrowfont: number = 60;
     if(props.context){
         textarr = (props.context.trim()).split('.');

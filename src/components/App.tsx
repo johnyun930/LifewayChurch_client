@@ -1,4 +1,3 @@
-
 import React, { useState,useContext } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Home } from '../routes/Home';
@@ -25,17 +24,22 @@ import { CreatingQT } from '../routes/CreatingQT';
 import { CreatingChildSchool } from '../routes/CreatingChildSchool';
 import { CreatingBulletenBoard } from '../routes/CreatingBulletenBoard';
 import {Posting} from './Posting';
+import '../styles/fonts/fonts.css';
+import { Profile } from '../routes/Profile';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
 
   return (
     <>
+
     <ThemeProvider theme={theme}>
+
     <LoginContext.Provider value={{login,setLogin}}>
     <UserInfoContext.Provider value={{...user,setUser}}>
     <Header/>
     <Switch>
+
        <Route path ="/worship/create" component={user.isAdmin?CreatingWorship:Home}></Route> 
       <Route strict path="/worship/:Id" component={WorshipDetail}></Route>
       <Route path="/worship" component={WorshipList}></Route>
@@ -56,6 +60,7 @@ function App(): JSX.Element {
       <Route path="/connect/bulletenboard" component={BulletenBoard}></Route>
        <Route path="/connect" component={Connect}></Route>
       <Route exact path="/" component={Home}></Route>
+      <Route path="/test" component={Profile}></Route>
     </Switch>
     <Footer/>
     <GlobalStyles/>

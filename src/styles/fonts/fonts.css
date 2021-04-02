@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Damion'; 	
+    font-display: swap;		
+    src: url("./Damion-Regular.ttf") format("woff2");
+    font-weight: 300;				
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'NanumMyeongjo'; 
+    font-display: swap;		
+    src: url("./NanumMyeongjo-Regular.ttf") format("woff2");	
+    font-weight: 300;				
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'SongMyung'; 
+    font-display: swap;		
+    src: url("./SongMyung-Regular.ttf") format("woff2");	
+    font-weight: 400;				
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'NotoSerifB'; 
+    font-display: swap;		
+    src: url("./NotoSerifKR-Bold.otf") format("woff2");	
+    font-weight: 700;				
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'NotoSerifSB'; 
+    font-display: swap;		
+    src: url("./NotoSerifKR-SemiBold.otf") format("woff2");	
+    font-weight: 600;				
+    font-style: normal
+}
