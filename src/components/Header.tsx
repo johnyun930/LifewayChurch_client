@@ -211,13 +211,7 @@ const sidebar =  <NavbarContainer display={menuDisplay}>
    <Link to ="/contact"> <NavButton  onClick={()=>{
             setmenuDisplay(false);
     }}>Contact</NavButton></Link>
-    {login?<><NavButton onClick={()=>{
-        if(window.innerWidth<=size.mobile){
-        setSettingDisplay(true);
-        }else{
-        setSettingDisplay(!settingDisplay);
-        }
-    }}>{firstName+" 성도님"}</NavButton><IconButton><Power onClick={()=>{
+    {login?<><Link to="/profile"><NavButton>{firstName+" 성도님"}</NavButton></Link><IconButton><Power onClick={()=>{
         const confirm = window.confirm("로그아웃 하시겠습니까?");
         if(confirm){
         axios.get(`${domain}/logout`,{withCredentials:true}).then((response)=>{

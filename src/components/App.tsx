@@ -60,7 +60,7 @@ function App(): JSX.Element {
       <Route path="/connect/bulletenboard" component={BulletenBoard}></Route>
        <Route path="/connect" component={Connect}></Route>
       <Route exact path="/" component={Home}></Route>
-      <Route path="/test" component={Profile}></Route>
+      <Route path="/profile" component={Profile}></Route>
     </Switch>
     <Footer/>
     <GlobalStyles/>

@@ -1,11 +1,12 @@
 import { Accessibility, DomainDisabled, Info, Settings } from "@material-ui/icons"
 import { useContext, useState } from "react"
 import styled from "styled-components"
-import { UserInfoContext } from "../states/LoginContext"
+import { LoginContext, UserInfoContext } from "../states/LoginContext"
 import { Label,Input, SubmitButton } from "../styles/FormStyle"
 import User from '../images/user.png'
 import axios from "axios"
 import { DomainContext } from "../states/DomainContext"
+import { useHistory } from "react-router"
 
 const ProfileContainer = styled.div`
 width: 70%;
@@ -101,10 +102,8 @@ const Heading = styled.h1`
     margin: 20px 0 30px 20px;
 
 `
-const SecondHeading = styled(Heading)`
-    
+const SecondHeading = styled(Heading)`   
     margin-top: 50px;
-
 `
 
 const Form = styled.div`
@@ -117,6 +116,11 @@ const Form = styled.div`
     margin-left: 20px;
 
 `
+const PasswordForm = styled(Form)`
+    height: 60%;
+    grid-template-rows: repeat(4,1fr);
+`
+
 const InputBox = styled.div`
     width: 80%;
     height: 60%;
@@ -153,11 +157,14 @@ const CrossLine = styled.hr`
   width: 100%;
   height: 0px;
   display: inline-block;
-  border: 1px solid black;
+  border: none;
+
+  border-top: 1px solid black;
   align-self: center;
 `
 const SpecialLine = styled(CrossLine)`
-    border: 1px solid #D4BDAC;
+    border: none;
+    border-top: 1px solid #D4BDAC;
 `
 
 const Text = styled.p`
@@ -175,20 +182,21 @@ const SubText = styled(Text)`
 
 `
 
+const DeleteMessage = styled(Label)`
+    margin: 20px;
+    &:hover{
+        color: black;
+        cursor: pointer;
 
-export const Profile = (): JSX.Element =>{
-        const {firstName,lastName,userName,isAdmin,setUser} = useContext(UserInfoContext);
-        const domain = useContext(DomainContext);
-        const [updatefirstName,setUpdateFirstName] = useState(()=>{
-            const name = firstName;
-            return name;
-        });
-        const [updatelastName,setUpdateLastName] = useState(()=>{
-            const name = lastName;
-            return name;
-        });
-      
-        let Info =  
+    }
+`
+
+const DashBoard = ()=>{
+    const {firstName,lastName,userName,isAdmin,setUser} = useContext(UserInfoContext);
+    const domain = useContext(DomainContext);
+    const [updateFirstName,setUpdateFirstName] = useState("")
+    const [updateLastName,setUpdateLastName] = useState("");
+    return(
         <>
         <Heading>Profile</Heading>
         <Form>
@@ -199,24 +207,58 @@ export const Profile = (): JSX.Element =>{
            <InputBox></InputBox>
            <InputBox>
             <Label>First Name</Label>
-            <Input value={updatefirstName} onChange={(e)=>{
+            <Input value={updateFirstName} placeholder={firstName} onChange={(e)=>{
+                setUpdateFirstName(e.target.value);
             }} />
            </InputBox>
            <InputBox>
             <Label>Last Name</Label>
-            <Input value={updatelastName} onChange={(e)=>{
+            <Input value={updateLastName} placeholder={lastName} onChange={(e)=>{
+                setUpdateLastName(e.target.value);
+
             }}/>
            </InputBox>
            <InputBox>
            <SubmitButton onClick={(e)=>{
                e.preventDefault();
+               if(updateLastName===lastName&&updateFirstName===firstName){
+                   alert("Please use different name to update");
+                    return;
+                }else if(updateFirstName===""&&updateLastName===""){
+                    alert("Please Write down name to update");
+                    return;
+                }
+                let fn = firstName;
+                if(updateFirstName!==""){
+                    fn = updateFirstName;
+                }
+                let ln = lastName;
+                if(updateLastName!==""){
+                    ln = updateLastName;
+                }
+                const update = {
+                    userName,
+                    firstName:fn,
+                    lastName:ln,
+                    
+                }
              
 
-               axios.patch(`${domain}/signup`,{userName}).then((response)=>{
+               axios.patch(`${domain}/signup`,update,{withCredentials:true}).then((response)=>{
                     if(response.data.errMessage){
                         alert(response.data.errMessage);
                     }else{
-
+                        console.log(response.data);
+                         alert("Sucessfully updated");
+                         setUser({
+                            userName,
+                            firstName: fn,
+                            lastName: ln,
+                            isAdmin,
+                            setUser
+                         });
+                         setUpdateFirstName("");
+                         setUpdateLastName("");
                     }
                })
 
@@ -226,20 +268,159 @@ export const Profile = (): JSX.Element =>{
            
 
         </Form>
-    </>;
+    </>
 
-    let Activity = <>  <Heading>My Post</Heading>
-    <Status><Text>전체 게시글</Text> <SpecialLine></SpecialLine> <Text>22 Post</Text></Status>
-    <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>
-    <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>               
-    {isAdmin?<Status><SubText>설교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
-    {isAdmin?<Status><SubText>주일학교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
-    <SecondHeading>My Comment</SecondHeading>
-    <Status><Text>전체 댓글</Text> <SpecialLine></SpecialLine> <Text>22 Post</Text></Status>
-    <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>
-    <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>               
-    {isAdmin?<Status><SubText>설교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
-    {isAdmin?<Status><SubText>주일학교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}</>
+    )
+}
+
+const Activity = ()=>{
+    const {firstName,lastName,userName,isAdmin,setUser} = useContext(UserInfoContext);
+    return(
+
+        <>  <Heading>My Post</Heading>
+        <Status><Text>전체 게시글</Text> <SpecialLine></SpecialLine> <Text>22 Post</Text></Status>
+        <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>
+        <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>               
+        {isAdmin?<Status><SubText>설교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
+        {isAdmin?<Status><SubText>주일학교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
+        <SecondHeading>My Comment</SecondHeading>
+        <Status><Text>전체 댓글</Text> <SpecialLine></SpecialLine> <Text>22 Post</Text></Status>
+        <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>
+        <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>               
+        {isAdmin?<Status><SubText>설교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
+        {isAdmin?<Status><SubText>주일학교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}</>
+    )
+}
+
+const ChangePassword = ()=>{
+        const [password,setPassword] = useState("");
+        const [newPassword,setNewPassword] = useState("");
+        const [confirmPassword,setConfirmPassword] = useState("");
+        const {userName,setUser} = useContext(UserInfoContext);
+    const domain = useContext(DomainContext);
+    const history = useHistory();
+    const {setLogin} = useContext(LoginContext);
+
+    function ValidationCheck(newPassword:string){
+     
+        let passwordCheck = /^\w{5,}$/;
+        if(!passwordCheck.test(newPassword)){
+            return false;
+        }
+        return true;
+    }
+
+    return(
+        <>
+        <Heading>
+        Password
+    </Heading>
+    <PasswordForm>
+        <InputBox>
+            <Label>Old Password</Label>
+            <Input  type="password" value={password} onChange={(e)=>{
+                setPassword(e.target.value);
+            }}></Input>
+        </InputBox>
+        <div></div>
+        <InputBox>
+            <Label>New Password</Label>
+            <Input type="password" value={newPassword} onChange={(e)=>{
+                setNewPassword(e.target.value);
+            }}></Input>
+        </InputBox>
+        <div></div>
+        <InputBox>
+            <Label>Confirm New Password</Label>
+            <Input  type="password" value={confirmPassword} onChange={(e)=>{
+                setConfirmPassword(e.target.value);
+            }}></Input>
+        </InputBox>
+        <div></div>
+        <InputBox>
+        <SubmitButton onClick={(e)=>{
+            e.preventDefault();
+            if(newPassword===""||password===""||confirmPassword===""){
+                alert("please write down password please");
+                return;
+            }else if(newPassword!==confirmPassword){
+                alert("Please write down same password for new password and confirm password");
+                return;
+            }else{
+                const validate = ValidationCheck(newPassword);
+                if(validate){
+                    axios.patch(`${domain}/signup`,{userName,password,newPassword},{withCredentials:true}).then((response)=>{
+                        if(response.data.errMessage){
+                            alert(response.data.errMessage);
+                        }else{
+                            alert(response.data.message);                    
+                            alert("please Login Again");
+                            setUser({
+                                userName: "",
+                                firstName: "",
+                                lastName: "",
+                             isAdmin: false,
+                             setUser: ()=>{}
+                            });
+                            setLogin(false);
+                            history.replace("/");
+                        }
+                    })
+                }else{
+                    alert("Password should start with a letter and more than 5 characters");
+                }
+            
+           
+        }
+        }} style={{margin: "0 ",width: "70%"}}>Confirm Change</SubmitButton>                    
+        </InputBox>
+        <InputBox>        
+        </InputBox>
+    </PasswordForm>
+    <Heading>Account Setting</Heading>
+    <DeleteMessage onClick={()=>{
+        const confirm = window.confirm("Are you sure you want to delete your account? You cannot revert this action");
+        if(confirm){
+            axios.delete(`${domain}/login/${userName}`,{withCredentials:true}).then((response)=>{
+                if(response.data.errMessage){
+                    alert(response.data.errMessage);
+                }else{
+                    alert(response.data.message);
+                    setUser({
+                        userName: "",
+                        firstName: "",
+                        lastName: "",
+                     isAdmin: false,
+                     setUser: ()=>{}
+                    });
+                    setLogin(false);
+                    history.replace("/");
+                }
+            })
+        }
+
+    }}>Delete Account</DeleteMessage>
+    </>
+    )
+}
+
+
+export const Profile = (): JSX.Element =>{
+        const {firstName,lastName,userName,isAdmin,setUser} = useContext(UserInfoContext);
+        const [tab,setTab] = useState(0);
+
+        let options: JSX.Element = <></>;
+        switch(tab){
+            case 0:
+                options = <DashBoard></DashBoard>;
+                break;
+            case 1:
+                options = <Activity></Activity>;
+                break;
+            case 2:
+                options = <ChangePassword></ChangePassword>;
+                break;
+        }
     return(
         <ProfileContainer>
             <Sidebar>
@@ -249,18 +430,24 @@ export const Profile = (): JSX.Element =>{
                         <Name>Welcome, {firstName} 성도님</Name>
                     </ImageBox>
                 </ImageSection>
-                <OptionButton>
+                <OptionButton onClick={()=>{
+                    setTab(0)
+                }}>
                     <InfoIcon></InfoIcon><Option>DashBoard</Option>
                 </OptionButton>
-                <OptionButton>
+                <OptionButton onClick={()=>{
+                    setTab(1)
+                }}>
                     <AccessIcon></AccessIcon><Option>My Activities</Option>
                 </OptionButton>
-                <OptionButton>
+                <OptionButton onClick={()=>{
+                    setTab(2)
+                }}>
                     <SettingIcon></SettingIcon><Option>Settings</Option>
                 </OptionButton>
             </Sidebar>
             <InfoContainer>
-                {Activity}
+               {options}
             </InfoContainer>
         </ProfileContainer>
 

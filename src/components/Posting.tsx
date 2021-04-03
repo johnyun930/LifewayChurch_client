@@ -146,7 +146,7 @@ export const Posting=():JSX.Element=>{
         <IconBox onClick={()=>{
            let con= window.confirm("Do you want to delete this post?");
            if(con){
-               axios.delete(url).then((response)=>{
+               axios.delete(url+"/"+Id).then((response)=>{
                    if(response.data){
                        alert(response.data.message);
                        history.goBack();
@@ -197,7 +197,8 @@ export const Posting=():JSX.Element=>{
             <IconBox onClick={()=>{
                let con= window.confirm("Do you want to delete this post?");
                if(con){
-                   axios.delete(url).then((response)=>{
+                   console.log("deleting");
+                   axios.delete(url+"/"+Id).then((response)=>{
                        if(response.data){
                            alert(response.data.message);
                            history.goBack();
