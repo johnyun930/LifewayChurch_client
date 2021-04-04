@@ -17,6 +17,7 @@ margin: 20px auto;
 border-bottom: 1px solid #eaeaea; 
 padding-bottom: 20px;
 
+
 `
 const HeadArea =styled.div`
 width:100%;
@@ -67,12 +68,15 @@ const CommentContainer = styled.div`
 width: 60%;
 height: 150px;
 margin: 20px auto 50px;
-
 border: 2px solid #eaeaea;
 border-radius: 10px;
 display: grid;
-grid-template-columns: 85% 10%;
+grid-template-columns: 70% 20%;
 justify-content: center;
+@media ${(props)=>props.theme.mobile}{
+    width: 95%;
+    padding-right: 10px;
+}
 `
 const IconBox = styled.p`
     display:inline-block;

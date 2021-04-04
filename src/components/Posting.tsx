@@ -19,12 +19,18 @@ height: 18%;
 margin: 0 auto;
 padding-bottom: 10px;
 border-bottom: 1px solid #eaeaea;
+@media ${(props)=>props.theme.mobile}{
+    width: 100%;
+}
 `
 
 const Title = styled.h1`
 font-weight: bold;
 padding: 20px;
 font-size: 32px;
+@media ${(props)=>props.theme.mobile}{
+    padding-left: 40px;
+}
 
 `;
 const Composer = styled.h3`
@@ -32,10 +38,22 @@ font-size: 20px;
 font-weight:bold;
 padding-right: 20px;
 text-align:right;
+@media ${(props)=>props.theme.mobile}{
+    text-align: left;
+    padding-left: 40px;
+
+}
 `
 const BibleText = styled.h2`
 font-size: 24px;
 padding-left: 20px;
+@media ${(props)=>props.theme.mobile}{
+    text-align: left;
+padding-left: 40px;
+
+    margin-top: 20px;
+
+}
 
 ` 
 const Contextcontainer = styled.div`
@@ -43,7 +61,11 @@ width: 60%;
 min-height: 60vh;
 margin: 0 auto;
 border-bottom: 1px solid #eaeaea;
+@media ${(props)=>props.theme.mobile}{
+    width: 100%;
+    
 
+}
 `  ;
 
 const Context = styled.p`
@@ -89,6 +111,9 @@ height: 3vh;
 border-bottom: 1px solid #eaeaea;
 margin: 0 auto;
 text-align: right;
+@media ${(props)=>props.theme.mobile}{
+    width: 90%;
+}
 `
 const IconBox = styled.div`
 display:inline-block;
@@ -96,6 +121,7 @@ width: 30px;
 &:hover{
     cursor: pointer;
 }
+
 `
 
 export const Posting=():JSX.Element=>{

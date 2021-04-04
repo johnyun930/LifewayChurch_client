@@ -1,5 +1,5 @@
 import { Accessibility, DomainDisabled, Info, Settings } from "@material-ui/icons"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { LoginContext, UserInfoContext } from "../states/LoginContext"
 import { Label,Input, SubmitButton } from "../styles/FormStyle"
@@ -7,15 +7,28 @@ import User from '../images/user.png'
 import axios from "axios"
 import { DomainContext } from "../states/DomainContext"
 import { useHistory } from "react-router"
+import { size } from "../styles/theme"
 
 const ProfileContainer = styled.div`
 width: 70%;
-height: 90vh;
+min-height: 90vh;
 margin: 0 auto 30px;
 display: grid;
 grid-template-columns: 35% 65%;
 justify-content: center;
 border: 2px solid #9e8fa0;
+
+@media ${(props)=>props.theme.tablet}{
+    width: 90%;
+}
+@media ${(props)=>props.theme.mobile}{
+    width: 100%;
+    height: auto;
+    min-height: 110vh;
+    grid-template-rows: 50vh 60%;
+    grid-template-columns: none;
+    justify-content: initial;
+}
 `
 
 const InfoIcon = styled(Info)`
@@ -45,7 +58,13 @@ const Option = styled.p`
     font-size: 26px;
     text-align: left;
     color:white;
-
+    @media ${(props)=>props.theme.laptop}{
+        font-size: 20px;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        text-align: center;
+        font-size: 14px;
+    }
 `
 
 const Sidebar = styled.div`
@@ -54,38 +73,64 @@ const Sidebar = styled.div`
     display: grid;
     margin: 0 auto;
     grid-gap: 25px;
-    grid-template-rows: 50% 7% 7% 7%;
+    grid-template-rows: 50% 50%;
     align-self: center;
     background-color: #9e8fa0;
-    
+    @media ${(props)=>props.theme.mobile}{
+    grid-template-rows: 80% 20%;
+
+    }
 
 `
-const UserImage = styled.div`
-    width: 80%;
+
+const TabSection = styled.div`
+    width: 100%;
     height: 100%;
+    display: grid;
+    grid-template-rows: repeat(3,20%);
+    margin: 0 auto;
+    @media ${(props)=>props.theme.mobile}{
+    width: 90%;
+    height: 80%;
 
+    grid-template-rows: none;
+    grid-template-columns: repeat(3,33%);
+}
 `
+
 
 const ImageSection = styled.div`
-    width: 70%;
+    width: 90%;
     height: 91%;
     text-align: center;
     margin: 0 auto;
     padding-top:50px;
+    @media ${(props)=>props.theme.mobile}{
+        width:100%;
+    }
 `
 
 
-const OptionButton = styled(ImageSection)`
-    width: 100%;
+const OptionButton = styled.div`
+    width: 60%;
     display: grid;
-    grid-template-columns: 10% 50%;
+    grid-template-columns: 10% 90%;
+    margin: 0 auto;
     justify-content: center;
     grid-gap: 10px;
     &:hover{
         cursor: pointer;
         font-weight:bold;
     }
-    
+    @media ${(props)=>props.theme.laptop}{
+        width: 70%;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        width: 100%;
+        height:100%;
+        grid-template-columns: 10% 70%;
+        justify-content: center;
+    }
 
 `
 
@@ -94,7 +139,10 @@ const InfoContainer = styled.div`
     margin: 0 auto;
     width: 90%;
     height: 80%;
-    
+    @media ${(props)=>props.theme.mobile}{
+        height: 90%;
+        padding-bottom: 30px;
+    }
 `
 const Heading = styled.h1`
     font-size: 40px;
@@ -112,19 +160,30 @@ const Form = styled.div`
     height: 70%;
     grid-template-columns: repeat(2,1fr);
     grid-template-rows: repeat(3,1fr);
-
     margin-left: 20px;
+    @media ${(props)=>props.theme.mobile}{
+        grid-template-columns: none;
+        grid-template-rows: repeat(4,1fr);
+
+    }
 
 `
 const PasswordForm = styled(Form)`
     height: 60%;
     grid-template-rows: repeat(4,1fr);
+    @media ${(props)=>props.theme.mobile}{
+        margin-bottom: 30px;
+    }
 `
 
 const InputBox = styled.div`
     width: 80%;
     height: 60%;
     margin-top: 20px ;
+    @media ${(props)=>props.theme.mobile}{
+        width: 100%;
+
+    }
 `
 
 const ImageBox = styled.div`
@@ -135,6 +194,11 @@ const ImageBox = styled.div`
 const Image = styled.img`
     width:250px;
     height:250px;
+
+    @media ${(props)=>props.theme.laptop}{
+        width: 200px;
+        height: 200px;
+    }
 `
 const Name = styled.h4`
     margin-top: 20px;
@@ -142,6 +206,10 @@ const Name = styled.h4`
     text-align: center;
     font-weight: bold;
     color: white;
+
+    @media ${(props)=>props.theme.laptop}{
+        font-size: 18px;
+    }
 `
 const Status = styled.div`
     width: 90%;
@@ -151,6 +219,23 @@ const Status = styled.div`
     grid-gap: 25px;
     grid-template-columns: 1fr 3fr 1fr;
     justify-content: center;
+    @media ${(props)=>props.theme.laptop}{
+        font-size: 16px;
+    grid-template-columns: 1.1fr 3fr 1fr;
+
+    width: 95%;
+
+    }
+    @media ${(props)=>props.theme.tablet}{
+    grid-template-columns: 1.3fr 3fr 1fr;
+
+    }
+    @media ${(props)=>props.theme.mobile}{
+    grid-template-columns: 1.4fr 3fr 1fr;
+
+    width: 100%;
+
+    }
 `
 
 const CrossLine = styled.hr`
@@ -172,6 +257,12 @@ const Text = styled.p`
     font-size: 18px;
     font-weight: bold;
     color: #D4BDAC;
+    @media ${(props)=>props.theme.laptop}{
+        font-size: 16px;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 16px;
+    }
 
 `
 const SubText = styled(Text)`
@@ -179,6 +270,12 @@ const SubText = styled(Text)`
     font-weight: normal;
     align-self: center;
     font-size: 16px;
+    @media ${(props)=>props.theme.laptop}{
+        font-size: 14px;
+    }
+    @media ${(props)=>props.theme.mobile}{
+        font-size: 14px;
+    }
 
 `
 
@@ -204,7 +301,7 @@ const DashBoard = ()=>{
             <Label>User Name</Label>
             <Input value={userName} disabled/>
            </InputBox>
-           <InputBox></InputBox>
+           {window.innerWidth<=size.mobile?<></>:<InputBox></InputBox>}
            <InputBox>
             <Label>First Name</Label>
             <Input value={updateFirstName} placeholder={firstName} onChange={(e)=>{
@@ -274,21 +371,30 @@ const DashBoard = ()=>{
 }
 
 const Activity = ()=>{
-    const {firstName,lastName,userName,isAdmin,setUser} = useContext(UserInfoContext);
+    const {userName,isAdmin} = useContext(UserInfoContext);
+    const domain = useContext(DomainContext);
+    const [data,setData] = useState<any>({});
+    useEffect(()=>{
+        axios.get(`${domain}/postcount/${userName}`).then((response)=>{
+            setData(response.data);
+        })
+    })
+    
     return(
 
-        <>  <Heading>My Post</Heading>
-        <Status><Text>전체 게시글</Text> <SpecialLine></SpecialLine> <Text>22 Post</Text></Status>
-        <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>
-        <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>               
-        {isAdmin?<Status><SubText>설교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
-        {isAdmin?<Status><SubText>주일학교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
+        <>  
+        <Heading>My Post</Heading>
+        <Status><Text>전체 게시글</Text> <SpecialLine></SpecialLine> <Text>{data.totalPost}</Text></Status>
+        <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>{data.numofQT}</SubText></Status>
+        <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>{data.numofBTB}</SubText></Status>               
+        {isAdmin?<Status><SubText>성경 공부</SubText> <CrossLine></CrossLine> <SubText>{data.numofBS}</SubText></Status>:<></>}
+        {isAdmin?<Status><SubText>주일 학교</SubText> <CrossLine></CrossLine> <SubText>{data.numofCS}</SubText></Status>:<></>}
         <SecondHeading>My Comment</SecondHeading>
-        <Status><Text>전체 댓글</Text> <SpecialLine></SpecialLine> <Text>22 Post</Text></Status>
-        <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>
-        <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>               
-        {isAdmin?<Status><SubText>설교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}
-        {isAdmin?<Status><SubText>주일학교</SubText> <CrossLine></CrossLine> <SubText>22 Post</SubText></Status>:<></>}</>
+        <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>{data.numofQTReview}</SubText></Status>
+        <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>{data.numofBTBReview}</SubText></Status>               
+        <Status><SubText>성경 공부</SubText> <CrossLine></CrossLine> <SubText>{data.numofBSReview}</SubText></Status>
+        <Status><SubText>주일 학교</SubText> <CrossLine></CrossLine> <SubText>{data.numofCSReview}</SubText></Status>
+        </>
     )
 }
 
@@ -430,6 +536,7 @@ export const Profile = (): JSX.Element =>{
                         <Name>Welcome, {firstName} 성도님</Name>
                     </ImageBox>
                 </ImageSection>
+                <TabSection>
                 <OptionButton onClick={()=>{
                     setTab(0)
                 }}>
@@ -445,6 +552,7 @@ export const Profile = (): JSX.Element =>{
                 }}>
                     <SettingIcon></SettingIcon><Option>Settings</Option>
                 </OptionButton>
+                </TabSection>
             </Sidebar>
             <InfoContainer>
                {options}
