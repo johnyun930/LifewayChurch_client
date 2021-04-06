@@ -24,7 +24,8 @@ border: 2px solid #9e8fa0;
 @media ${(props)=>props.theme.mobile}{
     width: 100%;
     height: auto;
-    min-height: 110vh;
+    min-height: 130vh;
+    margin-bottom:0px;
     grid-template-rows: 50vh 60%;
     grid-template-columns: none;
     justify-content: initial;
@@ -36,6 +37,9 @@ const InfoIcon = styled(Info)`
     font-size: 26px;
     text-align:right;
     color:white;
+    @media ${(props)=>props.theme.mobile}{
+    padding-left: 5px;
+}
 `
 const SettingIcon = styled(Settings)`
     align-self: center;
@@ -43,6 +47,9 @@ const SettingIcon = styled(Settings)`
     font-size: 26px;
     text-align:right;
     color:white;
+    @media ${(props)=>props.theme.mobile}{
+    padding-left: 5px;
+}
 
 `
 const AccessIcon = styled(Accessibility)`
@@ -51,6 +58,9 @@ const AccessIcon = styled(Accessibility)`
     font-size: 26px;
     text-align:right;
     color:white;
+    @media ${(props)=>props.theme.mobile}{
+    padding-left: 5px;
+}
 
 `
 const Option = styled.p`
@@ -61,9 +71,15 @@ const Option = styled.p`
     @media ${(props)=>props.theme.laptop}{
         font-size: 20px;
     }
+ 
+
     @media ${(props)=>props.theme.mobile}{
         text-align: center;
         font-size: 14px;
+    }
+    @media ${(props)=>props.theme.Smobile}{
+        text-align: center;
+        font-size: 11px;
     }
 `
 
@@ -90,11 +106,11 @@ const TabSection = styled.div`
     grid-template-rows: repeat(3,20%);
     margin: 0 auto;
     @media ${(props)=>props.theme.mobile}{
-    width: 90%;
+    width: 100%;
     height: 80%;
 
     grid-template-rows: none;
-    grid-template-columns: repeat(3,33%);
+    grid-template-columns: repeat(3,1fr);
 }
 `
 
@@ -128,7 +144,9 @@ const OptionButton = styled.div`
     @media ${(props)=>props.theme.mobile}{
         width: 100%;
         height:100%;
-        grid-template-columns: 10% 70%;
+        grid-template-columns: 14% 86%;
+        grid-gap: 0;
+        text-align: center;
         justify-content: center;
     }
 
@@ -148,6 +166,10 @@ const Heading = styled.h1`
     font-size: 40px;
     font-weight: bold;
     margin: 20px 0 30px 20px;
+    @media ${(props)=>props.theme.mobile}{
+    font-size: 30px;
+        
+    }
 
 `
 const SecondHeading = styled(Heading)`   
@@ -261,7 +283,10 @@ const Text = styled.p`
         font-size: 16px;
     }
     @media ${(props)=>props.theme.mobile}{
-        font-size: 16px;
+        font-size: 14px;
+    }
+    @media ${(props)=>props.theme.Smobile}{
+        font-size: 10px;
     }
 
 `
@@ -274,7 +299,10 @@ const SubText = styled(Text)`
         font-size: 14px;
     }
     @media ${(props)=>props.theme.mobile}{
-        font-size: 14px;
+        font-size: 12px;
+    }
+    @media ${(props)=>props.theme.Smobile}{
+        font-size: 10px;
     }
 
 `

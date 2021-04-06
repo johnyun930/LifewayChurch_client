@@ -98,7 +98,7 @@ const ServiceIntroduction = styled.div`
     margin: 79px auto;
     font-size: 40px;
     @media ${(props)=>props.theme.mobile}{
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -125,7 +125,8 @@ export const Home =(): JSX.Element =>{
     <Introduction>
         <Title>교회소개</Title>
         <Text >생명길 교회는</Text>
-        <Text theme={{ fontSize: "40px",fontWeight:"bold"}}>주님의 복음을 사랑하는</Text>
+        <Text theme={{ fontSize: "40px",fontWeight:"bold"}}>주님의 복음을 </Text>
+        <Text theme={{ fontSize: "40px",fontWeight:"bold"}}> 사랑하는</Text>
         <Text>교회입니다</Text>
         <Image src={bible}></Image>
         
@@ -134,8 +135,10 @@ export const Home =(): JSX.Element =>{
     <Container theme={{bkColor:"#f9fafb"}}>
     <Introduction >
         <Title>예배 안내</Title>
-        <ServiceIntroduction>통합예배: 주일 오전 10시 (예배당)</ServiceIntroduction>
-        <ServiceIntroduction>주일학교: 주일 오전 10시 (지하 1층)</ServiceIntroduction>
+        <ServiceIntroduction>통합예배: 주일 오전 10시</ServiceIntroduction>
+
+        <ServiceIntroduction>주일학교: 주일 오전 10시 </ServiceIntroduction>
+
         <PS>현재 코로나로 인해 예배 모임을 가지고 있지 않습니다</PS>
         <PS>PS:예배 문의는 Contact address으로 문의주세요</PS>
 

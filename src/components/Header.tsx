@@ -23,18 +23,25 @@ const slide = keyframes`
 
 const HeaderContainer = styled.div`
     width: 100%;
-    height: 13vh;
+    height: 14vh;
     background-color: #f5f0ec;
     display:grid;
     grid-template-columns: 40% 60%;
     z-index:1;
     margin-bottom: 2%;
+    @media ${(props)=>props.theme.tablet}{
+        height:15vh;
+        grid-template-columns: 30% 70%;
+
+    } 
 
     @media ${(props)=>props.theme.mobile}{
         height:60px;
         display: flex;
         flex-direction:column;
         align-items:middle;
+        margin-bottom: 0;
+
     } 
     position:${(props: styleProps)=>props.position?"fixed":"static"};
    
@@ -85,6 +92,12 @@ const NavbarContainer = styled.div<DisplayProps>`
     grid-template-columns: 10% 10% 10% 10% 10% 15% 2%;
     align-self:center;
     z-index:1;
+    @media ${(props)=>props.theme.tablet}{
+        width: 100%;
+      
+        
+        
+    }
     @media ${(props)=>props.theme.mobile}{
         width: 40%;
         height: 100vh;
@@ -103,11 +116,18 @@ const NavbarContainer = styled.div<DisplayProps>`
 
 const NavButton = styled.div`
     margin: auto auto;
-    font-size: 1.3em;
+    font-size: 1.1em;
     color: #44525d;
     vertical-align:middle;
     line-height: 30px;
     text-align: center;
+    @media ${(props)=>props.theme.tablet}{
+        font-size: 12px;
+
+      
+        
+        
+    }
 
     @media ${(props)=>props.theme.mobile}{
         display: block;

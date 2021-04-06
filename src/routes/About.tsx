@@ -290,8 +290,8 @@ export const About = ():JSX.Element =>{
         form = <>
         <WorshipTeamBox  >
            <ImageBox><Image src={profile}></Image><Name>윤 종 훈 (찬양팀 리더)</Name></ImageBox>
-           <ImageBox><Image src={profile}></Image><Name>이 민 경 (키 보 드)</Name></ImageBox>
-           <ImageBox><Image src={profile}></Image><Name> 라 민 우(드럼)</Name></ImageBox>
+           <ImageBox><Image src={profile}></Image><Name>이 민 경 (키보드)</Name></ImageBox>
+           <ImageBox><Image src={profile}></Image><Name> 라 찬 우(드럼)</Name></ImageBox>
            <ImageBox><Image src={profile}></Image><Name>오 현 석(베이스)</Name></ImageBox>
            <ImageBox><Image src={profile}></Image><Name>오 규 석(싱어)</Name></ImageBox>
            <ImageBox><Image src={profile}></Image><Name>최 민 주(싱어)</Name></ImageBox>

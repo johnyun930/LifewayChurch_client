@@ -18,9 +18,9 @@ export const Connect = ():JSX.Element=>{
         grid-gap: 60px;
 
         @media ${(props)=>props.theme.mobile}{
-            width: 80%;
+            width: 90%;
             grid-gap: 30px;
-            height: 60vh;
+            height: 40vh;
 
         }
 
@@ -35,10 +35,16 @@ export const Connect = ():JSX.Element=>{
             background-color: #dfdefd;
             cursor: pointer;
         }
+        @media ${(props)=>props.theme.mobile}{
+            width: 120px;
+            height: 120px;
+
+        }
+      
     `
     const Title = styled.h1`
         font-size: 40px;
-        color: black;
+        color: #000000;
         font-weight:bold;
         vertical-align:middle;
         text-align:center;
@@ -62,7 +68,7 @@ export const Connect = ():JSX.Element=>{
     return(
         <>
         <LogoBox url={logo}>
-            <MainTitle style={{color: "black"}}>교제와 나눔</MainTitle>
+            <MainTitle style={{color: "#796557"}}>교제와 나눔</MainTitle>
         </LogoBox>
         <ColumnContainer>
         <Link to="/connect/biblestudy">
