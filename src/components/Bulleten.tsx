@@ -7,6 +7,9 @@ import { NextBox, NumberBox, SelectedNumberBox } from '../routes/WorshipList';
 import { DomainContext } from '../states/DomainContext';
 import CreateIcon from '@material-ui/icons/Create';
 import { LoginContext, UserInfoContext } from '../states/LoginContext';
+import {SubmitButton} from '../styles/FormStyle';
+import {HeadingContainer,BulletenTitle,ProfileImage} from '../styles/BulletenBoardStyle';
+
 export interface BulletenData{
     _id: string,
     id: number,
@@ -28,12 +31,18 @@ interface BulletenContext{
 
 }
 
+const BulletenContainer = styled.div`
+    width: 100%;
+    min-height: 80vh;
+`
+
 const Table = styled.table`
     width: 70%;
     height:100%;
     margin: 0 auto 30px;
     border-top: 1px solid black;
-
+    border-spacing: 2px;
+  border-collapse: separate;
     @media ${(props)=>props.theme.mobile}{
         width: 90%;
         margin-bottom: 15px;
@@ -51,10 +60,10 @@ const ColumnSize = {
 const NoticeBox = styled.div`    
     width: 50px;
     height: 15px;
-    border: 1px solid #ffc6c9;
-    border-radius: 3px;
-    background-color:#ffe3e4;
-    color: #ff4e59;
+    border: 1px solid ${(props)=>props.theme.maincolor} ;
+    border-radius: 15px;
+    background-color: ${(props)=>props.theme.buttoncolor} ;
+    color: #fcfcfc;
     font-size: 12px;
     margin: 0 auto;
     padding-top: 5px;
@@ -68,23 +77,36 @@ const NoticeBox = styled.div`
 
 `;
 
-const Column = styled.td`
+    interface ColumnProps{
+        columnSize: string
+        fontWeight?: string,
+        textAlign?: string,
+        decoration?: boolean
+    }
+
+
+const Column = styled.td<ColumnProps>`
     width: ${(props)=>props.theme.ColumnSize};
-    font-size: 15px;
+    font-size: 16px;
     height: 40px;
-    font-weight:${(props)=>props.theme.fontWeight||"normal"};
-    text-align: ${(props)=>props.theme.textAlign||"left"};
+    font-weight:${(props)=>props.fontWeight||"normal"};
+    text-align: ${(props)=>props.textAlign||"left"};
     vertical-align:middle;
     border-bottom: 1px solid #f2f2f2;
+    white-space: nowrap; 
+     overflow: hidden;
+    text-overflow: ellipsis; 
     &:hover{
-        text-decoration: ${(props)=>props.theme.decoration?"underline":"none"};
-        cursor:  ${(props)=>props.theme.decoration?"pointer":""}
+        text-decoration: ${(props)=>props.decoration?"underline":"none"};
+        cursor:  ${(props)=>props.decoration?"pointer":""}
     }
     @media ${(props)=>props.theme.mobile}{
-        height: 60px;
-        font-size: 12px;
-        line-height:1.3;
+        font-size: 14px;
     }
+    @media ${(props)=>props.theme.Smobile}{
+        font-size: 12px;
+    }
+   
     
 `
 const PageContainer = styled.div`
@@ -95,31 +117,29 @@ const PageContainer = styled.div`
     font-weight:400px;
     text-align: center;
     margin: 0px auto 40px;
+    
     @media ${(props)=>props.theme.mobile}{
         width: 100%;
     }
 `
 
-const ButtonContainer = styled(PageContainer)`
-    background-color: white;
-    text-align: right;
-    padding-right: 70px;
+const ButtonContainer = styled.div`
+    width: 100%;
+    padding-left: 45%;
     @media ${(props)=>props.theme.mobile}{
-        width: 80%;
         height: 30px;
         padding-right: 5px;
     }
 `
-const LinkedButton = styled(Link)`
-    width: 74px;
-    border: 1px solid #d3d3d3;
-    text-align:center;
-    height: 27px;
-    min-width: 56px;
-    padding-top:8px;
-    display: inline-block;
+
+const CustomLink = styled(Link)`
+    width: 100%;
+    height:100%auto;
+    margin: 0;
+    padding: 0;
     
 `
+
 
 const getDateFormat = (date: Date)=>{
     if(date.getMonth()<9){
@@ -153,20 +173,20 @@ export const Bulleten = (props:BulletenContext)=>{
             if(value.notice&&noticeCount<5){
                 list.splice(0+noticeCount,0,
                     <tr>
-                        <Column theme={{ColumnSize:ColumnSize.Id, textAlign:"center"}}><NoticeBox>공지</NoticeBox></Column>
-                        <Link to={`/connect${props.path+"/"+value._id}`}><Column  theme={{ColumnSize:ColumnSize.title, decoration:true }}>{value.title}</Column></Link> 
-                        <Column theme={{ColumnSize:ColumnSize.composer}}>{value.composer}</Column>
-                        <Column theme={{ColumnSize:ColumnSize.date , textAlign:"center"}}>{getDateFormat(new Date(value.date))}</Column>
+                        <Column columnSize={ColumnSize.Id} textAlign={"center"}><NoticeBox>공지</NoticeBox></Column>
+                        <Link to={`/connect${props.path+"/"+value._id}`}><Column columnSize={ColumnSize.title} textAlign={"center"} decoration={true} >{value.title}</Column></Link> 
+                        <Column columnSize={ColumnSize.composer} textAlign={"center"}>{value.composer}</Column>
+                        <Column columnSize={ColumnSize.Id} textAlign={"center"}>{getDateFormat(new Date(value.date))}</Column>
                     </tr>
                     );
                     noticeCount++;
             }
             list.push(
             <tr>
-                <Column theme={{ColumnSize:ColumnSize.Id, textAlign:"center"}}>{value.id}</Column>
-                <Link to={`/connect${props.path+"/"+value._id}`}><Column  theme={{ColumnSize:ColumnSize.title, decoration:true }}>{value.title}</Column></Link>
-                <Column theme={{ColumnSize:ColumnSize.composer}}>{value.composer}</Column>
-                <Column theme={{ColumnSize:ColumnSize.date , textAlign:"center"}}>{getDateFormat(new Date(value.date))}</Column>
+                <Column columnSize={ColumnSize.Id} textAlign={"center"}>{value.id}</Column>
+                        <Link to={`/connect${props.path+"/"+value._id}`}><Column columnSize={ColumnSize.title} textAlign={"center"} decoration={true} >{value.title}</Column></Link> 
+                        <Column columnSize={ColumnSize.composer} textAlign={"center"}>{value.composer}</Column>
+                        <Column columnSize={ColumnSize.Id} textAlign={"center"}>{getDateFormat(new Date(value.date))}</Column>
             </tr>
             );
            
@@ -200,18 +220,10 @@ export const Bulleten = (props:BulletenContext)=>{
 
     }
     return(
-        <>
-        <LogoBox url={""}></LogoBox>
-        <Table>
-            <tr>
-                <Column theme={{ColumnSize:ColumnSize.Id,fontWeight:"bold", textAlign: "center"}}></Column>
-                <Column theme={{ColumnSize:ColumnSize.title,fontWeight:"bold", textAlign: "center"}}>제목</Column>
-                <Column theme={{ColumnSize:ColumnSize.composer,fontWeight:"bold"}}>글쓴이</Column>
-                <Column theme={{ColumnSize:ColumnSize.date,fontWeight:"bold", textAlign: "center"}}>작성일</Column>
-            </tr>
-            {list.slice((pageNum-1)*columnNum,pageNum*columnNum)}
-        </Table>
-        <ButtonContainer><LinkedButton onClick={(e)=>{
+        <BulletenContainer>
+        <HeadingContainer>
+        <BulletenTitle>{props.title}</BulletenTitle>
+        <ButtonContainer><CustomLink  onClick={(e:any)=>{
             if(!login){
                 e.preventDefault();
                 alert("Please Login to create the post. 죄송합니다. 먼저 로그인 해주시길 바랍니다.");
@@ -220,8 +232,19 @@ export const Bulleten = (props:BulletenContext)=>{
                 e.preventDefault();
                 alert("Sorry. Only Administrater can create the post in this bulleten. 죄송합니다. 이 곳은 관리자만이 글을 작성하실수 있습니다." );
             }
-        }} to ={'/connect'+props.path+"/create"}><CreateIcon style={{fontSize:16}}></CreateIcon> 글쓰기</LinkedButton></ButtonContainer>
+        }} to ={'/connect'+props.path+"/create"}><SubmitButton> 글쓰기</SubmitButton></CustomLink></ButtonContainer>
+        </HeadingContainer>
+        <Table>
+            <tr>
+                <Column columnSize={ColumnSize.Id} fontWeight={"bold"} textAlign={"center"}></Column>
+                <Column columnSize={ColumnSize.title} fontWeight={"bold"} textAlign={"center"}>제목</Column>
+                <Column columnSize={ColumnSize.composer} fontWeight={"bold"} textAlign={"center"}>글쓴이</Column>
+                <Column columnSize={ColumnSize.date} fontWeight={"bold"} textAlign={"center"}>작성일</Column>
+            </tr>
+            {list.slice((pageNum-1)*columnNum,pageNum*columnNum)}
+        </Table>
+       
         <PageContainer>{pageNumList}</PageContainer>
-        </>
+        </BulletenContainer>
     )
 }

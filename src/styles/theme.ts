@@ -10,4 +10,9 @@ export const theme = {
      mobile: `(max-width: ${size.mobile}px)`,
      tablet: `(max-width: ${size.tablet}px)`,
      laptop: `(max-width: ${size.laptop}px)`,
+     maincolor: "#f5f0ec",
+     buttoncolor: "#9E8FA0",
+     bordercolor: "#eaeaea",
+     hovercolor: "#707186"
+
 }   

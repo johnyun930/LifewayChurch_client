@@ -2,10 +2,13 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { RouterProps, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { Input, SubmitButton, TextArea } from "../routes/CreatingWorship"
+import {  TextArea } from "../routes/CreatingWorship"
+import { Input, SubmitButton } from "../styles/FormStyle";
+
 import { Form, FormContainer } from '../routes/CreatingWorship';
 import { DomainContext } from '../states/DomainContext';
 import { UserInfoContext } from '../states/LoginContext';
+import { BulletenHeading } from './Posting';
 
 interface formAttribute {
     IsbibleInput?: boolean,
@@ -23,8 +26,6 @@ const SubInput = styled.input`
     padding-left: 5.5%;
     display: inline-block;
     margin: 0 auto 20px;
-
-        
 `
 
 export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element=>{
@@ -42,6 +43,8 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
 
         
     return(
+        <>
+        <BulletenHeading></BulletenHeading>
         <FormContainer>
             <Form action={`${domain}/${path}`} method="POST">
         <Input type="text" name="title" value={title} placeholder = "제목을 입력해주세요" onChange={
@@ -105,6 +108,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
             }}>작성하기</SubmitButton>
             </Form>
         </FormContainer>
+        </>
     )
 
 }

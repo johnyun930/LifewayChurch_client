@@ -30,7 +30,7 @@ export const Login  =(props:RouterProps): JSX.Element =>{
     }}/>
     <SmallBox>Forgot password?</SmallBox>
 
-    <SubmitButton type="submit" onClick = {(e)=>{
+    <SubmitButton center={true} top={"20px"} type="submit" onClick = {(e)=>{
         e.preventDefault();
         axios.post(`${domain}/login`,{
             userName,

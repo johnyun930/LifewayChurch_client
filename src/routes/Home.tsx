@@ -65,7 +65,7 @@ const Text = styled.p`
     font-weight: ${(props)=>props.theme.fontWeight};
     margin-bottom: 40px;
     font-size: ${(props)=>props.theme.fontSize||"30px"};
-    font-family:'Nanum Myeongjo', serif;
+    font-family:'NanumMyeongjo', serif;
     @media ${(props)=>props.theme.mobile}{
     line-height:1.3;
 }

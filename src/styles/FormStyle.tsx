@@ -25,27 +25,28 @@ export const Label = styled.label`
     font-size: 0.8rem;
     margin-bottom: 2px;
 `
+interface ButtonProps{
+    center?: boolean,
+    top?: string
+}
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<ButtonProps>`
   display: block;
   min-width: 50%;
     font-weight: 500;
     color: white;
-    background-color: #A095A5;
-
-    padding: 0 20px;
-    margin: 65px auto 30px ;
+    margin: ${(props)=>props.center?"0 auto":0};
+    margin-top: ${(props)=>props.top||0};
+    background-color: ${(props)=>props.theme.buttoncolor};
     border-radius: 18px;
     height: 36px;
     line-height: 36px;
-    border: 1px solid #e2e2e2;
+    border: 1px solid ${(props)=>props.theme.bordercolor};
     font-size: 16px;
     &:hover{
         cursor: pointer;
-    background-color: #707186;
-
-        color:white;
-    }
+       background-color: ${(props)=>props.theme.hovercolor};
+     }
 `
 
 export const SmallBox = styled.p`
@@ -69,3 +70,5 @@ export const BoldContext = styled.h3`
         text-decoration: underline;
     }
 `
+
+

@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router"
 import styled from "styled-components"
 import { LoginContext, UserInfoContext } from "../states/LoginContext"
-
+import { ProfileImage } from "../styles/BulletenBoardStyle";
 export interface CommentData{
     _id: string,
     reviewer: string,
@@ -12,36 +12,63 @@ export interface CommentData{
 }
 
 const CommentArea = styled.div`
-width: 60%;
+width: 70%;
 margin: 20px auto;
 border-bottom: 1px solid #eaeaea; 
 padding-bottom: 20px;
-
+ 
+ @media ${(props)=>props.theme.mobile}{
+    width: 95%;
+ }
 
 `
 const HeadArea =styled.div`
 width:100%;
 display:grid;
-grid-template-columns: 80% 20%;
+grid-template-columns: 60px 80% 15%;
 margin-bottom: 5px;
+@media ${(props)=>props.theme.laptop}{
+    grid-template-columns: 60px 60% 30%;
+
+ }
+@media ${(props)=>props.theme.tablet}{
+    grid-template-columns: 60px 50% 40%;
+
+ }
+@media ${(props)=>props.theme.mobile}{
+    grid-template-columns: 60px 35% 50%;
+
+ }
 `
 const IconArea = styled.div`
     width: 100%;
     text-align: right;
-    padding-right: 40px;
     font-size: 20px;
-    
+    @media ${(props)=>props.theme.mobile}{
+        position: relative;
+        top: 10px;
+        text-align: right;
+
+
+ }
+ @media ${(props)=>props.theme.Smobile}{
+        position: relative;
+        top: 10px;
+        text-align: left;
+
+
+ }
 `
 const UserName = styled.h1`
-margin-left: 20px;
-font-size: 18px;
+font-size: 20px;
 font-weight: bold;
-margin-bottom: 10px;
+position: relative;
+top: 10px;
 `
 const Context = styled.p`
 font-size: 18px;
 line-height: 2;
-margin-left: 20px;
+padding-left: 60px;
 word-wrap: break-word;
 `
 
@@ -63,19 +90,28 @@ width:100%;
 height: 80%;
 vertical-align:middle;
 text-align:center;
+background-color: transparent;
+border: none;
+font-size: 28px;
+color: ${(props)=>props.theme.buttoncolor};
+@media ${(props)=>props.theme.mobile}{
+     
+    font-size: 20px;
+
+ }
 `
 const CommentContainer = styled.div`
-width: 60%;
+width: 70%;
 height: 150px;
 margin: 20px auto 50px;
 border: 2px solid #eaeaea;
 border-radius: 10px;
 display: grid;
-grid-template-columns: 70% 20%;
+grid-template-columns: 85% 10%;
 justify-content: center;
 @media ${(props)=>props.theme.mobile}{
-    width: 95%;
-    padding-right: 10px;
+    width: 90%;
+    grid-template-columns: 75% 20%;
 }
 `
 const IconBox = styled.p`
@@ -136,7 +172,7 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
                 }
             });
         }
-    }}>등록</Button>
+    }}>Post</Button>
 </CommentContainer>
 
     let list:JSX.Element[] = [];
@@ -147,6 +183,7 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
             list.push(
         <CommentArea>
             <HeadArea>
+                <ProfileImage></ProfileImage>
         <UserName>{value.reviewer}</UserName>
         {value.reviewer===userName||isAdmin?<IconArea>
                {value.reviewer===userName?<IconBox onClick={()=>{

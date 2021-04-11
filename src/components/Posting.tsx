@@ -8,71 +8,96 @@ import styled from 'styled-components';
 import { Comment } from './Comment';
 import { Create, Delete } from '@material-ui/icons';
 import {  UserInfoContext } from '../states/LoginContext';
-
+import { BulletenTitle, HeadingContainer, ProfileImage } from '../styles/BulletenBoardStyle';
 const Container = styled.div`
-width: 100%;
-margin-bottom: 100px;
+width: 70%;
+margin: 0 auto;
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+@media ${(props)=>props.theme.mobile}{
+    width: 100%;
+}
+
 `
 const Header = styled.div`
-width: 60%;
+width: 100%;
 height: 18%;
-margin: 0 auto;
-padding-bottom: 10px;
-border-bottom: 1px solid #eaeaea;
+margin: 0 auto 20px;
+padding-top: 10px;
+padding-left: 20px;
 @media ${(props)=>props.theme.mobile}{
     width: 100%;
 }
 `
 
+
 const Title = styled.h1`
 font-weight: bold;
-padding: 20px;
-font-size: 32px;
+margin-bottom: 20px;
+padding-left: 70px;
+font-size: 25px;
+color: ${(props)=>props.theme.buttoncolor};
 @media ${(props)=>props.theme.mobile}{
-    padding-left: 40px;
+    padding-left: 10px;
+    font-size: 28px;
+
 }
 
 `;
 const Composer = styled.h3`
 font-size: 20px;
 font-weight:bold;
-padding-right: 20px;
-text-align:right;
+display:inline-block;
+text-align: left;
+margin-left: 10px;
+bottom: 15px;
+position:relative;
+@media ${(props)=>props.theme.mobile}{
+    margin-left: 10px;
+}
+
+
+
+`
+const BibleText = styled.h2`
+font-size: 18px;
+margin-bottom: 20px;
+padding-left: 70px;
+font-weight: bold;
+color: green;
 @media ${(props)=>props.theme.mobile}{
     text-align: left;
-    padding-left: 40px;
+    font-size: 22px;
+
+    padding-left: 10px;
+
 
 }
 `
-const BibleText = styled.h2`
-font-size: 24px;
-padding-left: 20px;
-@media ${(props)=>props.theme.mobile}{
-    text-align: left;
-padding-left: 40px;
-
-    margin-top: 20px;
-
-}
-
-` 
-const Contextcontainer = styled.div`
-width: 60%;
-min-height: 60vh;
-margin: 0 auto;
-border-bottom: 1px solid #eaeaea;
-@media ${(props)=>props.theme.mobile}{
+const MainContainer = styled.div`
     width: 100%;
-    
+    min-height: 50vh;
+    margin: 0 auto;
+    padding-bottom: 30px;
+ 
+`
 
-}
-`  ;
+
 
 const Context = styled.p`
 line-height:2;
-font-size: 16px;
-padding: 20px 20px 0;
+font-size: 17px;
+padding-left: 70px;
+
+
 word-wrap:break-word;
+@media ${(props)=>props.theme.mobile}{
+    text-align: left;
+    padding-left: 10px;
+    font-size: 18px;
+
+
+}
 
 `
 const UpdateInput = styled.input`
@@ -124,6 +149,34 @@ width: 30px;
 
 `
 
+export const BulletenHeading = ()=>{
+    const location = useLocation();
+    const path = location.pathname.split('/')
+   let heading = "";
+
+   switch(path[2]){
+       case "biblestudy":
+           heading = "성경공부방";
+           break;
+         case "childschool":
+            heading = "주일학교";
+            break;   
+            case "qt":
+            heading = "Q.T방";
+            break;
+            case "bulletenboard":
+            heading = "자유게시판";
+            break;  
+   }
+   return(
+   <HeadingContainer>
+   <BulletenTitle>
+        {heading}
+    </BulletenTitle>
+    </HeadingContainer>
+   )
+}
+
 export const Posting=():JSX.Element=>{
     const {Id} = useParams<RouteParams>();
     const [data,setData] = useState<BulletenData>();
@@ -135,7 +188,6 @@ export const Posting=():JSX.Element=>{
     const [update,setUpdate] = useState(false);
     const {userName,isAdmin} = useContext(UserInfoContext)
     
-   
    
 
 
@@ -152,16 +204,18 @@ export const Posting=():JSX.Element=>{
         if(!update){
         form =
         <>
-        <Header>
-        <Title>{data.title}</Title>
-        <Composer>{data.composer}</Composer>
-        {data.bibleText?<BibleText>{data.bibleText}</BibleText>:<></>}
-        </Header>
-        <Contextcontainer>
-            <Context>{data.context}</Context>
-        </Contextcontainer>
-        <Comment url={url} Id={Id}></Comment>
+        <Container>
 
+        <Header>
+        <ProfileImage/><Composer>{data.composer}</Composer>
+        </Header>
+        <MainContainer>
+        <Title>{data.title}</Title>
+        {data.bibleText?<BibleText>{data.bibleText}</BibleText>:<></>}
+        <Context>{data.context}</Context>
+        </MainContainer>
+        </Container>
+        <Comment url={url} Id={Id}></Comment>
     
         {data.composer===userName||isAdmin?
         <ModifyContainer>
@@ -198,7 +252,6 @@ export const Posting=():JSX.Element=>{
                 setData({...data,bibleText:e.target.value});
             }}></UpdateInput>:<></>}
             </Header>
-            <Contextcontainer>
                 <UpdateTextArea placeholder="내용" value={data.context} onChange={(e)=>{
                      setData({...data,context:e.target.value});
                 }}></UpdateTextArea>
@@ -212,7 +265,6 @@ export const Posting=():JSX.Element=>{
                 })
             }}>수 정 하 기</UpdateButton>
 
-            </Contextcontainer>
             <ModifyContainer>
                 <IconBox>
                     <Create onClick={()=>{
@@ -242,8 +294,7 @@ export const Posting=():JSX.Element=>{
 
     return(
     <>
-    <Container>
-        {form}
-    </Container>
+    <BulletenHeading></BulletenHeading>
+         {form}
     </>)
 }

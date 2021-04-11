@@ -70,7 +70,7 @@ export const Signup = (props: RouterProps): JSX.Element=>{
             <Input type="email" name="email" required value={email} onChange={(e:ChangeEvent<HTMLInputElement>)=>{ 
                 setEmail(e.target.value)
             }}/>
-        <SubmitButton type="submit" onClick={(event)=>{
+        <SubmitButton center={true} top={"20px"} type="submit" onClick={(event)=>{
             event.preventDefault();
             if(!(userName&&password&&firstName&&lastName&&email)){
                 alert("please fill up all the information please");

@@ -67,8 +67,8 @@ const Menubar = styled(MenuIcon)`
 const Logo = styled.img`
     padding: 20px 16px;
     padding-left: 30px;
-    width: 130px;
-    height: 90px;
+    width: 110px;
+    height: 80px;
     @media ${(props)=>props.theme.mobile}{
         width: 50px;
         height: 50px;

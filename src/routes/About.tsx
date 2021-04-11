@@ -38,8 +38,12 @@ const ColumBox = styled.div`
         width: 90%;
     }
     @media ${(props)=>props.theme.mobile}{
+        width: 100%;
+
+        margin-bottom: 30px;
+        min-height: 50vh;
         grid-template-columns: none;
-        grid-template-rows: 50% 50%;
+        grid-template-rows: 40% 60%;
     }
 `
 
@@ -54,7 +58,7 @@ const DirectorBox = styled(ColumBox)`
     }
      @media ${(props)=>props.theme.mobile}{
          width: 100%;
-        height: 150vh;
+        height: 180vh;
         grid-template-columns: none;
        grid-template-rows: repeat(4,1fr);
        margin: 30px auto 0;
@@ -74,7 +78,7 @@ const WorshipTeamBox= styled(ColumBox)`
     }
      @media ${(props)=>props.theme.mobile}{
          width: 100%;
-        height: 250vh;
+        height: 300vh;
         grid-template-columns: none;
        grid-template-rows: repeat(7,1fr);
        margin: 30px auto 0;
@@ -86,7 +90,11 @@ export const ImageBox = styled.div`
     height: 100%;
     margin: 0 auto;
     text-align: center;
-   
+    @media ${(props)=>props.theme.mobile}{
+    margin-top: 20px;
+    padding-bottom: 30px;
+         width: 100%;
+    }
     
 `
 export const Image = styled.img`
