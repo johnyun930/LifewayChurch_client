@@ -32,7 +32,7 @@ interface ButtonProps{
 
 export const SubmitButton = styled.button<ButtonProps>`
   display: block;
-  min-width: 50%;
+    width: 50%;
     font-weight: 500;
     color: white;
     margin: ${(props)=>props.center?"0 auto":0};

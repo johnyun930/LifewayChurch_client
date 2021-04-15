@@ -88,8 +88,6 @@ const Context = styled.p`
 line-height:2;
 font-size: 17px;
 padding-left: 70px;
-
-
 word-wrap:break-word;
 @media ${(props)=>props.theme.mobile}{
     text-align: left;

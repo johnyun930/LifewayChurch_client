@@ -2,10 +2,8 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { RouterProps, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import {  TextArea } from "../routes/CreatingWorship"
-import { Input, SubmitButton } from "../styles/FormStyle";
+import { Input as FormInput, SubmitButton as FormButton } from "../styles/FormStyle";
 
-import { Form, FormContainer } from '../routes/CreatingWorship';
 import { DomainContext } from '../states/DomainContext';
 import { UserInfoContext } from '../states/LoginContext';
 import { BulletenHeading } from './Posting';
@@ -14,18 +12,49 @@ interface formAttribute {
     IsbibleInput?: boolean,
     path: string
 }
-const Container = styled.div`
+
+const FormContainer = styled.div`
+    width: 70%;
+    height: 80vh;
+    margin: 0 auto;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 30px 0;
+`
+const Form = styled.form`
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+`
+
+
+const Input = styled(FormInput)`
     width: 50%;
-    margin: 20px 20px;
-    height: 5%;
+    margin-bottom: 30px;
 `
 
 const SubInput = styled.input`
     width: 50%;
-    height: 100%;
-    padding-left: 5.5%;
     display: inline-block;
-    margin: 0 auto 20px;
+    margin: 20px auto ;
+`
+export const TextArea = styled.textarea`
+    display:block;
+    width: 100%; 
+    height: ${(props)=>props.theme.height||"150px"}; 
+    line-height: 150%; 
+    border: 1px solid black; 
+    border-radius: 3px;
+    outline: 0; 
+    resize: none;
+
+`
+const CheckBox = styled.input`
+    border: 2px solid black;
+`
+
+const SubmitButton = styled(FormButton)`
+    width: 100px;
 `
 
 export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element=>{
@@ -35,7 +64,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
         const [context,setContext] = useState<string>("");
         const [notice,setNotice] = useState<string>("0");
         const [file,setFile] = useState<File>();
-        const {userName} = useContext(UserInfoContext);
+        const {userName,isAdmin} = useContext(UserInfoContext);
         const history = useHistory();
 
         
@@ -51,7 +80,16 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
              (e)=>{
                  setTitle(e.target.value);
              }
-         } required></Input>
+         } ></Input>
+         {isAdmin?<> <CheckBox style={{marginLeft:"5.5%"}} type="checkbox" onChange={
+            (e)=>{
+                if(e.target.value){
+                    setNotice("1");
+                }else{
+                    setNotice("0");
+                }
+            }
+        } name="notice" /> <label>이글을 공지로 올리기</label></>:""}
          {IsbibleInput?<Input type="text" name="bibleText" value={bibleText} onChange={
              (e)=>{
                  setBibleText(e.target.value);
@@ -60,7 +98,6 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
             <TextArea theme={{height:"450px"}} value={context} onChange={(e)=>{
                 setContext(e.target.value);
             }} name="context" placeholder="내용을 입력해주세요" required></TextArea>
-            <Container>
             <SubInput type="file" name="FileName" onChange={(e)=>{
                 e.preventDefault();
                 if(e.target.files){
@@ -68,19 +105,8 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
                 }
                 
             }}></SubInput>
-            </Container>
-            <Container>
-            <label><input style={{marginLeft:"5.5%"}} type="checkbox" onChange={
-                (e)=>{
-                    if(e.target.value){
-                        setNotice("1");
-                    }else{
-                        setNotice("0");
-                    }
-                }
-            } name="notice" />이글을 공지로 올리기</label>
-            </Container>
-            <SubmitButton type="submit" onClick={(e)=>{
+           
+            <SubmitButton center={true} type="submit" onClick={(e)=>{
                 e.preventDefault();
                 let formData = new FormData();
                 formData.append('title',title);
