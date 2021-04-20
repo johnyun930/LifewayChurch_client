@@ -165,6 +165,15 @@ export const Login  =(props:RouterProps): JSX.Element =>{
 
     useEffect(()=>{
         setEmail("");
+        if(page===PageStep.UserLogin){
+            setUser( {userName: "",
+            firstName: "",
+            lastName: "",
+            isAdmin: false,
+            setUser: ()=>{}
+        });
+        setuserName("");
+        }
     },[page]);
     
     return( 
