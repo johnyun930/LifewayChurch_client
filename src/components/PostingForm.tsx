@@ -118,6 +118,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
                     formData.append("file",file);
                 }
                 axios.post(`${domain}/${path}`,formData,{
+                    withCredentials:true,
                     headers: {
                         'Content-Type': 'multipart/form-data'
                       }

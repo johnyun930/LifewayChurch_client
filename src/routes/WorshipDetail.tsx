@@ -16,7 +16,7 @@ export const WorshipDetail = ()=>{
     const {Id} = useParams<RouteParams>();
     const domain = useContext(DomainContext);
     async function getspeech(){
-      return  axios.get<IWorship>(`${domain}/worship/${Id}`);
+      return  axios.get<IWorship>(`${domain}/worship/${Id}`,{withCredentials:true});
 
     }
 

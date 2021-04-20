@@ -403,7 +403,7 @@ const Activity = ()=>{
     const domain = useContext(DomainContext);
     const [data,setData] = useState<any>({});
     useEffect(()=>{
-        axios.get(`${domain}/postcount/${userName}`).then((response)=>{
+        axios.get(`${domain}/postcount/${userName}`,{withCredentials:true}).then((response)=>{
             setData(response.data);
         })
     })

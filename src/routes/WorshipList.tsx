@@ -155,7 +155,7 @@ export const Title = styled.h1`
 `
 
 let getWorship =(domain:string)=> {return new Promise<AxiosResponse<IWorship[]>>((resolve,reject)=>{
-    const  data = axios.get<IWorship[]>(`${domain}/worship`);
+    const  data = axios.get<IWorship[]>(`${domain}/worship`,{withCredentials:true});
     if(data){
         resolve(data);
     }else{

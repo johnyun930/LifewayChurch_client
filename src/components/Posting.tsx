@@ -190,7 +190,7 @@ export const Posting=():JSX.Element=>{
 
 
     useEffect(()=>{
-         axios.get(url+"/"+Id).then((response)=>{
+         axios.get(url+"/"+Id,{withCredentials:true}).then((response)=>{
             setData(response.data);
         });
     },[]);
@@ -224,7 +224,7 @@ export const Posting=():JSX.Element=>{
         <IconBox onClick={()=>{
            let con= window.confirm("Do you want to delete this post?");
            if(con){
-               axios.delete(url+"/"+Id).then((response)=>{
+               axios.delete(url+"/"+Id,{withCredentials:true}).then((response)=>{
                    if(response.data){
                        alert(response.data.message);
                        history.goBack();
@@ -254,7 +254,7 @@ export const Posting=():JSX.Element=>{
                      setData({...data,context:e.target.value});
                 }}></UpdateTextArea>
             <UpdateButton onClick={()=>{
-                axios.patch(url+"/",{Id,...data}).then((response)=>{
+                axios.patch(url+"/",{Id,...data},{withCredentials:true}).then((response)=>{
                     if(response.data.errMessage){
                         alert(response.data.errMessage);
                     }else{

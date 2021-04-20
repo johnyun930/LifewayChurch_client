@@ -139,7 +139,7 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
     const [updateData,setUpdateData] = useState<UpdateData>();
     
     useEffect(()=>{
-       axios.get(props.url+"/review/"+props.Id).then((response)=>{
+       axios.get(props.url+"/review/"+props.Id,{withCredentials:true}).then((response)=>{
            setReview(response.data);
        })
       
@@ -157,7 +157,7 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
             alert("please write down the comment please");
         }else{
             const newReview = {postingId:props.Id,reviewer:userName,comment}
-            axios.post(props.url+"/review",newReview).then((response)=>{
+            axios.post(props.url+"/review",newReview,{withCredentials:true}).then((response)=>{
                 if(response.data.errMessage){
                     alert(response.data.errMessage);
                 }else{
@@ -194,7 +194,7 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
                <IconBox onClick={()=>{
                    const doubleCheck = window.confirm("Do you want to delete this post?");
                     if(doubleCheck){
-                        axios.delete(props.url+"/review/"+value._id).then((response)=>{
+                        axios.delete(props.url+"/review/"+value._id,{withCredentials:true}).then((response)=>{
                             if(response.data.errMessage){
                                 alert(response.data.errMessage);
                             }else{

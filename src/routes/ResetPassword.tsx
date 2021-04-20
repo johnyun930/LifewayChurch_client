@@ -33,7 +33,7 @@ export const ResetPassword = (props:RouterProps)=>{
     const domain = useContext(DomainContext);
     const [valid,setValid]= useState(false);
     useEffect(()=>{
-        axios.get(`${domain}/auth/findtoken/${token}`).then((response)=>{
+        axios.get(`${domain}/auth/findtoken/${token}`,{withCredentials:true}).then((response)=>{
             if(!response.data.istoken){
                 alert("Please change the password within 5min. Please try again");
                 props.history.replace('/login');
@@ -65,7 +65,7 @@ export const ResetPassword = (props:RouterProps)=>{
 
                 return;
                 }
-            axios.patch(`${domain}/auth/findpassword`,{token,password:newpassword}).then((response)=>{
+            axios.patch(`${domain}/auth/findpassword`,{token,password:newpassword},{withCredentials:true}).then((response)=>{
                 console.log(response.data);
                 if(response.data&&response.data.istoken===false){
                     alert("Valide time is over. Please try again");
