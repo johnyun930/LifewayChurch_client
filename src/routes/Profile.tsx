@@ -369,7 +369,7 @@ const DashBoard = ()=>{
                 }
              
 
-               axios.patch(`${domain}/signup`,update,{withCredentials:true}).then((response)=>{
+               axios.patch(`${domain}/auth`,update,{withCredentials:true}).then((response)=>{
                     if(response.data.errMessage){
                         alert(response.data.errMessage);
                     }else{
@@ -483,7 +483,7 @@ const ChangePassword = ()=>{
             }else{
                 const validate = ValidationCheck(newPassword);
                 if(validate){
-                    axios.patch(`${domain}/signup`,{userName,password,newPassword},{withCredentials:true}).then((response)=>{
+                    axios.patch(`${domain}/auth`,{userName,password,newPassword},{withCredentials:true}).then((response)=>{
                         if(response.data.errMessage){
                             alert(response.data.errMessage);
                         }else{

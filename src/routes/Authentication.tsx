@@ -1,14 +1,15 @@
 import styled from 'styled-components';
-import{ useState } from 'react';
+import{ useContext, useState } from 'react';
 import Bible from '../images/bibleBackground.jpg';
-import {BoldContext, SmallBox, SubmitButton} from '../styles/FormStyle'
+import {BoldContext, SmallBox, SubmitButton,Form,FormContainer} from '../styles/FormStyle'
 import { RouterProps } from 'react-router-dom';
 import {Signup} from '../components/Signup';
 import {Login} from '../components/Login';
 import { size } from '../styles/theme';
+import { UserInfoContext } from '../states/LoginContext';
 
 
-const MainContainer = styled.div`
+export const MainContainer = styled.div`
     width: 70%;
     min-height: 85vh;
 
@@ -39,7 +40,7 @@ const MainContainer = styled.div`
    
 
 `
-const WordContainer = styled.div`
+export const WordContainer = styled.div`
     color: black;
     width:100%;
     height: 10%;
@@ -60,7 +61,7 @@ export const Heading = styled.h1`
         margin: 0;
     }
 `
-const SubHeading = styled.h3`
+export const SubHeading = styled.h3`
     margin: 75px 0;
     text-align: center;
 
@@ -83,36 +84,47 @@ export const Text = styled.h3`
 `
 
 
-export const FormContainer = styled.div`
-    background-color: white;
-    width: 100%;
-    height:100%;
-    
-`
-
-export const Form = styled.form`
-    width: 80%;
-    height: 40%;
-    margin: 50px auto 0;
-   
-
-`
 
 
 
 export const Authentication  =(props:RouterProps): JSX.Element =>{
     const [signup,setSignup] = useState(false);
+    const {userName} = useContext(UserInfoContext);
     return( 
     <MainContainer>
         <FormContainer>
             <Heading>Lifeway Generation Church</Heading> 
-            <SubHeading>Welcome!</SubHeading>
+            <SubHeading>Welcome! {userName}</SubHeading>
     <Form >
         {signup?<Signup {...props}></Signup>:<Login {...props}></Login>}
         <SmallBox theme={{align:"center",margin:"50px"}} > {signup?"Already have an account?     ":"Don't have an account?     "}<BoldContext  onClick={(e)=>{
             e.preventDefault();
             setSignup(!signup);
         }}>{signup?"Sign In":"Sign Up"}</BoldContext></SmallBox>
+    </Form>
+    </FormContainer>
+    {window.innerWidth<=size.mobile?<></>:
+            <WordContainer>
+            <Text>풀은 마르고 꽃은 시드나 우리 하나님의 말씀은 영원히 서리라 하라 </Text>
+            <Text>(사 40:7)</Text>
+          
+            </WordContainer>
+}   
+    </MainContainer>
+    )
+}
+interface formProps {
+    form: JSX.Element
+}
+
+export const AuthTemplate  =(form:formProps): JSX.Element =>{
+    return( 
+    <MainContainer>
+        <FormContainer>
+            <Heading>Lifeway Generation Church</Heading> 
+            <SubHeading>Welcome!</SubHeading>
+    <Form >
+        {form.form}
     </Form>
     </FormContainer>
     {window.innerWidth<=size.mobile?<></>:

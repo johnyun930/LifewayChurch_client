@@ -189,7 +189,7 @@ export const Header = ():JSX.Element=>{
     const [header,setHeader] = useState(false);
     console.log(header);
         function checkYOffset(){
-        if(window.pageYOffset<=180){
+        if(window.pageYOffset<=140.55){
             setHeader(false);
         }else{
             setHeader(true);

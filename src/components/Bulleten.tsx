@@ -33,7 +33,7 @@ interface BulletenContext{
 
 const BulletenContainer = styled.div`
     width: 100%;
-    min-height: 80vh;
+    min-height: 100vh;
 `
 
 const Table = styled.table`
@@ -128,6 +128,7 @@ const ButtonContainer = styled.div`
     padding-left: 45%;
     @media ${(props)=>props.theme.mobile}{
         height: 30px;
+        padding-left: 0;
         padding-right: 5px;
     }
 `

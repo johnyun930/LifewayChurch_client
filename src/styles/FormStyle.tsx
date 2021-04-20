@@ -1,11 +1,38 @@
 import styled from 'styled-components';
 
+interface colorProps{
+    color?: string
+}
+
+export const Message = styled.h1`
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+`
+
+export const FormContainer = styled.div`
+    background-color: white;
+    width: 100%;
+    height:100%;
+    
+`
+
+export const Form = styled.form`
+    width: 80%;
+    height: 40%;
+    margin: 50px auto 0;
+   
+
+`
+
+
 export const Input = styled.input`
     margin: 0 auto 10px;
     width: ${(props)=>props.theme.width||"90%"};
     height: 30px;
     border: 1px solid white;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid ${(props:colorProps)=>props.color||"#eaeaea"};
     font-size: 1rem;
     transition: border-bottom 1s;
     &:focus{
@@ -18,6 +45,14 @@ export const Input = styled.input`
 
 
 `
+export const ErrMessage = styled.span`
+    display:block;
+    color: red;
+    width: 90%;
+    height: 10px;
+
+`
+
 export const Label = styled.label`
     display: block;
     font-weight: bold;
@@ -33,6 +68,7 @@ interface ButtonProps{
 export const SubmitButton = styled.button<ButtonProps>`
   display: block;
     width: 50%;
+    min-width: 100px;
     font-weight: 500;
     color: white;
     margin: ${(props)=>props.center?"0 auto":0};
@@ -57,6 +93,10 @@ export const SmallBox = styled.p`
     width: 93%;
     font-size: 12px;
     text-align: ${(props)=>props.theme.align||"right"} ;
+    &:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
   
 `
 export const BoldContext = styled.h3`

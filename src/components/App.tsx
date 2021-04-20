@@ -26,6 +26,7 @@ import { CreatingBulletenBoard } from '../routes/CreatingBulletenBoard';
 import {Posting} from './Posting';
 import '../styles/fonts/fonts.css';
 import { Profile } from '../routes/Profile';
+import { ResetPassword } from '../routes/ResetPassword';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
@@ -59,8 +60,10 @@ function App(): JSX.Element {
       <Route strict path="/connect/bulletenboard/:Id" component={Posting}></Route>
       <Route path="/connect/bulletenboard" component={BulletenBoard}></Route>
        <Route path="/connect" component={Connect}></Route>
-      <Route exact path="/" component={Home}></Route>
-      <Route path="/profile" component={Profile}></Route>
+      <Route path="/profile" component={login?Profile:Home}></Route>
+      <Route path="/auth/reset/:token" component={ResetPassword}></Route>
+      <Route  path="/" component={Home}></Route>
+
     </Switch>
     <Footer/>
     <GlobalStyles/>
