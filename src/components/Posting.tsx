@@ -184,7 +184,7 @@ export const Posting=():JSX.Element=>{
     const history = useHistory();
     const url  =domain+"/"+path[2];
     const [update,setUpdate] = useState(false);
-    const {userName,isAdmin} = useContext(UserInfoContext)
+    const {userName,level} = useContext(UserInfoContext)
     
    
 
@@ -215,7 +215,7 @@ export const Posting=():JSX.Element=>{
         </Container>
         <Comment url={url} Id={Id}></Comment>
     
-        {data.composer===userName||isAdmin?
+        {data.composer===userName||level>=3?
         <ModifyContainer>
             {data.composer===userName?<IconBox><Create onClick={()=>{
             setUpdate(!update);

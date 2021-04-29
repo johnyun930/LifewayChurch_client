@@ -3,11 +3,12 @@ import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { LoginContext, UserInfoContext } from "../states/LoginContext"
 import { Label,Input, SubmitButton } from "../styles/FormStyle"
-import User from '../images/user.png'
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import axios from "axios"
 import { DomainContext } from "../states/DomainContext"
 import { useHistory } from "react-router"
 import { size } from "../styles/theme"
+import { ProfileUpload, Upload } from "../components/ImageCrop"
 
 const ProfileContainer = styled.div`
 width: 70%;
@@ -216,6 +217,7 @@ const ImageBox = styled.div`
 const Image = styled.img`
     width:250px;
     height:250px;
+    border-radius:50%;
 
     @media ${(props)=>props.theme.laptop}{
         width: 200px;
@@ -306,7 +308,12 @@ const SubText = styled(Text)`
     }
 
 `
+const ImageLabel = styled.label`
+    display:block;
+    width: 80%;
+    text-align:right;
 
+`
 const DeleteMessage = styled(Label)`
     margin: 20px;
     &:hover{
@@ -317,7 +324,7 @@ const DeleteMessage = styled(Label)`
 `
 
 const DashBoard = ()=>{
-    const {firstName,lastName,userName,isAdmin,setUser} = useContext(UserInfoContext);
+    const {firstName,lastName,userName,profile,level,setUser} = useContext(UserInfoContext);
     const domain = useContext(DomainContext);
     const [updateFirstName,setUpdateFirstName] = useState("")
     const [updateLastName,setUpdateLastName] = useState("");
@@ -379,7 +386,8 @@ const DashBoard = ()=>{
                             userName,
                             firstName: fn,
                             lastName: ln,
-                            isAdmin,
+                            profile,
+                            level,
                             setUser
                          });
                          setUpdateFirstName("");
@@ -399,7 +407,7 @@ const DashBoard = ()=>{
 }
 
 const Activity = ()=>{
-    const {userName,isAdmin} = useContext(UserInfoContext);
+    const {userName,level} = useContext(UserInfoContext);
     const domain = useContext(DomainContext);
     const [data,setData] = useState<any>({});
     useEffect(()=>{
@@ -415,8 +423,8 @@ const Activity = ()=>{
         <Status><Text>전체 게시글</Text> <SpecialLine></SpecialLine> <Text>{data.totalPost}</Text></Status>
         <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>{data.numofQT}</SubText></Status>
         <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>{data.numofBTB}</SubText></Status>               
-        {isAdmin?<Status><SubText>성경 공부</SubText> <CrossLine></CrossLine> <SubText>{data.numofBS}</SubText></Status>:<></>}
-        {isAdmin?<Status><SubText>주일 학교</SubText> <CrossLine></CrossLine> <SubText>{data.numofCS}</SubText></Status>:<></>}
+        {level===3?<Status><SubText>성경 공부</SubText> <CrossLine></CrossLine> <SubText>{data.numofBS}</SubText></Status>:<></>}
+        {level>=3?<Status><SubText>주일 학교</SubText> <CrossLine></CrossLine> <SubText>{data.numofCS}</SubText></Status>:<></>}
         <SecondHeading>My Comment</SecondHeading>
         <Status><SubText>Q T</SubText> <CrossLine></CrossLine> <SubText>{data.numofQTReview}</SubText></Status>
         <Status><SubText>자유 게시판</SubText> <CrossLine></CrossLine> <SubText>{data.numofBTBReview}</SubText></Status>               
@@ -493,7 +501,8 @@ const ChangePassword = ()=>{
                                 userName: "",
                                 firstName: "",
                                 lastName: "",
-                             isAdmin: false,
+                                profile:"",
+                             level: 0,
                              setUser: ()=>{}
                             });
                             setLogin(false);
@@ -524,7 +533,8 @@ const ChangePassword = ()=>{
                         userName: "",
                         firstName: "",
                         lastName: "",
-                     isAdmin: false,
+                        profile:"",
+                     level: 0,
                      setUser: ()=>{}
                     });
                     setLogin(false);
@@ -538,10 +548,33 @@ const ChangePassword = ()=>{
     )
 }
 
+const Camera = styled(CameraAltIcon)`
+    display: inline-block;
+    text-align: right;
+    color: white;
+    border: 1px solid #9a9ada;
+    background-color:#9a9ada;
+    &:hover{
+        cursor: pointer;
+    }
+`
 
 export const Profile = (): JSX.Element =>{
-        const {firstName,lastName,userName,isAdmin,setUser} = useContext(UserInfoContext);
+        const {firstName,profile} = useContext(UserInfoContext);
+        const domain = useContext(DomainContext);
         const [tab,setTab] = useState(0);
+        const [image,setImage] = useState<any>(null);
+        const [popup,isPopup] = useState(false);
+        const imagetype = /^image/;
+     
+        useEffect(()=>{
+          if(popup){
+            document.getElementById('global')!.style.display = "block";
+          }else{
+          document.getElementById('global')!.style.display = "none";
+          }
+        },[popup]);
+        console.log(profile);
 
         let options: JSX.Element = <></>;
         switch(tab){
@@ -556,11 +589,32 @@ export const Profile = (): JSX.Element =>{
                 break;
         }
     return(
+        <>
         <ProfileContainer>
             <Sidebar>
                 <ImageSection>
                     <ImageBox>
-                        <Image src={User}></Image>
+                        <Image src={`${domain+profile}`}></Image>
+                        <ImageLabel htmlFor="image"><Camera ></Camera></ImageLabel>
+                        <Upload type="file" id="image" onChange={(e)=>{
+      e.preventDefault();
+      const fileupload = e.target.files;
+      if(fileupload){
+      if(fileupload.length>1){
+        alert("Please Select only one image Please");
+      }else if(!imagetype.test(fileupload[0].type)){
+        alert("Please Upload Image file only"
+        );
+      }else{
+        const file = fileupload[0]
+        let reader = new FileReader();
+        reader.onloadend = ()=>{
+          setImage(reader.result);
+          isPopup(true);
+        }
+        
+        reader.readAsDataURL(file);
+      }}}}></Upload>
                         <Name>Welcome, {firstName} 성도님</Name>
                     </ImageBox>
                 </ImageSection>
@@ -586,6 +640,7 @@ export const Profile = (): JSX.Element =>{
                {options}
             </InfoContainer>
         </ProfileContainer>
-
+{image?<ProfileUpload isPopup={isPopup} image={image}></ProfileUpload>:""}
+            </>
     )
 }

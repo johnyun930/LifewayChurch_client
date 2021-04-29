@@ -133,7 +133,7 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
     const [review,setReview] = useState<CommentData[]|null>(null);
     const [comment,setComment] = useState<string>("");
     const {login} = useContext(LoginContext);
-    const {userName,isAdmin} = useContext(UserInfoContext);
+    const {userName,level} = useContext(UserInfoContext);
     const history = useHistory();
     const [update,setUpdate] = useState(false);
     const [updateData,setUpdateData] = useState<UpdateData>();
@@ -185,7 +185,7 @@ export const Comment = (props:{url:string,Id:string}): JSX.Element=>{
             <HeadArea>
                 <ProfileImage></ProfileImage>
         <UserName>{value.reviewer}</UserName>
-        {value.reviewer===userName||isAdmin?<IconArea>
+        {value.reviewer===userName||level===4?<IconArea>
                {value.reviewer===userName?<IconBox onClick={()=>{
                    setUpdate(!update);
                    setUpdateData({...value,index});

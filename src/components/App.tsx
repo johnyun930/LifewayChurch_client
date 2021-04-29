@@ -27,6 +27,7 @@ import {Posting} from './Posting';
 import '../styles/fonts/fonts.css';
 import { Profile } from '../routes/Profile';
 import { ResetPassword } from '../routes/ResetPassword';
+import {ImageCrop} from './ImageCrop';
 function App(): JSX.Element {
   const [login,setLogin] = useState<boolean>(false);
   const [user,setUser] = useState<UserInfo>(useContext(UserInfoContext));
@@ -41,19 +42,19 @@ function App(): JSX.Element {
     <Header/>
     <Switch>
 
-       <Route path ="/worship/create" component={user.isAdmin?CreatingWorship:Home}></Route> 
+       <Route path ="/worship/create" component={user.level>=3?CreatingWorship:Home}></Route> 
       <Route strict path="/worship/:Id" component={WorshipDetail}></Route>
       <Route path="/worship" component={WorshipList}></Route>
       <Route path="/login" component={!login?Authentication:Home}></Route> 
       <Route path="/about" component={About}></Route>
       <Route path="/contact" component={Contact}></Route>
-      <Route path="/connect/biblestudy/create" component={user.isAdmin?CreatingBibleStudy:BibleStudy}></Route>
+      <Route path="/connect/biblestudy/create" component={user.level>=3?CreatingBibleStudy:BibleStudy}></Route>
       <Route strict path="/connect/biblestudy/:Id" component={Posting}></Route>
       <Route path="/connect/biblestudy" component={BibleStudy}></Route>
       <Route path="/connect/qt/create" component={CreatingQT}></Route>
       <Route strict path="/connect/qt/:Id" component={Posting}></Route>
       <Route path="/connect/qt" component={QT}></Route>
-      <Route path="/connect/childschool/create" component={user.isAdmin?CreatingChildSchool:ChildSchool}></Route>
+      <Route path="/connect/childschool/create" component={user.level>=3?CreatingChildSchool:ChildSchool}></Route>
       <Route strict path="/connect/childschool/:Id" component={Posting}></Route>
       <Route path="/connect/childschool" component={ChildSchool}></Route>
       <Route path="/connect/bulletenboard/create" component={CreatingBulletenBoard}></Route>
@@ -62,6 +63,7 @@ function App(): JSX.Element {
        <Route path="/connect" component={Connect}></Route>
       <Route path="/profile" component={login?Profile:Home}></Route>
       <Route path="/auth/reset/:token" component={ResetPassword}></Route>
+      <Route path="/userimage" component={user.level>=1?ImageCrop:Home}></Route>
       <Route  path="/" component={Home}></Route>
 
     </Switch>

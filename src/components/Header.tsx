@@ -189,6 +189,7 @@ export const Header = ():JSX.Element=>{
     const [header,setHeader] = useState(false);
     console.log(header);
         function checkYOffset(){
+        if(window.innerWidth<=size.tablet){
         if(window.pageYOffset<=140.55){
             setHeader(false);
         }else{
@@ -196,6 +197,7 @@ export const Header = ():JSX.Element=>{
         }
         console.log(window.pageYOffset);
     }
+}
     useEffect(()=>{
         axios.get(domain,{withCredentials:true}).then((response)=>{
             if(response.data.passport){
@@ -241,7 +243,8 @@ const sidebar =  <NavbarContainer display={menuDisplay}>
             setUser({userName: "",
             firstName: "",
             lastName: "",
-            isAdmin: false,
+            level: 0,
+            profile:"",
             setUser: ()=>{}});
 
         });

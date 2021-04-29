@@ -170,7 +170,7 @@ export const WorshipList = ():JSX.Element =>{
     const [page,setPage] = useState<number>(0);
     const [listnum,setListnum] = useState<number>(0);
     const domain = useContext(DomainContext);
-    const {isAdmin} = useContext(UserInfoContext);
+    const {level} = useContext(UserInfoContext);
     useEffect(()=>{  
     
         getWorship(domain).then((data)=>{
@@ -250,7 +250,7 @@ return(
     <Title>예배와 찬양</Title>
     </LogoBox>
     <ListContainer>
-        {isAdmin?<ButtonBox><CreateButton to="/worship/create">예배 작성하기</CreateButton></ButtonBox>:""}
+        {level===3?<ButtonBox><CreateButton to="/worship/create">예배 작성하기</CreateButton></ButtonBox>:""}
     {worships?list[page]:"Loading....."}
     <PageContainer>
         {pagelist}

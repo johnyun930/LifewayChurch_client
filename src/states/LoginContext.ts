@@ -4,7 +4,8 @@ export interface UserInfo {
     userName: string,
     firstName: string,
     lastName: string,
-    isAdmin: boolean
+    profile: string,
+    level: number,
     setUser: React.Dispatch<React.SetStateAction<UserInfo>>
 }
 
@@ -13,6 +14,7 @@ export const UserInfoContext = createContext<UserInfo>({
     userName: "",
     firstName: "",
     lastName: "",
-    isAdmin: false,
+    level: 0,
+    profile: "",
     setUser: ()=>{}
 });

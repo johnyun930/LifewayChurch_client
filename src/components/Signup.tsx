@@ -88,7 +88,7 @@ export const Signup = (props: RouterProps): JSX.Element=>{
     }else{
         setLogin(true);
         setUser(response.data);
-        props.history.push('/');
+        props.history.replace('/userimage');
     }
     });
 }}>Verify</SubmitButton>

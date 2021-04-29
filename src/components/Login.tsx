@@ -151,14 +151,16 @@ export const Login  =(props:RouterProps): JSX.Element =>{
             setUser( {userName: "",
             firstName: "",
             lastName: "",
-            isAdmin: false,
+            level: 0,
+            profile:"",
             setUser: ()=>{}
         });
         }else{
             setUser( {userName,
             firstName: "",
             lastName: "",
-            isAdmin: false,
+            level: 0,
+            profile:"",
             setUser: ()=>{}
         });
     }},[user]);
@@ -169,7 +171,8 @@ export const Login  =(props:RouterProps): JSX.Element =>{
             setUser( {userName: "",
             firstName: "",
             lastName: "",
-            isAdmin: false,
+            level: 0,
+            profile:"",
             setUser: ()=>{}
         });
         setuserName("");

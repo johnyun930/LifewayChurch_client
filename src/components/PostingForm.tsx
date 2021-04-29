@@ -64,7 +64,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
         const [context,setContext] = useState<string>("");
         const [notice,setNotice] = useState<string>("0");
         const [file,setFile] = useState<File>();
-        const {userName,isAdmin} = useContext(UserInfoContext);
+        const {userName,level} = useContext(UserInfoContext);
         const history = useHistory();
 
         
@@ -81,7 +81,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
                  setTitle(e.target.value);
              }
          } ></Input>
-         {isAdmin?<> <CheckBox style={{marginLeft:"5.5%"}} type="checkbox" onChange={
+         {level>=3?<> <CheckBox style={{marginLeft:"5.5%"}} type="checkbox" onChange={
             (e)=>{
                 if(e.target.value){
                     setNotice("1");
