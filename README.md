@@ -32,6 +32,7 @@ Back-End:
 - Passport JS
 - Express-session
 - Multer.js
+- nodeMailer
 - crypto
 
 DataBase:
@@ -39,7 +40,9 @@ DataBase:
 ____
 ### Function:
 - Login and log out.
-- CRUD Function for posting.
+- Authenticate signup with Email OTP.
+- Users can find lost username and password with their email.
+- CRUD Function to write articles.
 - Validation check to signup
 - Upload file to the server
 - Control states by using useContext
