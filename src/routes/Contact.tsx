@@ -136,7 +136,7 @@ export const Contact = ()=>{
         <Title>Contacts</Title>
         <Divider/>
         <ContextBox>
-        <Context><BoldContext>Tel: </BoldContext>604-333-3333</Context>
+        <Context><BoldContext>Tel: </BoldContext>604-840-8070</Context>
         <Context><BoldContext>Email: </BoldContext>life.way.generation.church@gmail.com</Context>
         </ContextBox>
 

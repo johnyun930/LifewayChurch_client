@@ -104,7 +104,7 @@ export const Footer = ()=> {
                 <ColumnContainer>
                     <ColumnTitle>Info</ColumnTitle>
                     <Content>Tel:</Content>
-                    <Content>604-333-333</Content>
+                    <Content>604-840-8070</Content>
                     
                 </ColumnContainer>
                 <ColumnContainer>

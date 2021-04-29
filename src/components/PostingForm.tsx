@@ -12,13 +12,17 @@ interface formAttribute {
     IsbibleInput?: boolean,
     path: string
 }
+const Container = styled.div`
+    width: 100%;
+    min-height: 70vh;
+    margin-bottom: 30px;
+`
 
 const FormContainer = styled.div`
     width: 70%;
     height: 80vh;
     margin: 0 auto;
     border-top: 1px solid black;
-    border-bottom: 1px solid black;
     padding: 30px 0;
 `
 const Form = styled.form`
@@ -31,6 +35,9 @@ const Form = styled.form`
 const Input = styled(FormInput)`
     width: 50%;
     margin-bottom: 30px;
+    @media ${(props)=>props.theme.mobile}{
+        width: 100%;
+    }
 `
 
 const SubInput = styled.input`
@@ -51,10 +58,28 @@ export const TextArea = styled.textarea`
 `
 const CheckBox = styled.input`
     border: 2px solid black;
+    margin-left: 5.5%;
+    @media ${(props)=>props.theme.mobile}{
+        margin-left: 0;
+    }
 `
 
 const SubmitButton = styled(FormButton)`
     width: 100px;
+`
+const Label = styled.label`
+
+`
+const Div =styled.div`
+    display:inline-block;
+    width: 40%;
+    @media ${(props)=>props.theme.mobile}{
+        display:block;
+        margin-bottom: 20px;
+        margin-left:0;
+    width: 100%;
+
+    }
 `
 
 export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element=>{
@@ -72,7 +97,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
 
         
     return(
-        <>
+        <Container>
         <BulletenHeading></BulletenHeading>
         <FormContainer>
             <Form action={`${domain}/${path}`} method="POST">
@@ -81,7 +106,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
                  setTitle(e.target.value);
              }
          } ></Input>
-         {level>=3?<> <CheckBox style={{marginLeft:"5.5%"}} type="checkbox" onChange={
+         {level>=3?<><Div> <CheckBox id ="check"  type="checkbox" onChange={
             (e)=>{
                 if(e.target.value){
                     setNotice("1");
@@ -89,7 +114,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
                     setNotice("0");
                 }
             }
-        } name="notice" /> <label>이글을 공지로 올리기</label></>:""}
+        } name="notice" /> <Label htmlFor="check">이글을 공지로 올리기</Label></Div></>:""}
          {IsbibleInput?<Input type="text" name="bibleText" value={bibleText} onChange={
              (e)=>{
                  setBibleText(e.target.value);
@@ -135,7 +160,7 @@ export const PostingForm = ({IsbibleInput=false,path}:formAttribute):JSX.Element
             }}>작성하기</SubmitButton>
             </Form>
         </FormContainer>
-        </>
+        </Container>
     )
 
 }

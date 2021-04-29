@@ -160,6 +160,8 @@ export const Bulleten = (props:BulletenContext)=>{
     const {login}= useContext(LoginContext);
     const {level} = useContext(UserInfoContext);
     const history = useHistory(); 
+    console.log(level);
+
     useEffect(()=>{
         axios.get(`${domain+props.path}`,{withCredentials:true}).then((response)=>
             setData(response.data.reverse())
@@ -229,7 +231,11 @@ export const Bulleten = (props:BulletenContext)=>{
                 e.preventDefault();
                 alert("Please Login to create the post. 죄송합니다. 먼저 로그인 해주시길 바랍니다.");
                 history.push('/login');
-            }else if(level>=3&&!props.free){
+            }else if(props.free&&level<=1){
+                e.preventDefault();
+                alert("Sorry. Only member can write the post. Please contact the pastor if you want to be a member. 죄송합니다. 이 곳은 멤버들만이 글을 작성하실수 있습니다. 성도가 되실분께서는 목사님께 연락부탁드립니다" );
+            }
+            else if(level<=2&&!props.free){
                 e.preventDefault();
                 alert("Sorry. Only Administrater can create the post in this bulleten. 죄송합니다. 이 곳은 관리자만이 글을 작성하실수 있습니다." );
             }

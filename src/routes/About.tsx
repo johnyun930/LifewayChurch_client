@@ -244,7 +244,7 @@ export const About = ():JSX.Element =>{
             <Title>라일주 목사</Title>
             <Context>생명길 교회 담임 목사</Context>
             <ContactBox>
-                <PhoneIcon ></PhoneIcon><ContactInfo>604-333-3333</ContactInfo>
+                <PhoneIcon ></PhoneIcon><ContactInfo>604-840-8070</ContactInfo>
             </ContactBox>
             <ContactBox>
                 <MailIcon ></MailIcon><ContactInfo>life.way.generation.church@gmail.com</ContactInfo>
@@ -260,7 +260,7 @@ export const About = ():JSX.Element =>{
             <Title>오세정 목사</Title>
             <Context>생명길 교회 부 목사</Context>
             <ContactBox>
-                <PhoneIcon ></PhoneIcon><ContactInfo>604-333-3333</ContactInfo>
+                <PhoneIcon ></PhoneIcon><ContactInfo>604-840-8070</ContactInfo>
             </ContactBox>
             <ContactBox>
                 <MailIcon ></MailIcon><ContactInfo>life.way.generation.church@gmail.com</ContactInfo>
@@ -286,10 +286,10 @@ export const About = ():JSX.Element =>{
     if(tab === Section.Director){
         form = <>
             <DirectorBox  >
-               <ImageBox><Image src={profile}></Image><Name>송 준 민 디렉터(회장)</Name></ImageBox>
-               <ImageBox><Image src={profile}></Image><Name>이 민 경 디렉터(부회장)</Name></ImageBox>
-               <ImageBox><Image src={profile}></Image><Name>오 세 정 디렉터(임원)</Name></ImageBox>
-               <ImageBox><Image src={profile}></Image><Name>이 준 형 디렉터(회계)</Name></ImageBox>
+               <ImageBox><Image src={profile}></Image><Name>이 민 경 디렉터(회장)</Name></ImageBox>
+               <ImageBox><Image src={profile}></Image><Name>오 세 정 디렉터(부회장)</Name></ImageBox>
+               <ImageBox><Image src={profile}></Image><Name>송 준 민 디렉터(서기)</Name></ImageBox>
+               <ImageBox><Image src={profile}></Image><Name>이 준 영 (회계)</Name></ImageBox>
                
 
             </DirectorBox>
