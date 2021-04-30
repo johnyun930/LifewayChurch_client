@@ -6,6 +6,7 @@ export const MainBanner = styled.div`
     width: 100%;
     height: 90vh;
     position: relative;
+background-image: url(${BKImage});
     background-size: cover;
     background-repeat:no-repeat;
 `;
@@ -118,7 +119,7 @@ export const Home =(): JSX.Element =>{
     return( 
     <>
     <MainBanner>
-    <MainLogo src={BKImage}/>
+    {/* <MainLogo src={BKImage}/> */}
     <ChurchTitle>생명길 교회에 오신것을 환영합니다</ChurchTitle>
     </MainBanner>
     <Container>
